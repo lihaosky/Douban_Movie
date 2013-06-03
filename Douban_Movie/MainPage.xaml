@@ -15,38 +15,36 @@
     shell:SystemTray.IsVisible="False">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="White">
+    <Grid x:Name="LayoutRoot" Background="#1BA8E0">
         <Grid.RowDefinitions>
             <RowDefinition Height="120"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         
         <!--Logo and search button-->
-        <Grid HorizontalAlignment="Center" Height="120" Margin="0"  VerticalAlignment="Center" Width="440" Grid.Row="0" Background="White">
+        <Grid HorizontalAlignment="Center" Height="150" Margin="0"  VerticalAlignment="Center" Width="440" Grid.Row="0" Background="#1BA8E0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"/>
                 <ColumnDefinition Width="200"/>
             </Grid.ColumnDefinitions>
-            <Image Source="/PanoramaApp2;component/Assets/logo.png" Height="120" Width="200" HorizontalAlignment="Left" Grid.Column="0"/>
-            <Button Margin="0, 0, -40, 0" HorizontalAlignment="Right" Grid.Column="1" VerticalAlignment="Center">
-                <Image Source="/PanoramaApp2;component/Assets/search_button.png" Height="60" Width="60"/>
-            </Button>
+            <Image Source="/PanoramaApp2;component/Assets/logo.png" Height="150" Width="200" HorizontalAlignment="Left" Grid.Column="0"/>
+            <Image Source="/PanoramaApp2;component/Assets/search_button.png" Height="60" Width="60" Grid.Column="1" Margin="150, 0, 0, 0"/>
         </Grid>
         
         <!--Panorama control-->
-        <phone:Panorama Margin="0,0,0,0" Grid.RowSpan="1" Loaded="Panorama_Loaded" Background="White" Grid.Row="1">
+        <phone:Panorama Margin="0,0,0,0" Grid.RowSpan="1" Loaded="Panorama_Loaded" Background="#1BA8E0" Grid.Row="1">
             <!--Panorama item one-->
-            <phone:PanoramaItem Header="正在热播" Foreground="Black" Margin="0, 0, 0, 0">
+            <phone:PanoramaItem Header="正在热播" Foreground="White" Margin="0, 0, 0, 0">
                 <!--Single line list with text wrapping-->
-                <phone:LongListSelector Margin="12,0,0,0" ItemsSource="{Binding Items}">
+                <phone:LongListSelector Margin="12,0,0,0" Name="hotLongListSelector">
                     <phone:LongListSelector.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Margin="0,0,0,0" Orientation="Horizontal" Width="400">
-                                <Image Source="/PanoramaApp2;component/Assets/search_button.png" Height="90" Width="90"/>
-                                <StackPanel Margin="0,0,0,0" Orientation="Vertical" Width="310">
-                                    <TextBlock Text="{Binding LineOne}" Margin="10, 0" TextWrapping="Wrap" Foreground="Black" FontSize="{StaticResource PhoneFontSizeLarge}"/>
-                                    <TextBlock Text="{Binding LineTwo}" Margin="12, -2, 0, 0" TextWrapping="Wrap" Foreground="Black" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                            <StackPanel Margin="0,6,0,0" Orientation="Horizontal" Height="168">
+                                <Image Source="{Binding imageUrl}" Height="150" Width="150"/>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding movieName}" Margin="0, 0, 0, 0" TextWrapping="Wrap" Foreground="White" FontSize="{StaticResource PhoneFontSizeLarge}" VerticalAlignment="Center"/>
                                 </StackPanel>
+                                <TextBlock Text="{Binding movieID}" TextWrapping="Wrap" Visibility="Collapsed"/>
                             </StackPanel>
                         </DataTemplate>
                     </phone:LongListSelector.ItemTemplate>

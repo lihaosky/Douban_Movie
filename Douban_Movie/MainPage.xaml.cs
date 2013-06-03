@@ -18,7 +18,33 @@ namespace PanoramaApp2
             InitializeComponent();
 
             // Set the data context of the listbox control to the sample data
-            DataContext = App.ViewModel;
+            //DataContext = App.ViewModel;
+            Movie m1 = new Movie
+            {
+                movieID = "11529526",
+                movieName = "中国合伙人",
+                imageUrl = "http://img3.douban.com/view/movie_poster_cover/mpst/public/p1959304567.jpg"
+            };
+
+            Movie m2 = new Movie
+            {
+                movieID = "11529526",
+                movieName = "中国合伙人",
+                imageUrl = "http://img3.douban.com/view/movie_poster_cover/mpst/public/p1959304567.jpg"
+            };
+
+            Movie m3 = new Movie
+            {
+                movieID = "11529526",
+                movieName = "中国合伙人",
+                imageUrl = "http://img3.douban.com/view/movie_poster_cover/mpst/public/p1959304567.jpg"
+            };
+
+            List<Movie> movies = new List<Movie>();
+            movies.Add(m1);
+            movies.Add(m2);
+            movies.Add(m3);
+            hotLongListSelector.ItemsSource = movies;
         }
 
         // Load data for the ViewModel Items
