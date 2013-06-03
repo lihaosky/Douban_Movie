@@ -20,36 +20,33 @@
             <RowDefinition Height="120"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
-        <!-- LOCALIZATION NOTE:
-            To localize the displayed strings copy their values to appropriately named
-            keys in the app's neutral language resource file (AppResources.resx) then
-            replace the hard-coded text value between the attributes' quotation marks
-            with the binding clause whose path points to that string name.
-
-            For example:
-
-                Text="{Binding Path=LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}"
-
-            This binding points to the template's string resource named "ApplicationTitle".
-
-            Adding supported languages in the Project Properties tab will create a
-            new resx file per language that can carry the translated values of your
-            UI strings. The binding in these examples will cause the value of the
-            attributes to be drawn from the .resx file that matches the
-            CurrentUICulture of the app at run time.
-         -->
-
+        
+        <!--Logo and search button-->
+        <Grid HorizontalAlignment="Center" Height="120" Margin="0"  VerticalAlignment="Center" Width="440" Grid.Row="0" Background="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+            <Image Source="/PanoramaApp2;component/Assets/logo.png" Height="120" Width="200" HorizontalAlignment="Left" Grid.Column="0"/>
+            <Button Margin="0, 0, -40, 0" HorizontalAlignment="Right" Grid.Column="1" VerticalAlignment="Center">
+                <Image Source="/PanoramaApp2;component/Assets/search_button.png" Height="60" Width="60"/>
+            </Button>
+        </Grid>
+        
         <!--Panorama control-->
         <phone:Panorama Margin="0,0,0,0" Grid.RowSpan="1" Loaded="Panorama_Loaded" Background="White" Grid.Row="1">
             <!--Panorama item one-->
             <phone:PanoramaItem Header="正在热播" Foreground="Black" Margin="0, 0, 0, 0">
                 <!--Single line list with text wrapping-->
-                <phone:LongListSelector Margin="12,0,-24,0" ItemsSource="{Binding Items}">
+                <phone:LongListSelector Margin="12,0,0,0" ItemsSource="{Binding Items}">
                     <phone:LongListSelector.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Margin="0,-6,0,12">
-                                <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Foreground="Black" FontSize="{StaticResource PhoneFontSizeExtraLarge}"/>
+                            <StackPanel Margin="0,0,0,0" Orientation="Horizontal" Width="400">
+                                <Image Source="/PanoramaApp2;component/Assets/search_button.png" Height="90" Width="90"/>
+                                <StackPanel Margin="0,0,0,0" Orientation="Vertical" Width="310">
+                                    <TextBlock Text="{Binding LineOne}" Margin="10, 0" TextWrapping="Wrap" Foreground="Black" FontSize="{StaticResource PhoneFontSizeLarge}"/>
+                                    <TextBlock Text="{Binding LineTwo}" Margin="12, -2, 0, 0" TextWrapping="Wrap" Foreground="Black" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                </StackPanel>
                             </StackPanel>
                         </DataTemplate>
                     </phone:LongListSelector.ItemTemplate>
@@ -99,22 +96,6 @@
             <HyperlinkButton Content="HyperlinkButton" HorizontalAlignment="Left" Height="792" VerticalAlignment="Top" Width="420"/>
 
         </phone:Panorama>
-        <Grid HorizontalAlignment="Center" Height="100" Margin="12,12,12,12"  VerticalAlignment="Top" Width="400" Grid.Row="0" Background="White">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"/>
-                <ColumnDefinition Width="200"/>
-            </Grid.ColumnDefinitions>
-            <Image Source="/PanoramaApp2;component/Assets/logo.png" Height="100" Width="200" HorizontalAlignment="Left" Grid.Column="0"/>
-            <Image Source="/PanoramaApp2;component/Assets/search_button.png" Height="45" Width="45" HorizontalAlignment="Right" Grid.Column="1" RenderTransformOrigin="0.12,0.46"/>
-        </Grid>
-
-        <!--Uncomment to see an alignment grid to help ensure your controls are
-            aligned on common boundaries.  The image has a top margin of -32px to
-            account for the System Tray. Set this to 0 (or remove the margin altogether)
-            if the System Tray is hidden.
-
-            Before shipping remove this XAML and the image itself.-->
-        <!--<Image Source="/Assets/AlignmentGrid.png" VerticalAlignment="Top" Height="800" Width="480" Margin="0" Grid.Row="0" Grid.RowSpan="2" IsHitTestVisible="False" />-->
 
     </Grid>
 </phone:PhoneApplicationPage>
