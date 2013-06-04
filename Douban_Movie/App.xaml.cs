@@ -16,7 +16,7 @@ namespace PanoramaApp2
     public partial class App : Application
     {
         private static MainViewModel viewModel = null;
-        public static string imagePath = "/PanoramaApp2;component/Assets/";
+        public static string imagePath = "/DoubanMovie;component/Assets/";
         /// <summary>
         /// A static ViewModel used by the views to bind against.
         /// </summary>
