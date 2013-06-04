@@ -36,7 +36,7 @@
             <!--Panorama item one-->
             <phone:PanoramaItem Header="正在热播" Foreground="White" Margin="0, 0, 0, 0">
                 <!--Single line list with text wrapping-->
-                <phone:LongListSelector Margin="0,0,0,0" Name="hotLongListSelector">
+                <phone:LongListSelector Margin="0,0,0,0" Name="hotLongListSelector" SelectionChanged="hotLongListSelector_SelectionChanged">
                     <phone:LongListSelector.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Margin="0,6,0,0" Orientation="Horizontal" Height="180" Width="auto">

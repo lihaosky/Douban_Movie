@@ -101,7 +101,7 @@ namespace PanoramaApp2
                     int baseStar = (int)stars;
                     int roundStar = (int)Math.Round(stars);
                     bool half = roundStar > baseStar ? true : false;
-                    string starPath = "/PanoramaApp2;component/Assets/" + baseStar + "";
+                    string starPath = App.imagePath + baseStar;
                     if (half)
                     {
                         starPath += 5;
@@ -158,7 +158,6 @@ namespace PanoramaApp2
                     movie.actors_list = actors;
                     movie.title = alt_title;
                     movie.id = link.Substring(Movie.movieLinkHeader.Length, link.Length - 1 - Movie.movieLinkHeader.Length);
-                    System.Diagnostics.Debug.WriteLine(rate);
                     double rating = 0;
                     try
                     {
@@ -171,7 +170,7 @@ namespace PanoramaApp2
                     int baseStar = (int)stars;
                     int roundStar = (int)Math.Round(stars);
                     bool half = roundStar > baseStar ? true : false;
-                    string starPath = "/PanoramaApp2;component/Assets/" + baseStar + "";
+                    string starPath =  App.imagePath + baseStar;
                     if (half)
                     {
                         starPath += 5;
