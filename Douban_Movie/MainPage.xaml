@@ -36,15 +36,20 @@
             <!--Panorama item one-->
             <phone:PanoramaItem Header="正在热播" Foreground="White" Margin="0, 0, 0, 0">
                 <!--Single line list with text wrapping-->
-                <phone:LongListSelector Margin="12,0,0,0" Name="hotLongListSelector">
+                <phone:LongListSelector Margin="0,0,0,0" Name="hotLongListSelector">
                     <phone:LongListSelector.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Margin="0,6,0,0" Orientation="Horizontal" Height="168">
-                                <Image Source="{Binding imageUrl}" Height="150" Width="150"/>
-                                <StackPanel>
-                                    <TextBlock Text="{Binding movieName}" Margin="0, 0, 0, 0" TextWrapping="Wrap" Foreground="White" FontSize="{StaticResource PhoneFontSizeLarge}" VerticalAlignment="Center"/>
+                            <StackPanel Margin="0,6,0,0" Orientation="Horizontal" Height="180" Width="auto">
+                                <Image Source="{Binding posterUrl}" Height="160" Width="160"/>
+                                <StackPanel Orientation="Vertical" Margin="0, 6, 0, 0">
+                                    <TextBlock Text="{Binding title}" Margin="0, 0, 0, 0" TextWrapping="Wrap" Foreground="White" FontSize="{StaticResource PhoneFontSizeMedium}" VerticalAlignment="Center" Width="228"/>
+                                    <StackPanel Orientation="Horizontal" Margin="0, -12, 0, 0">
+                                        <Image Source="{Binding star}" Width="130" Height="80" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="-6, 0, 0, 0"/>
+                                        <TextBlock Text="{Binding rating}" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" Margin="-6, 0, 0, 5" VerticalAlignment="Center" HorizontalAlignment="Left"/>                                         
+                                    </StackPanel>
+                                    <TextBlock Text="{Binding actors_list}" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" TextWrapping="Wrap" Width="228" Margin="0, -12, 0, 0" HorizontalAlignment="Left"/>
                                 </StackPanel>
-                                <TextBlock Text="{Binding movieID}" TextWrapping="Wrap" Visibility="Collapsed"/>
+                                <TextBlock Text="{Binding id}" TextWrapping="Wrap" Visibility="Collapsed"/>
                             </StackPanel>
                         </DataTemplate>
                     </phone:LongListSelector.ItemTemplate>
@@ -52,7 +57,7 @@
             </phone:PanoramaItem>
 
             <!--Panorama item two-->
-            <phone:PanoramaItem Header="电影 TOP 250" Foreground="Black" Margin="0, 0, 0, 0">
+            <phone:PanoramaItem Header="电影 TOP 250" Foreground="White" Margin="0, 0, 0, 0">
                 <!--Double line list with image placeholder and text wrapping using a floating header that scrolls with the content-->
                 <phone:LongListSelector Margin="0,-38,-22,2" ItemsSource="{Binding Items}">
 

@@ -8,8 +8,12 @@ namespace PanoramaApp2
 {
     class Movie
     {
-        public string movieID { get; set; }
-        public string movieName { get; set; }
-        public string imageUrl { get; set; }
+        public string id { get; set; }
+        public string title { get; set; }
+        public string posterUrl { get; set; }
+        public string rating { get; set; }
+        public string star { get; set; }
+        public string actors_list { get; set; }
+        public static string movieLinkHeader = "http://movie.douban.com/subject/";
     }
 }

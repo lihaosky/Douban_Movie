@@ -12,5 +12,4 @@
         <vm:ItemViewModel LineOne="design five" LineTwo="Sagittis senectus sociosqu suscipit" LineThree="Dictumst eleifend facilisi faucibus habitant inceptos interdum lobortis nascetur pharetra placerat pulvinar sagittis"/>
         <vm:ItemViewModel LineOne="design six" LineTwo="Torquent ultrices vehicula volutpat" LineThree="Senectus sociosqu suscipit torquent ultrices vehicula volutpat maecenas praesent accumsan bibendum dictumst eleifend"/>
     </vm:MainViewModel.Items>
-
 </vm:MainViewModel>

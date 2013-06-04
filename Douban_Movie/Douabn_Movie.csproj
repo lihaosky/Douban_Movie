@@ -25,6 +25,7 @@
     <ValidateXaml>true</ValidateXaml>
     <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
     <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
+    <ExpressionBlendVersion>5.0.40218.0</ExpressionBlendVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -93,10 +94,14 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="HtmlParser.cs" />
     <Compile Include="Movie.cs" />
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LoadingScreen.xaml.cs">
+      <DependentUpon>LoadingScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\AppResources.Designer.cs">
@@ -112,6 +117,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <DesignData Include="SampleData\MovieSampleData.xaml">
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+    </DesignData>
     <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -120,6 +128,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </DesignData>
+    <Page Include="LoadingScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -130,6 +142,21 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\search_button.png" />
+    <Resource Include="Assets\0 star.png" />
+    <Resource Include="Assets\05 star.png" />
+    <Resource Include="Assets\1 star.png" />
+    <Resource Include="Assets\15 star.png" />
+    <Resource Include="Assets\2 star.png" />
+    <Resource Include="Assets\25 star.png" />
+    <Resource Include="Assets\3 star.png" />
+    <Resource Include="Assets\35 star.png" />
+    <Resource Include="Assets\4 star.png" />
+    <Resource Include="Assets\45 star.png" />
+    <Resource Include="Assets\5 star.png" />
+    <Resource Include="Assets\progress image.jpg" />
+    <Content Include="SplashScreenImage.screen-720p.jpg" />
+    <Content Include="SplashScreenImage.screen-WVGA.jpg" />
+    <Content Include="SplashScreenImage.screen-WXGA.jpg" />
     <Content Include="README_FIRST.txt" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
