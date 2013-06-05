@@ -112,6 +112,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Top250HtmlParser.cs" />
     <Compile Include="USBoxJsonParser.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="ViewModels\ItemViewModel.cs" />

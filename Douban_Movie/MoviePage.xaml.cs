@@ -16,15 +16,24 @@ namespace PanoramaApp2
         public MoviePage()
         {
             InitializeComponent();
+            this.Loaded += page_loaded;
+        }
+
+        void page_loaded(object sender, RoutedEventArgs e)
+        {
+            SystemTray.Opacity = 0;
+            SystemTray.IsVisible = true;
+            SystemTray.SetForegroundColor(this, System.Windows.Media.Colors.White);
+            SystemTray.ProgressIndicator = new ProgressIndicator();
+            SystemTray.ProgressIndicator.IsIndeterminate = true;
+            SystemTray.ProgressIndicator.Text = "加载中...";
+            SystemTray.ProgressIndicator.IsVisible = true;
             Movie movie = App.moviePassed;
             if (movie == null)
             {
                 System.Diagnostics.Debug.WriteLine("Shouldn't be null!");
             }
-            progressBar.IsIndeterminate = true;
-            progressBar.Visibility = System.Windows.Visibility.Visible;
             MovieJsonParser jparser = new MovieJsonParser();
-            jparser.progressbar = progressBar;
             jparser.movie = movie;
             jparser.title = title;
             jparser.posterImage = posterUrl;

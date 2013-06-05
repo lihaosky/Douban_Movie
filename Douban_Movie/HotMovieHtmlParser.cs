@@ -132,6 +132,10 @@ namespace PanoramaApp2
                 }
                 alt_title = imgNode.Attributes["alt"].Value;
             }
+            catch (System.NullReferenceException)
+            {
+                throw;
+            }
             catch (Exception)
             {
                 throw;

@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using Microsoft.Phone.Shell;
 
 namespace PanoramaApp2
 {
@@ -20,14 +21,13 @@ namespace PanoramaApp2
         public TextBlock rating { get; set; }
         public TextBlock rateNumber { get; set; }
         public TextBlock year_duration { get; set; }
-        public ProgressBar progressbar { get; set; }
         public TextBlock name { get; set; }
         public TextBlock region { get; set; }
         public TextBlock genre { get; set; }
         public HyperlinkButton trailer { get; set; }
         public HyperlinkButton theater { get; set; }
         public TextBlock summary { get; set; }
-
+       
         public void getMovieByID()
         {
             WebClient client = new WebClient();
@@ -74,12 +74,12 @@ namespace PanoramaApp2
             region.Text = movie.region;
             genre.Text = movie.genre;
             summary.Text = movie.summary;
-            trailer.Content = "花絮";
+            trailer.Content = "预告片";
             trailer.NavigateUri = new Uri(Movie.movieLinkHeader + movie.id + "/trailer", UriKind.Absolute);
             theater.Content = "选座购票";
             theater.NavigateUri = new Uri(Movie.movieLinkHeader + movie.id + "/cinema", UriKind.Absolute);
-            progressbar.IsIndeterminate = false;
-            progressbar.Visibility = System.Windows.Visibility.Collapsed;
+            SystemTray.ProgressIndicator.IsVisible = false;
+            SystemTray.IsVisible = false;
         }
     }
 }

@@ -61,17 +61,20 @@
             <!--Panorama item two-->
             <phone:PanoramaItem Header="电影 TOP 250" HeaderTemplate="{StaticResource MyItemHeaderTemplate}" Foreground="White" Margin="0, 0, 0, 0">
                 <!--Double line list with image placeholder and text wrapping using a floating header that scrolls with the content-->
-                <phone:LongListSelector Margin="0,-38,-22,2" ItemsSource="{Binding Items}">
-
+                <phone:LongListSelector Margin="0,-36,0,0" Name="top250LongListSelector" SelectionChanged="top250LongListSelector_SelectionChanged">
                     <phone:LongListSelector.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432">
-                                <!--Replace rectangle with image-->
-                                <Border BorderThickness="1" Width="99" Height="99" BorderBrush="#FFFFC700" Background="#FFFFC700"/>
-                                <StackPanel Width="311" Margin="8,-7,0,0">
-                                    <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Margin="10,0" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="{StaticResource PhoneFontSizeLarge}" Foreground="Black"/>
-                                    <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="10,-2,10,0" Style="{StaticResource PhoneTextSubtleStyle}" Foreground="Black"/>
+                            <StackPanel Margin="0,6,0,0" Orientation="Horizontal" Height="200" Width="auto">
+                                <Image Source="{Binding posterUrl}" Height="200" Width="160"/>
+                                <StackPanel Orientation="Vertical" Margin="0, 6, 0, 0">
+                                    <TextBlock Text="{Binding title}" Margin="0, 0, 0, 0" TextWrapping="Wrap" Foreground="White" FontSize="{StaticResource PhoneFontSizeMedium}" VerticalAlignment="Center" Width="228"/>
+                                    <StackPanel Orientation="Horizontal" Margin="0, -12, 0, 0">
+                                        <Image Source="{Binding star}" Width="130" Height="80" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="-6, 0, 0, 0"/>
+                                        <TextBlock Text="{Binding rating}" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" Margin="-6, 0, 0, 5" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                    </StackPanel>
+                                    <TextBlock Text="{Binding quote}" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" TextWrapping="Wrap" Width="228" Margin="0, -24, 0, 0" HorizontalAlignment="Left"/>
                                 </StackPanel>
+                                <TextBlock Text="{Binding id}" TextWrapping="Wrap" Visibility="Collapsed"/>
                             </StackPanel>
                         </DataTemplate>
                     </phone:LongListSelector.ItemTemplate>
@@ -96,7 +99,6 @@
                                         <TextBlock Text="票房" Style="{StaticResource PhoneTextSmallStyle}" Foreground="White" HorizontalAlignment="Left" />
                                         <TextBlock Text="{Binding money}" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" TextWrapping="Wrap"  Margin="0, 0, 0, 0" HorizontalAlignment="Left"/>
                                     </StackPanel>
-                                    
                                 </StackPanel>
                                 <TextBlock Text="{Binding id}" TextWrapping="Wrap" Visibility="Collapsed"/>
                             </StackPanel>

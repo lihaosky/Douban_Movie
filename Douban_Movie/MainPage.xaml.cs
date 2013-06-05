@@ -20,10 +20,19 @@ namespace PanoramaApp2
         {
             InitializeComponent();
             showPopup();
+
+            // Get hot movie
             HotMovieHtmlParser parser = new HotMovieHtmlParser();
             parser.selector = hotLongListSelector;
             parser.popup = popup;
             parser.parseHottMovie();
+
+            // Get top 250 movie
+            Top250HtmlParser topParser = new Top250HtmlParser();
+            topParser.selector = top250LongListSelector;
+            topParser.parseTop250();
+
+            // Get us box
             USBoxJsonParser usBoxParser = new USBoxJsonParser();
             usBoxParser.usboxLongListSelector = usboxLongListSelector;
             usBoxParser.parseUSBox();
@@ -72,6 +81,17 @@ namespace PanoramaApp2
                 App.moviePassed = movie;
                 NavigationService.Navigate(new Uri("/MoviePage.xaml", UriKind.Relative));
                 usboxLongListSelector.SelectedItem = null;
+            }
+        }
+
+        private void top250LongListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (top250LongListSelector != null && top250LongListSelector.SelectedItem != null)
+            {
+                Movie movie = (Movie)top250LongListSelector.SelectedItem;
+                App.moviePassed = movie;
+                NavigationService.Navigate(new Uri("/MoviePage.xaml", UriKind.Relative));
+                top250LongListSelector.SelectedItem = null;
             }
         }
     }
