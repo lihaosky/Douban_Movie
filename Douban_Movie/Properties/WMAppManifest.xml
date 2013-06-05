@@ -5,7 +5,7 @@
     <Language code="zh-Hans" />
     <Language code="zh-CN" />
   </Languages>
-  <App xmlns="" ProductID="{b679641e-e530-42e8-92e5-eb249306e8b1}" Title="PanoramaApp2" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="PanoramaApp2 author" Description="Sample description" Publisher="PanoramaApp2" PublisherID="{074c54bc-8cc2-4c17-b28d-0aa89f960aa7}">
+  <App xmlns="" ProductID="{b679641e-e530-42e8-92e5-eb249306e8b1}" Title="豆瓣电影" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="PanoramaApp2 author" Description="Sample description" Publisher="PanoramaApp2" PublisherID="{074c54bc-8cc2-4c17-b28d-0aa89f960aa7}">
     <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
@@ -24,11 +24,16 @@
           <Count>0</Count>
           <BackgroundImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileMedium.png</BackgroundImageURI>
           <Title>PanoramaApp2</Title>
-          <BackContent></BackContent>
-          <BackBackgroundImageURI></BackBackgroundImageURI>
-          <BackTitle></BackTitle>
-          <DeviceLockImageURI></DeviceLockImageURI>
-          <HasLarge></HasLarge>
+          <BackContent>
+          </BackContent>
+          <BackBackgroundImageURI>
+          </BackBackgroundImageURI>
+          <BackTitle>
+          </BackTitle>
+          <DeviceLockImageURI>
+          </DeviceLockImageURI>
+          <HasLarge>
+          </HasLarge>
         </TemplateFlip>
       </PrimaryToken>
     </Tokens>
