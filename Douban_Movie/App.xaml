@@ -18,6 +18,13 @@
         </Style>
         
         <local:LocalizedStrings xmlns:local="clr-namespace:PanoramaApp2" x:Key="LocalizedStrings"/>
+        <DataTemplate x:Key="MyItemHeaderTemplate">
+            <Grid>
+                <ContentPresenter>
+                    <TextBlock Text="{Binding}" FontSize="{StaticResource PhoneFontSizeExtraLarge}" />
+                </ContentPresenter>
+            </Grid>
+        </DataTemplate>
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>
