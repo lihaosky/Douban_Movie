@@ -13,7 +13,7 @@ namespace PanoramaApp2
     /// <summary>
     /// This class parses html file and returns corresponding results
     /// </summary>
-    class HtmlParser
+    class HotMovieHtmlParser
     {
         public LongListSelector selector { get; set; }
         public Popup popup { get; set; }
@@ -27,7 +27,7 @@ namespace PanoramaApp2
         {
             WebClient client = new WebClient();
             client.DownloadStringCompleted += downloadLatestMovieCompleted;
-            client.DownloadStringAsync(new Uri("http://movie.douban.com"));
+            client.DownloadStringAsync(new Uri(Movie.homePage));
         }
 
         /// <summary>
@@ -146,25 +146,7 @@ namespace PanoramaApp2
             movie.region = region;
             movie.rateNumber = rateNumber;
             movie.id = link.Substring(Movie.movieLinkHeader.Length, link.Length - 1 - Movie.movieLinkHeader.Length);
-            double rating = 0;
-            try
-            {
-                rating = double.Parse(rate);
-            }
-            catch (System.FormatException)
-            {
-            }
-            double stars = rating / 2.0;
-            int baseStar = (int)stars;
-            int roundStar = (int)Math.Round(stars);
-            bool half = roundStar > baseStar ? true : false;
-            string starPath = App.imagePath + baseStar;
-            if (half)
-            {
-                starPath += 5;
-            }
-            starPath += " star.png";
-            movie.star = starPath;
+            movie.star = Util.getStarPath(movie.rating);
             return movie;
         }
     }

@@ -20,7 +20,10 @@ namespace PanoramaApp2
         public string rateNumber { get; set; }
         public string summary { get; set; }
         public string genre { get; set; }
+        public string money { get; set; }
         public static string movieLinkHeader = "http://movie.douban.com/subject/";
         public static string apiMovieHeader = "http://api.douban.com/v2/movie/subject/";
+        public static string apiUSBoxHeader = "http://api.douban.com/v2/movie/us_box";
+        public static string homePage = "http://movie.douban.com";
     }
 }

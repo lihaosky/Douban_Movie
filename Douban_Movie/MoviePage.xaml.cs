@@ -23,7 +23,7 @@ namespace PanoramaApp2
             }
             progressBar.IsIndeterminate = true;
             progressBar.Visibility = System.Windows.Visibility.Visible;
-            JsonParser jparser = new JsonParser();
+            MovieJsonParser jparser = new MovieJsonParser();
             jparser.progressbar = progressBar;
             jparser.movie = movie;
             jparser.title = title;

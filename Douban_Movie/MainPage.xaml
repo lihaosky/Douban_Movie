@@ -77,30 +77,33 @@
                     </phone:LongListSelector.ItemTemplate>
                 </phone:LongListSelector>
             </phone:PanoramaItem>
-
-            <!--Panorama item three-->
-            <phone:PanoramaItem Header="third item" Orientation="Horizontal">
-                <!--Double wide Panorama with large image placeholders-->
-                <Grid>
-                    <StackPanel Margin="0,4,16,0" Orientation="Vertical" VerticalAlignment="Top">
-                        <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-                            <Border Background="#FFFFC700" Height="173" Width="173" Margin="12,0,0,0"/>
-                            <Border Background="#FFFFC700" Height="173" Width="173" Margin="12,0,0,0"/>
-                            <Border Background="#FFFFC700" Height="173" Width="173" Margin="12,0,0,0"/>
-                            <Border Background="#FFFFC700" Height="173" Width="173" Margin="12,0,0,0"/>
-                        </StackPanel>
-                        <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Margin="0,12,0,0">
-                            <Border Background="#FFFFC700" Height="173" Width="173" Margin="12,0,0,0"/>
-                            <Border Background="#FFFFC700" Height="173" Width="173" Margin="12,0,0,0"/>
-                            <Border Background="#FFFFC700" Height="173" Width="173" Margin="12,0,0,0"/>
-                            <Border Background="#FFFFC700" Height="173" Width="173" Margin="12,0,0,0"/>
-                        </StackPanel>
-                    </StackPanel>
-                </Grid>
+            
+            <!--Panorama item threee-->
+            <phone:PanoramaItem Header="北美票房榜" Foreground="White" Margin="0, 0, 0, 0">
+                <!--Single line list with text wrapping-->
+                <phone:LongListSelector Margin="0,-36,0,0" Name="usboxLongListSelector" SelectionChanged="usboxLongListSelector_SelectionChanged">
+                    <phone:LongListSelector.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="0,6,0,0" Orientation="Horizontal" Height="180" Width="auto">
+                                <Image Source="{Binding posterUrl}" Height="160" Width="160"/>
+                                <StackPanel Orientation="Vertical" Margin="0, 6, 0, 0">
+                                    <TextBlock Text="{Binding title}" Margin="0, 0, 0, 0" TextWrapping="Wrap" Foreground="White" FontSize="{StaticResource PhoneFontSizeMedium}" VerticalAlignment="Center" Width="228"/>
+                                    <StackPanel Orientation="Horizontal" Margin="0, -12, 0, 0">
+                                        <Image Source="{Binding star}" Width="130" Height="80" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="-6, 0, 0, 0"/>
+                                        <TextBlock Text="{Binding rating}" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" Margin="-6, 0, 0, 5" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="-10, 0, 0, 0">
+                                        <TextBlock Text="票房" Style="{StaticResource PhoneTextSmallStyle}" Foreground="White" HorizontalAlignment="Left" />
+                                        <TextBlock Text="{Binding money}" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" TextWrapping="Wrap"  Margin="0, 0, 0, 0" HorizontalAlignment="Left"/>
+                                    </StackPanel>
+                                    
+                                </StackPanel>
+                                <TextBlock Text="{Binding id}" TextWrapping="Wrap" Visibility="Collapsed"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </phone:LongListSelector.ItemTemplate>
+                </phone:LongListSelector>
             </phone:PanoramaItem>
-            <HyperlinkButton Content="HyperlinkButton" HorizontalAlignment="Left" Height="792" VerticalAlignment="Top" Width="420"/>
-
         </phone:Panorama>
-
     </Grid>
 </phone:PhoneApplicationPage>

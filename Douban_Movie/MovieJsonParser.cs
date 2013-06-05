@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 
 namespace PanoramaApp2
 {
-    class JsonParser
+    class MovieJsonParser
     {
         public Movie movie { get; set; }
         public Image posterImage { get; set; }
@@ -50,13 +50,14 @@ namespace PanoramaApp2
             movie.title = (string)obj["title"];
             movie.year = (string)obj["year"];
             movie.rating = (string)obj["rating"]["average"];
-            movie.star = getStarPath(movie.rating);
+            movie.star = Util.getStarPath(movie.rating);
             movie.rateNumber = (string)obj["ratings_count"];
             if (movie.posterUrl == "" || movie.posterUrl == null)
             {
                 movie.posterUrl = (string)obj["images"]["medium"];
             }
             object[] countries = obj["countries"].ToArray();
+            movie.region = "";
             for (int i = 0; i < countries.Length - 1; i++)
             {
                 movie.region += countries[i].ToString();
@@ -79,29 +80,6 @@ namespace PanoramaApp2
             theater.NavigateUri = new Uri(Movie.movieLinkHeader + movie.id + "/cinema", UriKind.Absolute);
             progressbar.IsIndeterminate = false;
             progressbar.Visibility = System.Windows.Visibility.Collapsed;
-        }
-
-        private string getStarPath(string rate)
-        {
-            double rating = 0;
-            try
-            {
-                rating = double.Parse(rate);
-            }
-            catch (System.FormatException)
-            {
-            }
-            double stars = rating / 2.0;
-            int baseStar = (int)stars;
-            int roundStar = (int)Math.Round(stars);
-            bool half = roundStar > baseStar ? true : false;
-            string starPath = App.imagePath + baseStar;
-            if (half)
-            {
-                starPath += 5;
-            }
-            starPath += " star.png";
-            return starPath;
         }
     }
 }

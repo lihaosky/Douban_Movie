@@ -61,7 +61,7 @@
                         </StackPanel>
                     </StackPanel>
                     <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" Margin="24, 24, 12, 24" HorizontalScrollBarVisibility="Disabled">
-                        <TextBlock x:Name="summary" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" Margin="0, 0, 0, 0"/>
+                        <TextBlock x:Name="summary" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" Margin="2, 2, 2, 2"/>
                     </ScrollViewer>
                 </Grid>
             </phone:PanoramaItem>
