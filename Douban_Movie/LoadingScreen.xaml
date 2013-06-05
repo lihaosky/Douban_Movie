@@ -14,7 +14,7 @@
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="White">
-        <ProgressBar HorizontalAlignment="Left" Margin="47,692,0,89" Name="progressBar" Width="383"  />
+        <ProgressBar HorizontalAlignment="Left" Margin="47,692,0,89" Name="progressBar" Width="383"/>
         <Image HorizontalAlignment="Left" Margin="114,75,0,0" Name="image1"  VerticalAlignment="Top" Source="/DoubanMovie;component/Assets/progress image.jpg" Stretch="Fill" Width="272" Height="512"/>
         <TextBlock HorizontalAlignment="Left" Margin="200,656,0,114" Name="textBlock1" Text="加载中..." Width="111" Foreground="Black" FontSize="22" />
     </Grid>

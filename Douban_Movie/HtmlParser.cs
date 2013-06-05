@@ -52,62 +52,15 @@ namespace PanoramaApp2
             {
                 foreach (HtmlNode movieNode in nodeCollection)
                 {
-                    string rate;
-                    string actors;
-                    string title;
-                    string link;
-                    string imgLink;
-                    string alt_title;
-
+                    Movie movie;
                     try
                     {
-                        rate = movieNode.Attributes["data-rate"].Value;
-                        actors = movieNode.Attributes["data-actors"].Value;
-                        title = movieNode.Attributes["data-title"].Value;
-                        HtmlNode liNode = movieNode.SelectNodes("ul/li[@class='poster']")[0];
-                        HtmlNode aNode = liNode.SelectNodes("a")[0];
-                        link = aNode.Attributes["href"].Value;
-                        HtmlNode imgNode = aNode.SelectNodes("img")[0];
-                        imgLink = imgNode.Attributes["src"].Value;
-                        foreach (HtmlAttribute attr in imgNode.Attributes)
-                        {
-                            if (attr.Name == "data-original")
-                            {
-                                imgLink = attr.Value;
-                                break;
-                            }
-                        }
-                        alt_title = imgNode.Attributes["alt"].Value;
+                        movie = getHotMovie(movieNode);
                     }
                     catch (Exception)
                     {
                         continue;
                     }
-                    Movie movie = new Movie();
-                    movie.rating = rate;
-                    movie.posterUrl = imgLink;
-                    movie.actors_list = actors;
-                    movie.title = alt_title;
-                    movie.id = link.Substring(Movie.movieLinkHeader.Length, link.Length - 1 - Movie.movieLinkHeader.Length);
-                    double rating = 0;
-                    try
-                    {
-                        rating = double.Parse(rate);
-                    }
-                    catch (System.FormatException)
-                    {
-                    }
-                    double stars = rating / 2.0;
-                    int baseStar = (int)stars;
-                    int roundStar = (int)Math.Round(stars);
-                    bool half = roundStar > baseStar ? true : false;
-                    string starPath = App.imagePath + baseStar;
-                    if (half)
-                    {
-                        starPath += 5;
-                    }
-                    starPath += " star.png";
-                    movie.star = starPath;
                     movieList.Add(movie);
                 }
             }
@@ -121,67 +74,98 @@ namespace PanoramaApp2
             {
                 foreach (HtmlNode movieNode in nodeCollection)
                 {
-                    string rate;
-                    string actors;
-                    string title;
-                    string link;
-                    string imgLink;
-                    string alt_title;
-
+                    Movie movie;
                     try
                     {
-                        rate = movieNode.Attributes["data-rate"].Value;
-                        actors = movieNode.Attributes["data-actors"].Value;
-                        title = movieNode.Attributes["data-title"].Value;
-                        HtmlNode liNode = movieNode.SelectNodes("ul/li[@class='poster']")[0];
-                        HtmlNode aNode = liNode.SelectNodes("a")[0];
-                        link = aNode.Attributes["href"].Value;
-                        HtmlNode imgNode = aNode.SelectNodes("img")[0];
-                        imgLink = imgNode.Attributes["src"].Value;
-                        foreach (HtmlAttribute attr in imgNode.Attributes)
-                        {
-                            if (attr.Name == "data-original")
-                            {
-                                imgLink = attr.Value;
-                                break;
-                            }
-                        }
-                        alt_title = imgNode.Attributes["alt"].Value;
+                        movie = getHotMovie(movieNode);
                     }
                     catch (Exception)
                     {
                         continue;
                     }
-                    Movie movie = new Movie();
-                    movie.rating = rate;
-                    movie.posterUrl = imgLink;
-                    movie.actors_list = actors;
-                    movie.title = alt_title;
-                    movie.id = link.Substring(Movie.movieLinkHeader.Length, link.Length - 1 - Movie.movieLinkHeader.Length);
-                    double rating = 0;
-                    try
-                    {
-                        rating = double.Parse(rate);
-                    }
-                    catch (System.FormatException)
-                    {
-                    }
-                    double stars = rating / 2.0;
-                    int baseStar = (int)stars;
-                    int roundStar = (int)Math.Round(stars);
-                    bool half = roundStar > baseStar ? true : false;
-                    string starPath =  App.imagePath + baseStar;
-                    if (half)
-                    {
-                        starPath += 5;
-                    }
-                    starPath += " star.png";
-                    movie.star = starPath;
                     movieList.Add(movie);
                 }
             }
             selector.ItemsSource = movieList;
             popup.IsOpen = false;
+        }
+
+        /// <summary>
+        /// Get movie from movieNode, if anything wrong throw exception
+        /// </summary>
+        /// <param name="movieNode"></param>
+        /// <returns></returns>
+        private Movie getHotMovie(HtmlNode movieNode)
+        {
+            string rate = "";
+            string actors = "";
+            string title = "";
+            string link = "";
+            string imgLink = "";
+            string alt_title = "";
+            string length = "";
+            string year = "";
+            string region = "";
+            string rateNumber = "";
+
+            try
+            {
+                rate = movieNode.Attributes["data-rate"].Value;
+                actors = movieNode.Attributes["data-actors"].Value;
+                title = movieNode.Attributes["data-title"].Value;
+                length = movieNode.Attributes["data-duration"].Value;
+                year = movieNode.Attributes["data-release"].Value;
+                region = movieNode.Attributes["data-region"].Value;
+                rateNumber = movieNode.Attributes["data-rater"].Value;
+                HtmlNode liNode = movieNode.SelectNodes("ul/li[@class='poster']")[0];
+                HtmlNode aNode = liNode.SelectNodes("a")[0];
+                link = aNode.Attributes["href"].Value;
+                HtmlNode imgNode = aNode.SelectNodes("img")[0];
+                imgLink = imgNode.Attributes["src"].Value;
+                foreach (HtmlAttribute attr in imgNode.Attributes)
+                {
+                    if (attr.Name == "data-original")
+                    {
+                        imgLink = attr.Value;
+                        break;
+                    }
+                }
+                alt_title = imgNode.Attributes["alt"].Value;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            Movie movie = new Movie();
+            movie.rating = rate;
+            movie.posterUrl = imgLink;
+            movie.actors_list = actors;
+            movie.title = alt_title;
+            movie.length = length;
+            movie.year = year;
+            movie.region = region;
+            movie.rateNumber = rateNumber;
+            movie.id = link.Substring(Movie.movieLinkHeader.Length, link.Length - 1 - Movie.movieLinkHeader.Length);
+            double rating = 0;
+            try
+            {
+                rating = double.Parse(rate);
+            }
+            catch (System.FormatException)
+            {
+            }
+            double stars = rating / 2.0;
+            int baseStar = (int)stars;
+            int roundStar = (int)Math.Round(stars);
+            bool half = roundStar > baseStar ? true : false;
+            string starPath = App.imagePath + baseStar;
+            if (half)
+            {
+                starPath += 5;
+            }
+            starPath += " star.png";
+            movie.star = starPath;
+            return movie;
         }
     }
 }

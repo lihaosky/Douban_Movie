@@ -1,0 +1,81 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="PanoramaApp2.MoviePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="False">
+
+    <!--LayoutRoot contains the root grid where all other page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="#1BA8E0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="120"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <ProgressBar HorizontalAlignment="Center" Name="progressBar" Width="383" VerticalAlignment="Top" Height="20" Grid.Row="0" Foreground="White"/>
+        <!--Logo and search button-->
+        <Grid HorizontalAlignment="Center" Height="120" Margin="0"  VerticalAlignment="Center" Width="440" Grid.Row="1" Background="#1BA8E0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+            <Image Source="/DoubanMovie;component/Assets/logo.png" Height="120" Width="200" HorizontalAlignment="Left" Grid.Column="0"/>
+            <Image Source="/DoubanMovie;component/Assets/search_button.png" Height="60" Width="60" Grid.Column="1" Margin="150, 0, 0, 0"/>
+        </Grid>
+        
+        <phone:Panorama Margin="0,0,0,0" Grid.RowSpan="1" Loaded="Panorama_Loaded" Background="#1BA8E0" Grid.Row="2">
+
+            <!--Panorama item one-->
+            <phone:PanoramaItem Header="电影信息">
+                <Grid Margin="0, -36, 0, 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" Margin="24, 12, 0, 0" HorizontalAlignment="Left" Grid.Row="0">
+                        <Image x:Name="posterUrl" Width="132" Height="200" HorizontalAlignment="Left" Stretch="Fill"/>
+                        <StackPanel Orientation="Vertical" Margin="12, 0, 0, 0">
+                            <TextBlock x:Name="title" FontSize="27" HorizontalAlignment="Left" TextWrapping="Wrap" Width="250"/>
+                            <StackPanel Orientation="Horizontal" Margin="-6, 0, 0, 0" >
+                                <Image x:Name="ratingUrl" Width="100" Height="65" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                <TextBlock x:Name="rating" Style="{StaticResource PhoneTextSmallStyle}" Foreground="#FFC90E" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="-3, 0, 0, 0"/>
+                                <TextBlock x:Name="rateNumber" Style="{StaticResource PhoneTextSmallStyle}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                <TextBlock x:Name="fixedName" Style="{StaticResource PhoneTextSmallStyle}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="-10, 0, 0, 0"/>
+                            </StackPanel>
+                            <TextBlock x:Name="year_duration" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2,-12, 0, 0"/>
+                            <TextBlock x:Name="region" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2, 2, 0, 0"/>
+                            <TextBlock x:Name="genre" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2, 2, 0, 0"/>
+                            <StackPanel Orientation="Horizontal" Margin="-12, 0, 0, 0">
+                                <HyperlinkButton x:Name="trailer" Foreground="White" TargetName="_blank"/>
+                                <HyperlinkButton x:Name="theater" Foreground="White" TargetName="_blank"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" Margin="24, 24, 12, 24" HorizontalScrollBarVisibility="Disabled">
+                        <TextBlock x:Name="summary" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" Margin="0, 0, 0, 0"/>
+                    </ScrollViewer>
+                </Grid>
+            </phone:PanoramaItem>
+
+            <!--Panorama item two-->
+            <phone:PanoramaItem Header="item2">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="23*"/>
+                        <RowDefinition Height="533*"/>
+                    </Grid.RowDefinitions>
+                </Grid>
+            </phone:PanoramaItem>
+        </phone:Panorama>
+    </Grid>
+
+</phone:PhoneApplicationPage>

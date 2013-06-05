@@ -52,11 +52,13 @@ namespace PanoramaApp2
 
         private void hotLongListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("IT's here");
             if (hotLongListSelector != null && hotLongListSelector.SelectedItem != null)
             {
                 Movie movie = (Movie)hotLongListSelector.SelectedItem;
                 System.Diagnostics.Debug.WriteLine(movie.id);
+                App.moviePassed = movie;
+                NavigationService.Navigate(new Uri("/MoviePage.xaml", UriKind.Relative));
+                hotLongListSelector.SelectedItem = null;
             }
         }
     }

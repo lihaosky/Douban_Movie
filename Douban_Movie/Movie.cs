@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PanoramaApp2
 {
-    class Movie
+    public class Movie
     {
         public string id { get; set; }
         public string title { get; set; }
@@ -14,6 +14,13 @@ namespace PanoramaApp2
         public string rating { get; set; }
         public string star { get; set; }
         public string actors_list { get; set; }
+        public string length { get; set; }
+        public string year { get; set; }
+        public string region { get; set; }
+        public string rateNumber { get; set; }
+        public string summary { get; set; }
+        public string genre { get; set; }
         public static string movieLinkHeader = "http://movie.douban.com/subject/";
+        public static string apiMovieHeader = "http://api.douban.com/v2/movie/subject/";
     }
 }

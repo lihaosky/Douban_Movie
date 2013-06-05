@@ -24,12 +24,12 @@
         </Grid.RowDefinitions>
         
         <!--Logo and search button-->
-        <Grid HorizontalAlignment="Center" Height="150" Margin="0"  VerticalAlignment="Center" Width="440" Grid.Row="0" Background="#1BA8E0">
+        <Grid HorizontalAlignment="Center" Height="120" Margin="0"  VerticalAlignment="Center" Width="440" Grid.Row="0" Background="#1BA8E0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"/>
                 <ColumnDefinition Width="200"/>
             </Grid.ColumnDefinitions>
-            <Image Source="/DoubanMovie;component/Assets/logo.png" Height="150" Width="200" HorizontalAlignment="Left" Grid.Column="0"/>
+            <Image Source="/DoubanMovie;component/Assets/logo.png" Height="120" Width="200" HorizontalAlignment="Left" Grid.Column="0"/>
             <Image Source="/DoubanMovie;component/Assets/search_button.png" Height="60" Width="60" Grid.Column="1" Margin="150, 0, 0, 0"/>
         </Grid>
         
@@ -38,7 +38,7 @@
             <!--Panorama item one-->
             <phone:PanoramaItem Header="正在热播" Foreground="White" Margin="0, 0, 0, 0">
                 <!--Single line list with text wrapping-->
-                <phone:LongListSelector Margin="0,0,0,0" Name="hotLongListSelector" SelectionChanged="hotLongListSelector_SelectionChanged">
+                <phone:LongListSelector Margin="0,-36,0,0" Name="hotLongListSelector" SelectionChanged="hotLongListSelector_SelectionChanged">
                     <phone:LongListSelector.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Margin="0,6,0,0" Orientation="Horizontal" Height="180" Width="auto">

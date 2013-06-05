@@ -17,6 +17,9 @@ namespace PanoramaApp2
     {
         private static MainViewModel viewModel = null;
         public static string imagePath = "/DoubanMovie;component/Assets/";
+        public static Movie moviePassed = null;
+        public static string apikey = "07e978247f7e67ad17bc686d7e7b3707";
+
         /// <summary>
         /// A static ViewModel used by the views to bind against.
         /// </summary>
