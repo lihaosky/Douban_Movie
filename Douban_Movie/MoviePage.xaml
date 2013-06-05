@@ -49,9 +49,9 @@
                                 <TextBlock x:Name="rateNumber" Style="{StaticResource PhoneTextSmallStyle}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                                 <TextBlock x:Name="fixedName" Style="{StaticResource PhoneTextSmallStyle}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="-10, 0, 0, 0"/>
                             </StackPanel>
-                            <TextBlock x:Name="year_duration" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2,-12, 0, 0"/>
-                            <TextBlock x:Name="region" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2, 2, 0, 0"/>
-                            <TextBlock x:Name="genre" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2, 2, 0, 0"/>
+                            <TextBlock x:Name="year_duration" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2,-12, 0, 0"  Width="250" TextWrapping="Wrap"/>
+                            <TextBlock x:Name="region" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2, 2, 0, 0"  Width="250" TextWrapping="Wrap"/>
+                            <TextBlock x:Name="genre" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2, 2, 0, 0"  Width="250" TextWrapping="Wrap"/>
                             <StackPanel Orientation="Horizontal" Margin="-12, 0, 0, 0">
                                 <HyperlinkButton x:Name="trailer" Foreground="White" TargetName="_blank"/>
                                 <HyperlinkButton x:Name="theater" Foreground="White" TargetName="_blank"/>

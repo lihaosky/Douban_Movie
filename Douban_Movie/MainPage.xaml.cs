@@ -36,6 +36,24 @@ namespace PanoramaApp2
             USBoxJsonParser usBoxParser = new USBoxJsonParser();
             usBoxParser.usboxLongListSelector = usboxLongListSelector;
             usBoxParser.parseUSBox();
+
+            // Create an application bar
+            ApplicationBar = new ApplicationBar();
+
+            ApplicationBar.Mode = ApplicationBarMode.Minimized;
+            ApplicationBar.Opacity = 1;
+            ApplicationBar.IsVisible = true;
+            ApplicationBar.IsMenuEnabled = true;
+
+            ApplicationBarMenuItem menuItem1 = new ApplicationBarMenuItem();
+            menuItem1.Text = "给我评分";
+            ApplicationBar.MenuItems.Add(menuItem1);
+            ApplicationBarMenuItem menuItem2 = new ApplicationBarMenuItem();
+            menuItem2.Text = "意见反馈";
+            ApplicationBar.MenuItems.Add(menuItem2);
+            ApplicationBarMenuItem menuItem3 = new ApplicationBarMenuItem();
+            menuItem3.Text = "关于";
+            ApplicationBar.MenuItems.Add(menuItem3);
         }
 
         private void showPopup()

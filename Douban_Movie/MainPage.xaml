@@ -14,7 +14,7 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
     shell:SystemTray.IsVisible="False"
-    toolkit:TiltEffect.IsTiltEnabled="True">
+    toolkit:TiltEffect.IsTiltEnabled="True" Margin="-2,0,2,0">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="#1BA8E0">
@@ -60,25 +60,34 @@
 
             <!--Panorama item two-->
             <phone:PanoramaItem Header="电影 TOP 250" HeaderTemplate="{StaticResource MyItemHeaderTemplate}" Foreground="White" Margin="0, 0, 0, 0">
-                <!--Double line list with image placeholder and text wrapping using a floating header that scrolls with the content-->
-                <phone:LongListSelector Margin="0,-36,0,0" Name="top250LongListSelector" SelectionChanged="top250LongListSelector_SelectionChanged">
-                    <phone:LongListSelector.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Margin="0,6,0,0" Orientation="Horizontal" Height="200" Width="auto">
-                                <Image Source="{Binding posterUrl}" Height="200" Width="160"/>
-                                <StackPanel Orientation="Vertical" Margin="0, 6, 0, 0">
-                                    <TextBlock Text="{Binding title}" Margin="0, 0, 0, 0" TextWrapping="Wrap" Foreground="White" FontSize="{StaticResource PhoneFontSizeMedium}" VerticalAlignment="Center" Width="228"/>
-                                    <StackPanel Orientation="Horizontal" Margin="0, -12, 0, 0">
-                                        <Image Source="{Binding star}" Width="130" Height="80" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="-6, 0, 0, 0"/>
-                                        <TextBlock Text="{Binding rating}" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" Margin="-6, 0, 0, 5" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <!--Double line list with image placeholder and text wrapping using a floating header that scrolls with the content-->
+                    <phone:LongListSelector Margin="0,-24,0,12" Name="top250LongListSelector" SelectionChanged="top250LongListSelector_SelectionChanged" Grid.Row="0">
+                        <phone:LongListSelector.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="0,6,0,0" Orientation="Horizontal" Height="200" Width="auto">
+                                    <Image Source="{Binding posterUrl}" Height="200" Width="160"/>
+                                    <StackPanel Orientation="Vertical" Margin="0, 6, 0, 0">
+                                        <TextBlock Text="{Binding title}" Margin="0, 0, 0, 0" TextWrapping="Wrap" Foreground="White" FontSize="{StaticResource PhoneFontSizeMedium}" VerticalAlignment="Center" Width="228"/>
+                                        <StackPanel Orientation="Horizontal" Margin="0, -12, 0, 0">
+                                            <Image Source="{Binding star}" Width="130" Height="80" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="-6, 0, 0, 0"/>
+                                            <TextBlock Text="{Binding rating}" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" Margin="-6, 0, 0, 5" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                        </StackPanel>
+                                        <TextBlock Text="{Binding quote}" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" TextWrapping="Wrap" Width="228" Margin="0, -24, 0, 0" HorizontalAlignment="Left"/>
                                     </StackPanel>
-                                    <TextBlock Text="{Binding quote}" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" TextWrapping="Wrap" Width="228" Margin="0, -24, 0, 0" HorizontalAlignment="Left"/>
+                                    <TextBlock Text="{Binding id}" TextWrapping="Wrap" Visibility="Collapsed"/>
                                 </StackPanel>
-                                <TextBlock Text="{Binding id}" TextWrapping="Wrap" Visibility="Collapsed"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </phone:LongListSelector.ItemTemplate>
-                </phone:LongListSelector>
+                            </DataTemplate>
+                        </phone:LongListSelector.ItemTemplate>
+                    </phone:LongListSelector>
+                    <Button Grid.Row="1" HorizontalAlignment="Center">
+                        <TextBlock Text="加载更多" Style="{StaticResource PhoneTextSmallStyle}" Foreground="White" HorizontalAlignment="Center"/>
+                    </Button>
+                </Grid>
             </phone:PanoramaItem>
             
             <!--Panorama item threee-->
