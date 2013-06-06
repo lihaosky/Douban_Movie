@@ -30,7 +30,7 @@
                 <ColumnDefinition Width="200"/>
             </Grid.ColumnDefinitions>
             <Image Source="/DoubanMovie;component/Assets/logo.png" Height="120" Width="200" HorizontalAlignment="Left" Grid.Column="0"/>
-            <Image Source="/DoubanMovie;component/Assets/search_button.png" Height="60" Width="60" Grid.Column="1" Margin="150, 0, 0, 0"/>
+            <Image Source="/DoubanMovie;component/Assets/search.png" Height="60" Width="60" Grid.Column="1" Margin="150, 0, 0, 0"/>
         </Grid>
         
         <!--Panorama control-->

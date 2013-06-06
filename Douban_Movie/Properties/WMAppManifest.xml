@@ -6,7 +6,7 @@
     <Language code="zh-CN" />
   </Languages>
   <App xmlns="" ProductID="{b679641e-e530-42e8-92e5-eb249306e8b1}" Title="豆瓣电影" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="DTP Group" Description="Sample description" Publisher="DTP Group" PublisherID="{074c54bc-8cc2-4c17-b28d-0aa89f960aa7}">
-    <IconPath IsRelative="true" IsResource="false">Photo-Video-Film-icon1.png</IconPath>
+    <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
       <Capability Name="ID_CAP_MEDIALIB_AUDIO" />
@@ -20,15 +20,15 @@
     <Tokens>
       <PrimaryToken TokenID="PanoramaApp2Token" TaskName="_default">
         <TemplateIconic>
-          <SmallImageURI IsRelative="true" IsResource="false">Photo-Video-Film-icon1.png</SmallImageURI>
+          <SmallImageURI IsRelative="true" IsResource="false">Assets\Tiles\IconTileSmall.png</SmallImageURI>
           <Count>0</Count>
-          <IconImageURI IsRelative="true" IsResource="false">Photo-Video-Film-icon2.png</IconImageURI>
+          <IconImageURI IsRelative="true" IsResource="false">Assets\Tiles\IconTileMediumLarge.png</IconImageURI>
           <Title>豆瓣电影</Title>
           <Message>
           </Message>
           <BackgroundColor>
           </BackgroundColor>
-          <HasLarge>False</HasLarge>
+          <HasLarge>True</HasLarge>
           <LargeContent1>
           </LargeContent1>
           <LargeContent2>
