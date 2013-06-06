@@ -22,10 +22,12 @@ namespace PanoramaApp2
         public string genre { get; set; }
         public string money { get; set; }
         public string quote { get; set; }
+        public string releaseDate { get; set; }
         public static string movieLinkHeader = "http://movie.douban.com/subject/";
         public static string apiMovieHeader = "http://api.douban.com/v2/movie/subject/";
         public static string apiUSBoxHeader = "http://api.douban.com/v2/movie/us_box";
         public static string homePage = "http://movie.douban.com";
         public static string top250 = "http://movie.douban.com/top250";
+        public static string latest = "http://movie.douban.com/later/beijing/";
     }
 }

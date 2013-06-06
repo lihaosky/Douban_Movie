@@ -7,22 +7,29 @@ using HtmlAgilityPack;
 using System.Net;
 using System.Windows.Controls.Primitives;
 using Microsoft.Phone.Controls;
+using System.Windows.Controls;
+using System.Collections.ObjectModel;
+using Microsoft.Phone.Shell;
 
 namespace PanoramaApp2
 {
     class Top250HtmlParser
     {
-        public LongListSelector selector;
+        public static Button loadMoreButton;
+        public static TextBlock loadText;
+        public static int currentIndex = 0;
+        public static int maxIndex = 9;
+        public static ObservableCollection<Movie> observableMovieList = new ObservableCollection<Movie>();
 
-        public void parseTop250()
+        public static void parseTop250()
         {
             WebClient client = new WebClient();
             client.DownloadStringCompleted += downloadTop250Completed;
-            client.DownloadStringAsync(new Uri(Movie.top250));
+            client.DownloadStringAsync(new Uri(Movie.top250 + "?start=" + currentIndex * 25 + "&format="));
             
         }
 
-        public void downloadTop250Completed(object sender, DownloadStringCompletedEventArgs e)
+        public static void downloadTop250Completed(object sender, DownloadStringCompletedEventArgs e)
         {
             string page = e.Result;
             HtmlDocument doc = new HtmlDocument();
@@ -49,10 +56,28 @@ namespace PanoramaApp2
                     movieList.Add(movie);
                 }
             }
-            selector.ItemsSource = movieList;
+            foreach (Movie movie in movieList)
+            {
+                observableMovieList.Add(movie);
+            }
+            if (currentIndex > 0)
+            {
+                SystemTray.ProgressIndicator.IsVisible = false;
+                SystemTray.IsVisible = false;
+            }
+            currentIndex++;
+            if (currentIndex > maxIndex)
+            {
+                loadMoreButton.IsEnabled = false;
+                loadText.Text = "完了:-)";
+            }
+            else
+            {
+                loadMoreButton.IsEnabled = true;
+            }
         }
 
-        private Movie getTopMovie(HtmlNode node)
+        private static Movie getTopMovie(HtmlNode node)
         {
             string id = "";
             string title = "";

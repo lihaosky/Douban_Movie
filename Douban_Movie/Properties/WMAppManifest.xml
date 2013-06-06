@@ -5,8 +5,8 @@
     <Language code="zh-Hans" />
     <Language code="zh-CN" />
   </Languages>
-  <App xmlns="" ProductID="{b679641e-e530-42e8-92e5-eb249306e8b1}" Title="豆瓣电影" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="PanoramaApp2 author" Description="Sample description" Publisher="PanoramaApp2" PublisherID="{074c54bc-8cc2-4c17-b28d-0aa89f960aa7}">
-    <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
+  <App xmlns="" ProductID="{b679641e-e530-42e8-92e5-eb249306e8b1}" Title="豆瓣电影" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="DTP Group" Description="Sample description" Publisher="DTP Group" PublisherID="{074c54bc-8cc2-4c17-b28d-0aa89f960aa7}">
+    <IconPath IsRelative="true" IsResource="false">Photo-Video-Film-icon1.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
       <Capability Name="ID_CAP_MEDIALIB_AUDIO" />
@@ -19,22 +19,25 @@
     </Tasks>
     <Tokens>
       <PrimaryToken TokenID="PanoramaApp2Token" TaskName="_default">
-        <TemplateFlip>
-          <SmallImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileSmall.png</SmallImageURI>
+        <TemplateIconic>
+          <SmallImageURI IsRelative="true" IsResource="false">Photo-Video-Film-icon1.png</SmallImageURI>
           <Count>0</Count>
-          <BackgroundImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileMedium.png</BackgroundImageURI>
-          <Title>PanoramaApp2</Title>
-          <BackContent>
-          </BackContent>
-          <BackBackgroundImageURI>
-          </BackBackgroundImageURI>
-          <BackTitle>
-          </BackTitle>
-          <DeviceLockImageURI>
+          <IconImageURI IsRelative="true" IsResource="false">Photo-Video-Film-icon2.png</IconImageURI>
+          <Title>豆瓣电影</Title>
+          <Message>
+          </Message>
+          <BackgroundColor>
+          </BackgroundColor>
+          <HasLarge>False</HasLarge>
+          <LargeContent1>
+          </LargeContent1>
+          <LargeContent2>
+          </LargeContent2>
+          <LargeContent3>
+          </LargeContent3>
+          <DeviceLockImageURI IsRelative="true" IsResource="false">
           </DeviceLockImageURI>
-          <HasLarge>
-          </HasLarge>
-        </TemplateFlip>
+        </TemplateIconic>
       </PrimaryToken>
     </Tokens>
     <ScreenResolutions>

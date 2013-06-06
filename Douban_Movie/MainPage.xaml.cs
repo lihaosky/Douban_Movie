@@ -22,20 +22,23 @@ namespace PanoramaApp2
             showPopup();
 
             // Get hot movie
-            HotMovieHtmlParser parser = new HotMovieHtmlParser();
-            parser.selector = hotLongListSelector;
-            parser.popup = popup;
-            parser.parseHottMovie();
+            HotMovieHtmlParser.selector = hotLongListSelector;
+            HotMovieHtmlParser.popup = popup;
+            HotMovieHtmlParser.parseHottMovie();
+
+            // Get latest
+            LatestHtmlParser.selector = latestListSelector;
+            LatestHtmlParser.parseLatestMovie();
 
             // Get top 250 movie
-            Top250HtmlParser topParser = new Top250HtmlParser();
-            topParser.selector = top250LongListSelector;
-            topParser.parseTop250();
+            top250LongListSelector.ItemsSource = Top250HtmlParser.observableMovieList;
+            Top250HtmlParser.loadText = loadText;
+            Top250HtmlParser.loadMoreButton = loadMoreButton;
+            Top250HtmlParser.parseTop250();
 
             // Get us box
-            USBoxJsonParser usBoxParser = new USBoxJsonParser();
-            usBoxParser.usboxLongListSelector = usboxLongListSelector;
-            usBoxParser.parseUSBox();
+            USBoxJsonParser.usboxLongListSelector = usboxLongListSelector;
+            USBoxJsonParser.parseUSBox();
 
             // Create an application bar
             ApplicationBar = new ApplicationBar();
@@ -110,6 +113,29 @@ namespace PanoramaApp2
                 App.moviePassed = movie;
                 NavigationService.Navigate(new Uri("/MoviePage.xaml", UriKind.Relative));
                 top250LongListSelector.SelectedItem = null;
+            }
+        }
+
+        private void loadMoreButton_Click(object sender, RoutedEventArgs e)
+        {
+            loadMoreButton.IsEnabled = false;
+            SystemTray.Opacity = 0;
+            SystemTray.IsVisible = true;
+            SystemTray.ProgressIndicator = new ProgressIndicator();
+            SystemTray.ProgressIndicator.IsIndeterminate = true;
+            SystemTray.ProgressIndicator.Text = "加载中...";
+            SystemTray.ProgressIndicator.IsVisible = true;
+            Top250HtmlParser.parseTop250();
+        }
+
+        private void latestListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (latestListSelector != null && latestListSelector.SelectedItem != null)
+            {
+                Movie movie = (Movie)latestListSelector.SelectedItem;
+                App.moviePassed = movie;
+                NavigationService.Navigate(new Uri("/MoviePage.xaml", UriKind.Relative));
+                latestListSelector.SelectedItem = null;
             }
         }
     }

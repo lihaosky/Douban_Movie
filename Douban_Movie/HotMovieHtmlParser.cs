@@ -15,15 +15,15 @@ namespace PanoramaApp2
     /// </summary>
     class HotMovieHtmlParser
     {
-        public LongListSelector selector { get; set; }
-        public Popup popup { get; set; }
+        public static LongListSelector selector { get; set; }
+        public static Popup popup { get; set; }
 
         /// <summary>
         /// Return a list of latest movies 
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        public void parseHottMovie()
+        public static void parseHottMovie()
         {
             WebClient client = new WebClient();
             client.DownloadStringCompleted += downloadLatestMovieCompleted;
@@ -35,7 +35,7 @@ namespace PanoramaApp2
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void downloadLatestMovieCompleted(object sender, DownloadStringCompletedEventArgs e)
+        private static void downloadLatestMovieCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
             string page = e.Result;
             HtmlDocument doc = new HtmlDocument();
@@ -95,7 +95,7 @@ namespace PanoramaApp2
         /// </summary>
         /// <param name="movieNode"></param>
         /// <returns></returns>
-        private Movie getHotMovie(HtmlNode movieNode)
+        private static Movie getHotMovie(HtmlNode movieNode)
         {
             string rate = "";
             string actors = "";

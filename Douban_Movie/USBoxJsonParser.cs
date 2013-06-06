@@ -12,16 +12,16 @@ namespace PanoramaApp2
 {
     class USBoxJsonParser
     {
-        public LongListSelector usboxLongListSelector;
+        public static LongListSelector usboxLongListSelector;
 
-        public void parseUSBox()
+        public static void parseUSBox()
         {
             WebClient client = new WebClient();
             client.DownloadStringCompleted += downloadUSBoxCompleted;
             client.DownloadStringAsync(new Uri(Movie.apiUSBoxHeader + "?apikey=" + App.apikey));
         }
 
-        public void downloadUSBoxCompleted(object sender, DownloadStringCompletedEventArgs e)
+        public static void downloadUSBoxCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
             string data = e.Result;
             JObject obj = JObject.Parse(data);
