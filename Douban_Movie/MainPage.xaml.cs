@@ -34,7 +34,7 @@ namespace PanoramaApp2
             top250LongListSelector.ItemsSource = Top250HtmlParser.observableMovieList;
             Top250HtmlParser.loadText = loadText;
             Top250HtmlParser.loadMoreButton = loadMoreButton;
-            Top250HtmlParser.parseTop250();
+            Top250HtmlParser.parseTop250(new ProgressIndicator());
 
             // Get us box
             USBoxJsonParser.usboxLongListSelector = usboxLongListSelector;
@@ -121,11 +121,12 @@ namespace PanoramaApp2
             loadMoreButton.IsEnabled = false;
             SystemTray.Opacity = 0;
             SystemTray.IsVisible = true;
-            SystemTray.ProgressIndicator = new ProgressIndicator();
+            ProgressIndicator indicator = new ProgressIndicator();
+            SystemTray.ProgressIndicator = indicator;
             SystemTray.ProgressIndicator.IsIndeterminate = true;
             SystemTray.ProgressIndicator.Text = "加载中...";
             SystemTray.ProgressIndicator.IsVisible = true;
-            Top250HtmlParser.parseTop250();
+            Top250HtmlParser.parseTop250(indicator);
         }
 
         private void latestListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)

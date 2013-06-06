@@ -25,53 +25,56 @@ namespace PanoramaApp2
 
         public static void downloadLatestCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
-            string page = e.Result;
-            List<Movie> movieList = new List<Movie>();
-            HtmlDocument doc = new HtmlDocument();
-            doc.LoadHtml(page);
-            HtmlNodeCollection nodeCollection = doc.DocumentNode.SelectNodes("//div[@class='item mod odd']");
-            if (nodeCollection == null)
+            if (e.Error == null && !e.Cancelled)
             {
-                System.Diagnostics.Debug.WriteLine("null collection");
-            }
-            else
-            {
-                foreach (HtmlNode node in nodeCollection)
+                string page = e.Result;
+                List<Movie> movieList = new List<Movie>();
+                HtmlDocument doc = new HtmlDocument();
+                doc.LoadHtml(page);
+                HtmlNodeCollection nodeCollection = doc.DocumentNode.SelectNodes("//div[@class='item mod odd']");
+                if (nodeCollection == null)
                 {
-                    Movie movie;
-                    try
-                    {
-                        movie = getLatestMovie(node);
-                    }
-                    catch (Exception)
-                    {
-                        continue;
-                    }
-                    movieList.Add(movie);
+                    System.Diagnostics.Debug.WriteLine("null collection");
                 }
-            }
-            nodeCollection = doc.DocumentNode.SelectNodes("//div[@class='item mod ']");
-            if (nodeCollection == null)
-            {
-                System.Diagnostics.Debug.WriteLine("null collection");
-            }
-            else
-            {
-                foreach (HtmlNode node in nodeCollection)
+                else
                 {
-                    Movie movie;
-                    try
+                    foreach (HtmlNode node in nodeCollection)
                     {
-                        movie = getLatestMovie(node);
+                        Movie movie;
+                        try
+                        {
+                            movie = getLatestMovie(node);
+                        }
+                        catch (Exception)
+                        {
+                            continue;
+                        }
+                        movieList.Add(movie);
                     }
-                    catch (Exception)
-                    {
-                        continue;
-                    }
-                    movieList.Add(movie);
                 }
+                nodeCollection = doc.DocumentNode.SelectNodes("//div[@class='item mod ']");
+                if (nodeCollection == null)
+                {
+                    System.Diagnostics.Debug.WriteLine("null collection");
+                }
+                else
+                {
+                    foreach (HtmlNode node in nodeCollection)
+                    {
+                        Movie movie;
+                        try
+                        {
+                            movie = getLatestMovie(node);
+                        }
+                        catch (Exception)
+                        {
+                            continue;
+                        }
+                        movieList.Add(movie);
+                    }
+                }
+                selector.ItemsSource = movieList;
             }
-            selector.ItemsSource = movieList;
         }
 
         public static Movie getLatestMovie(HtmlNode node)

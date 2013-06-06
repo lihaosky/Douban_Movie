@@ -7,6 +7,7 @@ using System.Net;
 using Microsoft.Phone.Controls;
 using HtmlAgilityPack;
 using System.Windows.Controls.Primitives;
+using System.Windows;
 
 namespace PanoramaApp2
 {
@@ -37,57 +38,65 @@ namespace PanoramaApp2
         /// <param name="e"></param>
         private static void downloadLatestMovieCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
-            string page = e.Result;
-            HtmlDocument doc = new HtmlDocument();
-            doc.LoadHtml(page);
-            HtmlNodeCollection nodeCollection = doc.DocumentNode.SelectNodes("//li[@class='ui-slide-item s']");
-            List<Movie> movieList = new List<Movie>();
+            if (!e.Cancelled && e.Error == null)
+            {
+                string page = e.Result;
+                HtmlDocument doc = new HtmlDocument();
+                doc.LoadHtml(page);
+                HtmlNodeCollection nodeCollection = doc.DocumentNode.SelectNodes("//li[@class='ui-slide-item s']");
+                List<Movie> movieList = new List<Movie>();
 
-            // Can't find movie! Hmmm, shouldn't happen...
-            if (nodeCollection == null)
-            {
-                System.Diagnostics.Debug.WriteLine("null nodeCollection!");
+                // Can't find movie! Hmmm, shouldn't happen...
+                if (nodeCollection == null)
+                {
+                    System.Diagnostics.Debug.WriteLine("null nodeCollection!");
+                }
+                else
+                {
+                    foreach (HtmlNode movieNode in nodeCollection)
+                    {
+                        Movie movie;
+                        try
+                        {
+                            movie = getHotMovie(movieNode);
+                        }
+                        catch (Exception)
+                        {
+                            continue;
+                        }
+                        movieList.Add(movie);
+                    }
+                }
+                nodeCollection = doc.DocumentNode.SelectNodes("//li[@class='ui-slide-item']");
+                // Can't find movie! Hmmm, shouldn't happen...
+                if (nodeCollection == null)
+                {
+                    System.Diagnostics.Debug.WriteLine("null nodeCollection!");
+                }
+                else
+                {
+                    foreach (HtmlNode movieNode in nodeCollection)
+                    {
+                        Movie movie;
+                        try
+                        {
+                            movie = getHotMovie(movieNode);
+                        }
+                        catch (Exception)
+                        {
+                            continue;
+                        }
+                        movieList.Add(movie);
+                    }
+                }
+                selector.ItemsSource = movieList;
+                popup.IsOpen = false;
             }
             else
             {
-                foreach (HtmlNode movieNode in nodeCollection)
-                {
-                    Movie movie;
-                    try
-                    {
-                        movie = getHotMovie(movieNode);
-                    }
-                    catch (Exception)
-                    {
-                        continue;
-                    }
-                    movieList.Add(movie);
-                }
+                MessageBoxResult result = MessageBox.Show("无法连接到豆瓣网,请检查网络连接", "", MessageBoxButton.OK);
+                popup.IsOpen = false;
             }
-            nodeCollection = doc.DocumentNode.SelectNodes("//li[@class='ui-slide-item']");
-            // Can't find movie! Hmmm, shouldn't happen...
-            if (nodeCollection == null)
-            {
-                System.Diagnostics.Debug.WriteLine("null nodeCollection!");
-            }
-            else
-            {
-                foreach (HtmlNode movieNode in nodeCollection)
-                {
-                    Movie movie;
-                    try
-                    {
-                        movie = getHotMovie(movieNode);
-                    }
-                    catch (Exception)
-                    {
-                        continue;
-                    }
-                    movieList.Add(movie);
-                }
-            }
-            selector.ItemsSource = movieList;
-            popup.IsOpen = false;
         }
 
         /// <summary>

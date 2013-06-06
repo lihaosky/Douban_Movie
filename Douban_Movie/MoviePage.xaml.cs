@@ -13,6 +13,8 @@ namespace PanoramaApp2
 {
     public partial class MoviePage : PhoneApplicationPage
     {
+        private MovieJsonParser jparser;
+
         public MoviePage()
         {
             InitializeComponent();
@@ -33,7 +35,7 @@ namespace PanoramaApp2
             {
                 System.Diagnostics.Debug.WriteLine("Shouldn't be null!");
             }
-            MovieJsonParser jparser = new MovieJsonParser();
+            jparser = new MovieJsonParser();
             jparser.movie = movie;
             jparser.title = title;
             jparser.posterImage = posterUrl;
@@ -48,6 +50,14 @@ namespace PanoramaApp2
             jparser.theater = theater;
             jparser.summary = summary;
             jparser.getMovieByID();
+        }
+
+        protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            if (jparser != null)
+            {
+                jparser.cancelDownLoad();
+            }
         }
 
         private void Panorama_Loaded(object sender, RoutedEventArgs e)

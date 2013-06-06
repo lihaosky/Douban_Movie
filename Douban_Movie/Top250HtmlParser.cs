@@ -19,10 +19,12 @@ namespace PanoramaApp2
         public static TextBlock loadText;
         public static int currentIndex = 0;
         public static int maxIndex = 9;
+        public static ProgressIndicator indicator;
         public static ObservableCollection<Movie> observableMovieList = new ObservableCollection<Movie>();
 
-        public static void parseTop250()
+        public static void parseTop250(ProgressIndicator indicator)
         {
+            Top250HtmlParser.indicator = indicator;
             WebClient client = new WebClient();
             client.DownloadStringCompleted += downloadTop250Completed;
             client.DownloadStringAsync(new Uri(Movie.top250 + "?start=" + currentIndex * 25 + "&format="));
@@ -31,49 +33,55 @@ namespace PanoramaApp2
 
         public static void downloadTop250Completed(object sender, DownloadStringCompletedEventArgs e)
         {
-            string page = e.Result;
-            HtmlDocument doc = new HtmlDocument();
-            doc.LoadHtml(page);
-            HtmlNodeCollection nodeCollection = doc.DocumentNode.SelectNodes("//div[@class='item']");
-            List<Movie> movieList = new List<Movie>();
-            if (nodeCollection == null)
+            if (e.Error == null && !e.Cancelled)
             {
-                System.Diagnostics.Debug.WriteLine("null collection!");
-            }
-            else
-            {
-                foreach (HtmlNode node in nodeCollection)
+                string page = e.Result;
+                HtmlDocument doc = new HtmlDocument();
+                doc.LoadHtml(page);
+                HtmlNodeCollection nodeCollection = doc.DocumentNode.SelectNodes("//div[@class='item']");
+                List<Movie> movieList = new List<Movie>();
+                if (nodeCollection == null)
                 {
-                    Movie movie;
-                    try
-                    {
-                        movie = getTopMovie(node);
-                    }
-                    catch (Exception)
-                    {
-                        continue;
-                    }
-                    movieList.Add(movie);
+                    System.Diagnostics.Debug.WriteLine("null collection!");
                 }
-            }
-            foreach (Movie movie in movieList)
-            {
-                observableMovieList.Add(movie);
-            }
-            if (currentIndex > 0)
-            {
-                SystemTray.ProgressIndicator.IsVisible = false;
-                SystemTray.IsVisible = false;
-            }
-            currentIndex++;
-            if (currentIndex > maxIndex)
-            {
-                loadMoreButton.IsEnabled = false;
-                loadText.Text = "完了:-)";
-            }
-            else
-            {
-                loadMoreButton.IsEnabled = true;
+                else
+                {
+                    foreach (HtmlNode node in nodeCollection)
+                    {
+                        Movie movie;
+                        try
+                        {
+                            movie = getTopMovie(node);
+                        }
+                        catch (Exception)
+                        {
+                            continue;
+                        }
+                        movieList.Add(movie);
+                    }
+                }
+                foreach (Movie movie in movieList)
+                {
+                    observableMovieList.Add(movie);
+                }
+                if (currentIndex > 0)
+                {
+                    if (indicator != null)
+                    {
+                        indicator.IsVisible = false;
+                    }
+                    SystemTray.IsVisible = false;
+                }
+                currentIndex++;
+                if (currentIndex > maxIndex)
+                {
+                    loadMoreButton.IsEnabled = false;
+                    loadText.Text = "完了:-)";
+                }
+                else
+                {
+                    loadMoreButton.IsEnabled = true;
+                }
             }
         }
 
