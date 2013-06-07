@@ -94,6 +94,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="HotMovieHtmlParser.cs" />
+    <Compile Include="HotReviewHtmlParser.cs" />
     <Compile Include="LatestHtmlParser.cs" />
     <Compile Include="MovieJsonParser.cs" />
     <Compile Include="Movie.cs" />
@@ -113,6 +114,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Review.cs" />
     <Compile Include="Top250HtmlParser.cs" />
     <Compile Include="USBoxJsonParser.cs" />
     <Compile Include="Util.cs" />
@@ -152,17 +154,17 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\0 star.png" />
+    <Resource Include="Assets\00 star.png" />
     <Resource Include="Assets\05 star.png" />
-    <Resource Include="Assets\1 star.png" />
+    <Resource Include="Assets\10 star.png" />
     <Resource Include="Assets\15 star.png" />
-    <Resource Include="Assets\2 star.png" />
+    <Resource Include="Assets\20 star.png" />
     <Resource Include="Assets\25 star.png" />
-    <Resource Include="Assets\3 star.png" />
+    <Resource Include="Assets\30 star.png" />
     <Resource Include="Assets\35 star.png" />
-    <Resource Include="Assets\4 star.png" />
+    <Resource Include="Assets\40 star.png" />
     <Resource Include="Assets\45 star.png" />
-    <Resource Include="Assets\5 star.png" />
+    <Resource Include="Assets\50 star.png" />
     <Resource Include="Assets\progress image.jpg" />
     <Resource Include="Assets\search.png" />
     <Content Include="Assets\ApplicationIcon.png" />

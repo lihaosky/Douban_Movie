@@ -32,11 +32,7 @@ namespace PanoramaApp2
                 HtmlDocument doc = new HtmlDocument();
                 doc.LoadHtml(page);
                 HtmlNodeCollection nodeCollection = doc.DocumentNode.SelectNodes("//div[@class='item mod odd']");
-                if (nodeCollection == null)
-                {
-                    System.Diagnostics.Debug.WriteLine("null collection");
-                }
-                else
+                if (nodeCollection != null)
                 {
                     foreach (HtmlNode node in nodeCollection)
                     {

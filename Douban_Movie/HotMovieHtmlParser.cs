@@ -47,11 +47,7 @@ namespace PanoramaApp2
                 List<Movie> movieList = new List<Movie>();
 
                 // Can't find movie! Hmmm, shouldn't happen...
-                if (nodeCollection == null)
-                {
-                    System.Diagnostics.Debug.WriteLine("null nodeCollection!");
-                }
-                else
+                if (nodeCollection != null)
                 {
                     foreach (HtmlNode movieNode in nodeCollection)
                     {
@@ -69,11 +65,7 @@ namespace PanoramaApp2
                 }
                 nodeCollection = doc.DocumentNode.SelectNodes("//li[@class='ui-slide-item']");
                 // Can't find movie! Hmmm, shouldn't happen...
-                if (nodeCollection == null)
-                {
-                    System.Diagnostics.Debug.WriteLine("null nodeCollection!");
-                }
-                else
+                if (nodeCollection != null)
                 {
                     foreach (HtmlNode movieNode in nodeCollection)
                     {
@@ -119,27 +111,27 @@ namespace PanoramaApp2
 
             try
             {
-                rate = movieNode.Attributes["data-rate"].Value;
-                actors = movieNode.Attributes["data-actors"].Value;
-                title = movieNode.Attributes["data-title"].Value;
-                length = movieNode.Attributes["data-duration"].Value;
-                year = movieNode.Attributes["data-release"].Value;
-                region = movieNode.Attributes["data-region"].Value;
-                rateNumber = movieNode.Attributes["data-rater"].Value;
+                rate = movieNode.Attributes["data-rate"].Value.Trim();
+                actors = movieNode.Attributes["data-actors"].Value.Trim();
+                title = movieNode.Attributes["data-title"].Value.Trim();
+                length = movieNode.Attributes["data-duration"].Value.Trim();
+                year = movieNode.Attributes["data-release"].Value.Trim();
+                region = movieNode.Attributes["data-region"].Value.Trim();
+                rateNumber = movieNode.Attributes["data-rater"].Value.Trim();
                 HtmlNode liNode = movieNode.SelectNodes("ul/li[@class='poster']")[0];
                 HtmlNode aNode = liNode.SelectNodes("a")[0];
-                link = aNode.Attributes["href"].Value;
+                link = aNode.Attributes["href"].Value.Trim();
                 HtmlNode imgNode = aNode.SelectNodes("img")[0];
-                imgLink = imgNode.Attributes["src"].Value;
+                imgLink = imgNode.Attributes["src"].Value.Trim();
                 foreach (HtmlAttribute attr in imgNode.Attributes)
                 {
                     if (attr.Name == "data-original")
                     {
-                        imgLink = attr.Value;
+                        imgLink = attr.Value.Trim();
                         break;
                     }
                 }
-                alt_title = imgNode.Attributes["alt"].Value;
+                alt_title = imgNode.Attributes["alt"].Value.Trim();
             }
             catch (System.NullReferenceException)
             {
@@ -152,11 +144,11 @@ namespace PanoramaApp2
             Movie movie = new Movie();
             movie.rating = rate;
             movie.posterUrl = imgLink;
-            movie.actors_list = actors;
-            movie.title = alt_title;
+            movie.actors_list = Util.replaceSpecialChar(actors);
+            movie.title = Util.replaceSpecialChar(alt_title);
             movie.length = length;
             movie.year = year;
-            movie.region = region;
+            movie.region = Util.replaceSpecialChar(region);
             movie.rateNumber = rateNumber;
             movie.id = link.Substring(Movie.movieLinkHeader.Length, link.Length - 1 - Movie.movieLinkHeader.Length);
             movie.star = Util.getStarPath(movie.rating);

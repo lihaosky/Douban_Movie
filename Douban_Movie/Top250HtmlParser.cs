@@ -40,11 +40,7 @@ namespace PanoramaApp2
                 doc.LoadHtml(page);
                 HtmlNodeCollection nodeCollection = doc.DocumentNode.SelectNodes("//div[@class='item']");
                 List<Movie> movieList = new List<Movie>();
-                if (nodeCollection == null)
-                {
-                    System.Diagnostics.Debug.WriteLine("null collection!");
-                }
-                else
+                if (nodeCollection != null)
                 {
                     foreach (HtmlNode node in nodeCollection)
                     {
@@ -96,19 +92,19 @@ namespace PanoramaApp2
             try
             {
                 HtmlNode linkNode = node.SelectNodes("div[@class='pic']")[0].SelectNodes("a")[0];
-                string link = linkNode.Attributes["href"].Value;
+                string link = linkNode.Attributes["href"].Value.Trim();
                 id = link.Substring(Movie.movieLinkHeader.Length, link.Length - 1 - Movie.movieLinkHeader.Length);
                 HtmlNode imgNode = linkNode.SelectNodes("img")[0];
-                posterUrl = imgNode.Attributes["src"].Value;
-                title = imgNode.Attributes["alt"].Value;
+                posterUrl = imgNode.Attributes["src"].Value.Trim();
+                title = imgNode.Attributes["alt"].Value.Trim();
                 HtmlNode bdNode = node.SelectNodes("div[@class='info']")[0].SelectNodes("div[@class='bd']")[0];
                 HtmlNodeCollection ratingNodes = bdNode.SelectNodes("div[@class='star']")[0].SelectNodes("span[@class='rating5-t']");
                 if (ratingNodes == null)
                 {
                     ratingNodes = bdNode.SelectNodes("div[@class='star']")[0].SelectNodes("span[@class='rating45-t']");
                 }
-                rating = ratingNodes[0].SelectNodes("em")[0].InnerText;
-                quote = bdNode.SelectNodes("p[@class='quote']")[0].SelectNodes("span")[0].InnerText;
+                rating = ratingNodes[0].SelectNodes("em")[0].InnerText.Trim();
+                quote = bdNode.SelectNodes("p[@class='quote']")[0].SelectNodes("span")[0].InnerText.Trim();
             }
             catch (System.NullReferenceException)
             {
@@ -121,11 +117,11 @@ namespace PanoramaApp2
 
             Movie movie = new Movie();
             movie.id = id;
-            movie.title = title;
+            movie.title = Util.replaceSpecialChar(title);
             movie.rating = rating;
             movie.star = Util.getStarPath(rating);
             movie.posterUrl = posterUrl;
-            movie.quote = quote;
+            movie.quote = Util.replaceSpecialChar(quote);
             return movie;
         }
     }

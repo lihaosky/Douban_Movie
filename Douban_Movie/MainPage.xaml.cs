@@ -40,6 +40,12 @@ namespace PanoramaApp2
             USBoxJsonParser.usboxLongListSelector = usboxLongListSelector;
             USBoxJsonParser.parseUSBox();
 
+            // Get hot review
+            hotReviewLongListSelector.ItemsSource = HotReviewHtmlParser.reviewCollection;
+            HotReviewHtmlParser.buttonText = loadReviewText;
+            HotReviewHtmlParser.loadmoreButton = loadMoreReviewButton;
+            HotReviewHtmlParser.parseHotReview(new ProgressIndicator());
+
             // Create an application bar
             ApplicationBar = new ApplicationBar();
 
@@ -129,6 +135,19 @@ namespace PanoramaApp2
             Top250HtmlParser.parseTop250(indicator);
         }
 
+        private void loadReviewMoreButton_Click(object sender, RoutedEventArgs e)
+        {
+            loadMoreReviewButton.IsEnabled = false;
+            SystemTray.Opacity = 0;
+            SystemTray.IsVisible = true;
+            ProgressIndicator indicator = new ProgressIndicator();
+            SystemTray.ProgressIndicator = indicator;
+            SystemTray.ProgressIndicator.IsIndeterminate = true;
+            SystemTray.ProgressIndicator.Text = "加载中...";
+            SystemTray.ProgressIndicator.IsVisible = true;
+            HotReviewHtmlParser.parseHotReview(indicator);
+        }
+
         private void latestListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (latestListSelector != null && latestListSelector.SelectedItem != null)
@@ -138,6 +157,11 @@ namespace PanoramaApp2
                 NavigationService.Navigate(new Uri("/MoviePage.xaml", UriKind.Relative));
                 latestListSelector.SelectedItem = null;
             }
+        }
+
+        private void hotReviewLongListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
