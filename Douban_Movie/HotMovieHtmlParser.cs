@@ -73,6 +73,7 @@ namespace PanoramaApp2
                         try
                         {
                             movie = getHotMovie(movieNode);
+                            System.Diagnostics.Debug.WriteLine(movie.posterUrl + " " + movie.title);
                         }
                         catch (Exception)
                         {
@@ -131,6 +132,7 @@ namespace PanoramaApp2
                         break;
                     }
                 }
+
                 alt_title = imgNode.Attributes["alt"].Value.Trim();
             }
             catch (System.NullReferenceException)

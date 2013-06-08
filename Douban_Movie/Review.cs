@@ -3,21 +3,128 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace PanoramaApp2
 {
     class Review
     {
-        public string id { get; set; }
-        public string title { get; set; }
-        public string review { get; set; }
-        public string reviewer { get; set; }
-        public string date { get; set; }
-        public string movieId { get; set; }
-        public string movieName { get; set; }
-        public string star { get; set; }
+        private string _id;
+        public string id 
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                _id = value;
+                NotifyPropertyChanged("id");
+            }
+        }
+        private string _title;
+        public string title 
+        {
+            get
+            {
+                return _title;
+            }
+            set
+            {
+                _title = value;
+                NotifyPropertyChanged("title");
+            }
+        }
+        private string _review;
+        public string review 
+        {
+            get
+            {
+                return _review;
+            }
+            set
+            {
+                _review = value;
+                NotifyPropertyChanged("review");
+            }
+        }
+        private string _reviewer;
+        public string reviewer
+        {
+            get
+            {
+                return _review;
+            }
+            set
+            {
+                _review = value;
+                NotifyPropertyChanged("revewer");
+            }
+        }
+        private string _date;
+        public string date 
+        {
+            get
+            {
+                return _date;
+            }
+            set
+            {
+                _date = value;
+                NotifyPropertyChanged("date");
+            }
+        }
+        private string _movieId;
+        public string movieId 
+        {
+            get
+            {
+                return _movieId;
+            }
+            set
+            {
+                _movieId = value;
+                NotifyPropertyChanged("movieId");
+            }
+        }
+        private string _movieName;
+        public string movieName 
+        {
+            get
+            {
+                return _movieId;
+            }
+            set
+            {
+                _movieId = value;
+                NotifyPropertyChanged("movieName");
+            }
+        }
+        private string _star;
+        public string star {
+            get
+            {
+                return _star;
+            }
+            set
+            {
+                _star = value;
+                NotifyPropertyChanged("star");
+            }
+        }
 
         public static string reviewLinkHeader = "http://movie.douban.com/review/";
         public static string hotReviewHeader = "http://movie.douban.com/review/best/";
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        // NotifyPropertyChanged will raise the PropertyChanged event, 
+        // passing the source property that is being updated.
+        public void NotifyPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
     }
 }
