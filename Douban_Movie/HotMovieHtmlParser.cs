@@ -73,7 +73,6 @@ namespace PanoramaApp2
                         try
                         {
                             movie = getHotMovie(movieNode);
-                            System.Diagnostics.Debug.WriteLine(movie.posterUrl + " " + movie.title);
                         }
                         catch (Exception)
                         {

@@ -148,24 +148,22 @@
                     <phone:LongListSelector Margin="12,-12,0,0" Name="hotReviewLongListSelector" SelectionChanged="hotReviewLongListSelector_SelectionChanged" Grid.Row="0">
                         <phone:LongListSelector.ItemTemplate>
                             <DataTemplate>
-                                <Border BorderBrush="#E5E4E2" BorderThickness="0, 0, 0, 1">
-                                    <StackPanel Margin="0,24,0,6" Orientation="Vertical" Height="auto" Width="auto">
-                                        <Border Background="#82CAFF">
-                                            <TextBlock Text="{Binding title}" Margin="0, 0, 0, 0" TextWrapping="Wrap" Foreground="White" FontSize="{StaticResource PhoneFontSizeMedium}" VerticalAlignment="Top" Width="auto" HorizontalAlignment="Left"/>
-                                        </Border>
-                                        <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 0">
-                                            <TextBlock Text="{Binding reviewer}" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" Margin="0, 0, 0, 5" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                            <Image Source="{Binding star}" Width="130" Height="auto" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0, 0, 0, 0"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal" Margin="-12, -6, 0, 12">
-                                            <TextBlock Text="电影: " Style="{StaticResource PhoneTextSmallStyle}" Foreground="White" HorizontalAlignment="Left" />
-                                            <TextBlock Text="{Binding movieName}" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" TextWrapping="Wrap"  Margin="0, 0, 0, 0" HorizontalAlignment="Left"/>
-                                        </StackPanel>
-                                        <TextBlock Text="{Binding review}" TextWrapping="Wrap" Width="auto"/>
-                                        <TextBlock Text="{Binding id}" TextWrapping="Wrap" Visibility="Collapsed"/>
-                                        <TextBlock Text="{Binding movieId}" TextWrapping="Wrap" Visibility="Collapsed"/>
+                                <StackPanel Margin="0,24,0,6" Orientation="Vertical" Height="auto" Width="auto">
+                                    <Border Background="#82CAFF">
+                                        <TextBlock Text="{Binding title}" Margin="0, 0, 0, 0" TextWrapping="Wrap" Foreground="White" FontSize="{StaticResource PhoneFontSizeMedium}" VerticalAlignment="Top" Width="auto" HorizontalAlignment="Left"/>
+                                    </Border>
+                                    <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 0">
+                                        <TextBlock Text="{Binding reviewer}" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" Margin="0, 0, 0, 5" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                        <Image Source="{Binding star}" Width="130" Height="auto" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0, 0, 0, 0"/>
                                     </StackPanel>
-                                </Border>
+                                    <StackPanel Orientation="Horizontal" Margin="-12, -6, 0, 12">
+                                        <TextBlock Text="电影: " Style="{StaticResource PhoneTextSmallStyle}" Foreground="White" HorizontalAlignment="Left" />
+                                        <TextBlock Text="{Binding movieName}" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" TextWrapping="Wrap"  Margin="0, 0, 0, 0" HorizontalAlignment="Left"/>
+                                    </StackPanel>
+                                    <TextBlock Text="{Binding review}" TextWrapping="Wrap" Width="auto"/>
+                                    <TextBlock Text="{Binding id}" TextWrapping="Wrap" Visibility="Collapsed"/>
+                                    <TextBlock Text="{Binding movieId}" TextWrapping="Wrap" Visibility="Collapsed"/>
+                                </StackPanel>
                             </DataTemplate>
                         </phone:LongListSelector.ItemTemplate>
                     </phone:LongListSelector>

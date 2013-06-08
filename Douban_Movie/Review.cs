@@ -53,11 +53,11 @@ namespace PanoramaApp2
         {
             get
             {
-                return _review;
+                return _reviewer;
             }
             set
             {
-                _review = value;
+                _reviewer = value;
                 NotifyPropertyChanged("revewer");
             }
         }
@@ -92,11 +92,11 @@ namespace PanoramaApp2
         {
             get
             {
-                return _movieId;
+                return _movieName;
             }
             set
             {
-                _movieId = value;
+                _movieName = value;
                 NotifyPropertyChanged("movieName");
             }
         }
