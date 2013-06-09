@@ -48,6 +48,19 @@ namespace PanoramaApp2
                 NotifyPropertyChanged("review");
             }
         }
+        private string _reviewShort = "";
+        public string reviewShort
+        {
+            get
+            {
+                return _reviewShort;
+            }
+            set
+            {
+                _reviewShort = value;
+                NotifyPropertyChanged("reviewShort");
+            }
+        }
         private string _reviewer = "";
         public string reviewer
         {

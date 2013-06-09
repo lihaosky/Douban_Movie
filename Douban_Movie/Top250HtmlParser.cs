@@ -10,6 +10,7 @@ using Microsoft.Phone.Controls;
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
 using Microsoft.Phone.Shell;
+using System.Windows;
 
 namespace PanoramaApp2
 {
@@ -27,7 +28,6 @@ namespace PanoramaApp2
             WebClient client = new WebClient();
             client.DownloadStringCompleted += downloadTop250Completed;
             client.DownloadStringAsync(new Uri(Movie.top250 + "?start=" + currentIndex * 25 + "&format="));
-            
         }
 
         public static void downloadTop250Completed(object sender, DownloadStringCompletedEventArgs e)
@@ -38,7 +38,6 @@ namespace PanoramaApp2
                 HtmlDocument doc = new HtmlDocument();
                 doc.LoadHtml(page);
                 HtmlNodeCollection nodeCollection = doc.DocumentNode.SelectNodes("//div[@class='item']");
-                List<Movie> movieList = new List<Movie>();
                 if (nodeCollection != null)
                 {
                     foreach (HtmlNode node in nodeCollection)
@@ -52,12 +51,8 @@ namespace PanoramaApp2
                         {
                             continue;
                         }
-                        movieList.Add(movie);
+                        observableMovieList.Add(movie);
                     }
-                }
-                foreach (Movie movie in movieList)
-                {
-                    observableMovieList.Add(movie);
                 }
                 if (indicator != null)
                 {
@@ -74,6 +69,15 @@ namespace PanoramaApp2
                 {
                     loadMoreButton.IsEnabled = true;
                 }
+            }
+            else
+            {
+                MessageBoxResult result = MessageBox.Show("无法连接到豆瓣网,请检查网络连接", "", MessageBoxButton.OK);
+                if (indicator != null)
+                {
+                    indicator.IsVisible = false;
+                }
+                SystemTray.IsVisible = false;
             }
         }
 

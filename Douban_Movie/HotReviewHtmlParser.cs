@@ -10,6 +10,7 @@ using Microsoft.Phone.Controls;
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
 using Microsoft.Phone.Shell;
+using System.Windows;
 
 namespace PanoramaApp2
 {
@@ -37,10 +38,9 @@ namespace PanoramaApp2
                 HtmlDocument doc = new HtmlDocument();
                 doc.LoadHtml(page);
                 HtmlNodeCollection nodeCollction = doc.DocumentNode.SelectNodes("//ul[@class='tlst clearfix']");
-                List<Review> reviewList = new List<Review>();
                 if (nodeCollction != null)
                 {
-                    
+
                     foreach (HtmlNode node in nodeCollction)
                     {
                         Review review;
@@ -52,16 +52,13 @@ namespace PanoramaApp2
                         {
                             continue;
                         }
-                        reviewList.Add(review);
-                    }
-                    foreach (Review review in reviewList)
-                    {
                         reviewCollection.Add(review);
                     }
-                    if (indicator != null) {
+                    if (indicator != null)
+                    {
                         indicator.IsVisible = false;
                     }
-                    SystemTray.IsVisible= false;
+                    SystemTray.IsVisible = false;
                     HtmlNodeCollection nextLinkNode = doc.DocumentNode.SelectNodes("//span[@class='next']")[0].SelectNodes("a");
                     if (nextLinkNode == null)
                     {
@@ -73,8 +70,26 @@ namespace PanoramaApp2
                         nextLink = nextLinkNode[0].Attributes["href"].Value;
                         loadmoreButton.IsEnabled = true;
                     }
-                    
                 }
+                else
+                {
+                    if (indicator != null)
+                    {
+                        indicator.IsVisible = false;
+                    }
+                    SystemTray.IsVisible = false;
+                    loadmoreButton.IsEnabled = false;
+                    buttonText.Text = "完了:-)";
+                }
+            }
+            else
+            {
+                MessageBoxResult result = MessageBox.Show("无法连接到豆瓣网,请检查网络连接", "", MessageBoxButton.OK);
+                if (indicator != null)
+                {
+                    indicator.IsVisible = false;
+                }
+                SystemTray.IsVisible = false;
             }
         }
 
@@ -118,7 +133,7 @@ namespace PanoramaApp2
             Review r = new Review();
             r.title = Util.formatShortReview(title);
             r.id = id;
-            r.review = Util.formatShortReview(review);
+            r.reviewShort = Util.formatShortReview(review);
             r.reviewer = Util.replaceSpecialChar(reviewer);
             r.movieId = movieId;
             r.movieName = Util.replaceSpecialChar(movieName);

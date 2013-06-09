@@ -9,7 +9,7 @@ namespace PanoramaApp2
 {
     class ShortReview : INotifyPropertyChanged
     {
-        private string _author;
+        private string _author = "";
         public string author
         {
             get
@@ -22,7 +22,7 @@ namespace PanoramaApp2
                 NotifyPropertyChanged("author");
             }
         }
-        private string _star;
+        private string _star = "";
         public string star
         {
             get
@@ -35,7 +35,7 @@ namespace PanoramaApp2
                 NotifyPropertyChanged("star");
             }
         }
-        private string _time;
+        private string _time = "";
         public string time
         {
             get
@@ -48,7 +48,7 @@ namespace PanoramaApp2
                 NotifyPropertyChanged("time");
             }
         }
-        private string _content;
+        private string _content = "";
         public string content
         {
             get

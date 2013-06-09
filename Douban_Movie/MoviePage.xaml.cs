@@ -14,10 +14,18 @@ namespace PanoramaApp2
     public partial class MoviePage : PhoneApplicationPage
     {
         private MovieJsonParser movieParser;
+        private bool shortReviewLoaded;
+        private bool reviewLoaded;
+        private Movie movie;
+        private ShortReviewHtmlParser shortReviewParser = null;
+        private ReviewParser reviewParser = null;
 
         public MoviePage()
         {
             InitializeComponent();
+            shortReviewLoaded = false;
+            reviewLoaded = false;
+            movie = App.moviePassed;
             this.Loaded += page_loaded;
         }
 
@@ -30,7 +38,6 @@ namespace PanoramaApp2
             SystemTray.ProgressIndicator.IsIndeterminate = true;
             SystemTray.ProgressIndicator.Text = "加载中...";
             SystemTray.ProgressIndicator.IsVisible = true;
-            Movie movie = App.moviePassed;
             if (movie == null)
             {
                 System.Diagnostics.Debug.WriteLine("Shouldn't be null!");
@@ -57,13 +64,110 @@ namespace PanoramaApp2
         {
             if (movieParser != null)
             {
-                movieParser.cancelDownLoad();
+                movieParser.cancelDownload();
             }
+            if (shortReviewParser != null)
+            {
+                shortReviewParser.cancelDownload();
+            }
+            if (reviewParser != null)
+            {
+                reviewParser.cancelDownload();
+            }
+        }
+
+        private void loadShortReview() 
+        {
+            loadMoreButton.IsEnabled = false;
+            SystemTray.Opacity = 0;
+            SystemTray.IsVisible = true;
+            ProgressIndicator indicator = new ProgressIndicator();
+            SystemTray.ProgressIndicator = indicator;
+            SystemTray.ProgressIndicator.IsIndeterminate = true;
+            SystemTray.ProgressIndicator.Text = "加载中...";
+            SystemTray.ProgressIndicator.IsVisible = true;
+            movie.nextShortReviewLink = Movie.movieLinkHeader + movie.id + "/comments";
+            shortReviewParser = new ShortReviewHtmlParser(movie);
+            shortReviewParser.button = loadMoreButton;
+            shortReviewParser.text = loadText;
+            shortReviewSelector.ItemsSource = shortReviewParser.shortReviewCollection;
+            shortReviewParser.parseShortReview();
+        }
+
+        private void loadReview()
+        {
+            loadMoreReviewButton.IsEnabled = false;
+            SystemTray.Opacity = 0;
+            SystemTray.IsVisible = true;
+            ProgressIndicator indicator = new ProgressIndicator();
+            SystemTray.ProgressIndicator = indicator;
+            SystemTray.ProgressIndicator.IsIndeterminate = true;
+            SystemTray.ProgressIndicator.Text = "加载中...";
+            SystemTray.ProgressIndicator.IsVisible = true;
+            movie.nextReviewLink = Movie.movieLinkHeader + movie.id + "/reviews";
+            reviewParser = new ReviewParser(movie);
+            reviewParser.button = loadMoreReviewButton;
+            reviewParser.text = loadReviewText;
+            reviewLongListSelector.ItemsSource = reviewParser.reviewCollection;
+            reviewParser.parseReview();
         }
 
         private void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            int index = ((Pivot)sender).SelectedIndex;
+            if (index == 2)
+            {
+                if (shortReviewLoaded == false)
+                {
+                    shortReviewLoaded = true;
+                    loadShortReview();
+                }
+            }
+            if (index == 3)
+            {
+                if (reviewLoaded == false)
+                {
+                    reviewLoaded = true;
+                    loadReview();
+                }
+            }
+        }
 
+        private void loadMoreButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (shortReviewParser != null)
+            {
+                loadMoreButton.IsEnabled = false;
+                SystemTray.Opacity = 0;
+                SystemTray.IsVisible = true;
+                ProgressIndicator indicator = new ProgressIndicator();
+                SystemTray.ProgressIndicator = indicator;
+                SystemTray.ProgressIndicator.IsIndeterminate = true;
+                SystemTray.ProgressIndicator.Text = "加载中...";
+                SystemTray.ProgressIndicator.IsVisible = true;
+                shortReviewParser.parseShortReview();
+            }
+        }
+
+        private void reviewLongListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void loadMoreReviewButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (reviewParser != null)
+            {
+                loadMoreReviewButton.IsEnabled = false;
+                SystemTray.Opacity = 0;
+                SystemTray.IsVisible = true;
+                ProgressIndicator indicator = new ProgressIndicator();
+                SystemTray.ProgressIndicator = indicator;
+                SystemTray.ProgressIndicator.IsIndeterminate = true;
+                SystemTray.ProgressIndicator.Text = "加载中...";
+                SystemTray.ProgressIndicator.IsVisible = true;
+                reviewParser.parseReview();
+            }
         }
     }
 }

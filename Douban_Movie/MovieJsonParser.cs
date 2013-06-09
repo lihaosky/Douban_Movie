@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Microsoft.Phone.Shell;
 using Microsoft.Phone.Controls;
+using System.Windows;
 
 namespace PanoramaApp2
 {
@@ -100,7 +101,7 @@ namespace PanoramaApp2
                     people.name = JsonParser.getValue(array[i], "name");
                     people.positionName = "导演";
                     people.position = People.DIRECTOR;
-                    peoples.Add(people); 
+                    peoples.Add(people);
                 }
                 array = (JArray)obj["casts"];
                 for (int i = 0; i < array.Count; i++)
@@ -121,9 +122,18 @@ namespace PanoramaApp2
                 }
                 SystemTray.IsVisible = false;
             }
+            else
+            {
+
+                if (SystemTray.ProgressIndicator != null)
+                {
+                    SystemTray.ProgressIndicator.IsVisible = false;
+                }
+                SystemTray.IsVisible = false;
+            }
         }
 
-        public void cancelDownLoad()
+        public void cancelDownload()
         {
             if (client != null)
             {

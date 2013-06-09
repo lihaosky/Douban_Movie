@@ -12,6 +12,7 @@ using System.Collections.ObjectModel;
 using Microsoft.Phone.Shell;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Windows;
 
 namespace PanoramaApp2
 {
@@ -47,6 +48,15 @@ namespace PanoramaApp2
                     movieList.Add(movie);
                 }
                 usboxLongListSelector.ItemsSource = movieList;
+                if (indicator != null)
+                {
+                    indicator.IsVisible = false;
+                }
+                SystemTray.IsVisible = false;
+            }
+            else
+            {
+                MessageBoxResult result = MessageBox.Show("无法连接到豆瓣网,请检查网络连接", "", MessageBoxButton.OK);
                 if (indicator != null)
                 {
                     indicator.IsVisible = false;

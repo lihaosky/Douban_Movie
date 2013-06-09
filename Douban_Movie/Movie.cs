@@ -198,6 +198,54 @@ namespace PanoramaApp2
                 NotifyPropertyChanged("releaseDate");
             }
         }
+        private string _nextShortReviewLink = "";
+        public string nextShortReviewLink
+        {
+            get
+            {
+                return _nextShortReviewLink;
+            }
+            set
+            {
+                _nextShortReviewLink = value;
+            }
+        }
+        private bool _hasMoreShortReview;
+        public bool hasMoreShortReview
+        {
+            get
+            {
+                return _hasMoreShortReview;
+            }
+            set
+            {
+                _hasMoreShortReview = value;
+            }
+        }
+        private string _nextReviewLink;
+        public string nextReviewLink
+        {
+            get
+            {
+                return _nextReviewLink;
+            }
+            set
+            {
+                _nextReviewLink = value;
+            }
+        }
+        private bool _hasMoreReview;
+        public bool hasMoreReview
+        {
+            get
+            {
+                return _hasMoreReview;
+            }
+            set
+            {
+                _hasMoreReview = value;
+            }
+        }
         public static string movieLinkHeader = "http://movie.douban.com/subject/";
         public static string apiMovieHeader = "http://api.douban.com/v2/movie/subject/";
         public static string apiUSBoxHeader = "http://api.douban.com/v2/movie/us_box";

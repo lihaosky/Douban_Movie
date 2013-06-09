@@ -118,7 +118,9 @@
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Review.cs" />
+    <Compile Include="ReviewParser.cs" />
     <Compile Include="ShortReview.cs" />
+    <Compile Include="ShortReviewHtmlParser.cs" />
     <Compile Include="Top250HtmlParser.cs" />
     <Compile Include="USBoxJsonParser.cs" />
     <Compile Include="Util.cs" />

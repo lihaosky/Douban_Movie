@@ -37,7 +37,7 @@
             <!--pivot item one-->
             <phone:PivotItem Header="{Binding Path=LocalizedResources.HotPivot, Source={StaticResource LocalizedStrings}}" Foreground="White" Margin="12, 24, 12, 0">
                 <!--Single line list with text wrapping-->
-                    <phone:LongListSelector Margin="0,0,0,0" Name="hotLongListSelector" SelectionChanged="hotLongListSelector_SelectionChanged">
+                    <phone:LongListSelector Margin="0,0,0,24" Name="hotLongListSelector" SelectionChanged="hotLongListSelector_SelectionChanged">
                         <phone:LongListSelector.ItemTemplate>
                             <DataTemplate>
                             <Border BorderThickness="0, 0, 0, 1" BorderBrush="White">
@@ -62,7 +62,7 @@
             <!--pivot item two-->
             <phone:PivotItem Header="{Binding Path=LocalizedResources.ComingPivot, Source={StaticResource LocalizedStrings}}" Foreground="White" Margin="0, 0, 0, 0">
                 <!--Single line list with text wrapping-->
-                <phone:LongListSelector Margin="12,24,12,0" Name="latestListSelector" SelectionChanged="latestListSelector_SelectionChanged">
+                <phone:LongListSelector Margin="12,24,12,24" Name="latestListSelector" SelectionChanged="latestListSelector_SelectionChanged">
                     <phone:LongListSelector.ItemTemplate>
                         <DataTemplate>
                             <Border BorderThickness="0, 0, 0, 1" BorderBrush="White">
@@ -84,7 +84,7 @@
             
             <!--pivot item three-->
             <phone:PivotItem Header="{Binding Path=LocalizedResources.TopPivot, Source={StaticResource LocalizedStrings}}" Foreground="White" Margin="0, 0, 0, 0">
-                <Grid Margin="12, 24, 12, 0">
+                <Grid Margin="12, 24, 12, 12">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="auto"/>
@@ -119,7 +119,7 @@
             <!--pivot item four-->
             <phone:PivotItem Header="{Binding Path=LocalizedResources.USPivot, Source={StaticResource LocalizedStrings}}" Foreground="White" Margin="12, 24, 12, 0">
                 <!--Single line list with text wrapping-->
-                <phone:LongListSelector Margin="0,0,0,0" Name="usboxLongListSelector" SelectionChanged="usboxLongListSelector_SelectionChanged">
+                <phone:LongListSelector Margin="0,0,0,24" Name="usboxLongListSelector" SelectionChanged="usboxLongListSelector_SelectionChanged">
                     <phone:LongListSelector.ItemTemplate>
                         <DataTemplate>
                             <Border BorderThickness="0, 0, 0, 1" BorderBrush="White">
@@ -146,7 +146,7 @@
 
             <!--pivot item five-->
             <phone:PivotItem Header="{Binding Path=LocalizedResources.HotReviewPivot, Source={StaticResource LocalizedStrings}}" Foreground="White" Margin="0, 0, 0, 0">
-                <Grid Margin="12, 24, 12, 0">
+                <Grid Margin="12, 24, 12, 12">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="auto"/>
@@ -156,7 +156,7 @@
                         <phone:LongListSelector.ItemTemplate>
                             <DataTemplate>
                                 <Border BorderThickness="0, 0, 0, 1" BorderBrush="White">
-                                    <StackPanel Margin="0,24,0,6" Orientation="Vertical" Height="auto" Width="auto">
+                                    <StackPanel Margin="0,24,0,24" Orientation="Vertical" Height="auto" Width="auto">
                                         <Border Background="#82CAFF">
                                             <TextBlock Text="{Binding title}" Margin="0, 0, 0, 0" TextWrapping="Wrap" Foreground="White" FontSize="{StaticResource PhoneFontSizeMedium}" VerticalAlignment="Top" Width="auto" HorizontalAlignment="Left"/>
                                         </Border>
@@ -168,7 +168,7 @@
                                             <TextBlock Text="电影: " Style="{StaticResource PhoneTextSmallStyle}" Foreground="White" HorizontalAlignment="Left" />
                                             <TextBlock Text="{Binding movieName}" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" TextWrapping="Wrap"  Margin="0, 0, 0, 0" HorizontalAlignment="Left"/>
                                         </StackPanel>
-                                        <TextBlock Text="{Binding review}" TextWrapping="Wrap" Width="auto"/>
+                                        <TextBlock Text="{Binding reviewShort}" TextWrapping="Wrap" Width="auto" Foreground="White"/>
                                         <TextBlock Text="{Binding id}" TextWrapping="Wrap" Visibility="Collapsed"/>
                                         <TextBlock Text="{Binding movieId}" TextWrapping="Wrap" Visibility="Collapsed"/>
                                     </StackPanel>
