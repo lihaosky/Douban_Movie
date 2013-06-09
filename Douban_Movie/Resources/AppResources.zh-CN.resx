@@ -131,4 +131,19 @@
   <data name="SampleProperty" xml:space="preserve">
     <value>Sample Runtime Property Value</value>
   </data>
+  <data name="ComingPivot" xml:space="preserve">
+    <value>即将上映</value>
+  </data>
+  <data name="HotPivot" xml:space="preserve">
+    <value>正在热播</value>
+  </data>
+  <data name="HotReviewPivot" xml:space="preserve">
+    <value>热门影评</value>
+  </data>
+  <data name="TopPivot" xml:space="preserve">
+    <value>电影 Top 250</value>
+  </data>
+  <data name="USPivot" xml:space="preserve">
+    <value>北美票房榜</value>
+  </data>
 </root>

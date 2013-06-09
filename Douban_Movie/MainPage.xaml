@@ -8,7 +8,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     mc:Ignorable="d"
-    d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -33,10 +32,10 @@
             <Image Source="/DoubanMovie;component/Assets/search.png" Height="60" Width="60" Grid.Column="1" Margin="150, 0, 0, 0"/>
         </Grid>
         
-        <!--Panorama control-->
+        <!--Pivot control-->
         <phone:Pivot Margin="0,-24,0,0" Grid.RowSpan="1" Background="#1BA8E0" Grid.Row="1" HeaderTemplate="{StaticResource MyPivotItemHeaderTemplate}" SelectionChanged="Pivot_SelectionChanged">
-            <!--Panorama item one-->
-            <phone:PivotItem Header="正在热播" Foreground="White" Margin="12, 24, 12, 0">
+            <!--pivot item one-->
+            <phone:PivotItem Header="{Binding Path=LocalizedResources.HotPivot, Source={StaticResource LocalizedStrings}}" Foreground="White" Margin="12, 24, 12, 0">
                 <!--Single line list with text wrapping-->
                     <phone:LongListSelector Margin="0,0,0,0" Name="hotLongListSelector" SelectionChanged="hotLongListSelector_SelectionChanged">
                         <phone:LongListSelector.ItemTemplate>
@@ -60,8 +59,8 @@
                     </phone:LongListSelector>
             </phone:PivotItem>
             
-            <!--Panorama item two-->
-            <phone:PivotItem Header="即将上映" Foreground="White" Margin="0, 0, 0, 0">
+            <!--pivot item two-->
+            <phone:PivotItem Header="{Binding Path=LocalizedResources.ComingPivot, Source={StaticResource LocalizedStrings}}" Foreground="White" Margin="0, 0, 0, 0">
                 <!--Single line list with text wrapping-->
                 <phone:LongListSelector Margin="12,24,12,0" Name="latestListSelector" SelectionChanged="latestListSelector_SelectionChanged">
                     <phone:LongListSelector.ItemTemplate>
@@ -83,8 +82,8 @@
                 </phone:LongListSelector>
             </phone:PivotItem>
             
-            <!--Panorama item three-->
-            <phone:PivotItem Header="电影 TOP 250" Foreground="White" Margin="0, 0, 0, 0">
+            <!--pivot item three-->
+            <phone:PivotItem Header="{Binding Path=LocalizedResources.TopPivot, Source={StaticResource LocalizedStrings}}" Foreground="White" Margin="0, 0, 0, 0">
                 <Grid Margin="12, 24, 12, 0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -117,8 +116,8 @@
                 </Grid>
             </phone:PivotItem>
             
-            <!--Panorama item four-->
-            <phone:PivotItem Header="北美票房榜" Foreground="White" Margin="12, 24, 12, 0">
+            <!--pivot item four-->
+            <phone:PivotItem Header="{Binding Path=LocalizedResources.USPivot, Source={StaticResource LocalizedStrings}}" Foreground="White" Margin="12, 24, 12, 0">
                 <!--Single line list with text wrapping-->
                 <phone:LongListSelector Margin="0,0,0,0" Name="usboxLongListSelector" SelectionChanged="usboxLongListSelector_SelectionChanged">
                     <phone:LongListSelector.ItemTemplate>
@@ -145,8 +144,8 @@
                 </phone:LongListSelector>
             </phone:PivotItem>
 
-            <!--Panorama item five-->
-            <phone:PivotItem Header="热门影评" Foreground="White" Margin="0, 0, 0, 0">
+            <!--pivot item five-->
+            <phone:PivotItem Header="{Binding Path=LocalizedResources.HotReviewPivot, Source={StaticResource LocalizedStrings}}" Foreground="White" Margin="0, 0, 0, 0">
                 <Grid Margin="12, 24, 12, 0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>

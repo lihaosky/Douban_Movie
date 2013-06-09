@@ -70,6 +70,33 @@ namespace PanoramaApp2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Upcoming.
+        /// </summary>
+        public static string ComingPivot {
+            get {
+                return ResourceManager.GetString("ComingPivot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hot.
+        /// </summary>
+        public static string HotPivot {
+            get {
+                return ResourceManager.GetString("HotPivot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hot Review.
+        /// </summary>
+        public static string HotReviewPivot {
+            get {
+                return ResourceManager.GetString("HotReviewPivot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LeftToRight.
         /// </summary>
         public static string ResourceFlowDirection {
@@ -93,6 +120,24 @@ namespace PanoramaApp2.Resources {
         public static string SampleProperty {
             get {
                 return ResourceManager.GetString("SampleProperty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Movie Top 250.
+        /// </summary>
+        public static string TopPivot {
+            get {
+                return ResourceManager.GetString("TopPivot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to US Box Office.
+        /// </summary>
+        public static string USPivot {
+            get {
+                return ResourceManager.GetString("USPivot", resourceCulture);
             }
         }
     }

@@ -86,6 +86,30 @@
                     </phone:LongListSelector>
                 </Grid>
             </phone:PivotItem>
+
+            <phone:PivotItem Header="短评">
+                <Grid Margin="24, -12, 24, 24">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <phone:LongListSelector x:Name="shortReviewSelector">
+                        <phone:LongListSelector.ItemTemplate>
+                            <DataTemplate>
+                                <Border>
+                                    <StackPanel Orientation="Vertical" Margin="0, 12, 0, 0">
+                                        <TextBlock Text="{Binding author}" Foreground="White"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="{Binding star}"/>
+                                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding time}" Margin="0, 0, 0, 0" TextWrapping="Wrap" Style="{StaticResource PhoneTextSmallStyle}" Width="auto"/>
+                                        </StackPanel>
+                                        <TextBlock Text="{Binding content}" TextWrapping="Wrap" Width="auto" HorizontalAlignment="Left"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </phone:LongListSelector.ItemTemplate>
+                    </phone:LongListSelector>
+                </Grid>
+            </phone:PivotItem>
         </phone:Pivot>
     </Grid>
 

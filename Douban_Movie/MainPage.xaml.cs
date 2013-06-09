@@ -24,7 +24,7 @@ namespace PanoramaApp2
         {
             InitializeComponent();
             showPopup();
-
+            
             // Get hot movie
             HotMovieHtmlParser.selector = hotLongListSelector;
             HotMovieHtmlParser.popup = popup;
@@ -47,6 +47,8 @@ namespace PanoramaApp2
             ApplicationBarMenuItem menuItem3 = new ApplicationBarMenuItem();
             menuItem3.Text = "关于";
             ApplicationBar.MenuItems.Add(menuItem3);
+
+           
         }
 
         private void showPopup()

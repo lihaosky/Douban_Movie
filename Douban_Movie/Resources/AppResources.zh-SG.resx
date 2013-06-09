@@ -122,7 +122,7 @@
     <comment>Controls the FlowDirection for all elements in the RootFrame. Set to the traditional direction of this resource file's language</comment>
   </data>
   <data name="ResourceLanguage" xml:space="preserve">
-    <value>zh-Hans</value>
+    <value>zh-SG</value>
     <comment>Controls the Language and ensures that the font for all elements in the RootFrame aligns with the app's language. Set to the language code of this resource file's language.</comment>
   </data>
   <data name="ApplicationTitle" xml:space="preserve">
@@ -137,7 +137,7 @@
   <data name="HotPivot" xml:space="preserve">
     <value>正在热播</value>
   </data>
-  <data name="HotRevewPivot" xml:space="preserve">
+  <data name="HotReviewPivot" xml:space="preserve">
     <value>热门影评</value>
   </data>
   <data name="TopPivot" xml:space="preserve">
