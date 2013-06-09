@@ -95,6 +95,7 @@
     </Compile>
     <Compile Include="HotMovieHtmlParser.cs" />
     <Compile Include="HotReviewHtmlParser.cs" />
+    <Compile Include="JsonParser.cs" />
     <Compile Include="LatestHtmlParser.cs" />
     <Compile Include="MovieJsonParser.cs" />
     <Compile Include="Movie.cs" />
@@ -108,6 +109,8 @@
     <Compile Include="MoviePage.xaml.cs">
       <DependentUpon>MoviePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="People.cs" />
+    <Compile Include="PeopleJsonParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\AppResources.Designer.cs">
       <AutoGen>True</AutoGen>

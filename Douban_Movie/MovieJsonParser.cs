@@ -9,6 +9,7 @@ using Newtonsoft.Json.Linq;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Microsoft.Phone.Shell;
+using Microsoft.Phone.Controls;
 
 namespace PanoramaApp2
 {
@@ -27,6 +28,7 @@ namespace PanoramaApp2
         public HyperlinkButton trailer { get; set; }
         public HyperlinkButton theater { get; set; }
         public TextBlock summary { get; set; }
+        public LongListSelector peopleList { get; set; }
         public WebClient client;
 
         public void getMovieByID()
@@ -42,31 +44,37 @@ namespace PanoramaApp2
             {
                 string data = e.Result;
                 JObject obj = JObject.Parse(data);
-                movie.summary = (string)obj["summary"];
-                object[] genres = obj["genres"].ToArray();
-                for (int i = 0; i < genres.Length - 1; i++)
+                movie.summary = JsonParser.getValue(obj, "summary");
+                if (movie.genre == "" || movie.genre == null)
                 {
-                    movie.genre += genres[i].ToString();
-                    movie.genre += " / ";
+                    movie.genre = JsonParser.getArray(obj, "genres");
                 }
-                movie.genre += genres[genres.Length - 1].ToString();
-                movie.title = (string)obj["title"];
-                movie.year = (string)obj["year"];
-                movie.rating = (string)obj["rating"]["average"];
+                if (movie.title == "" || movie.title == null)
+                {
+                    movie.title = JsonParser.getValue(obj, "title");
+                }
+                if (movie.year == "" || movie.year == null)
+                {
+                    movie.year = JsonParser.getValue(obj, "year");
+                }
+                if (movie.rating == "" || movie.rating == null)
+                {
+                    movie.rating = JsonParser.getDouble(obj, "rating", "average");
+                }
                 movie.star = Util.getStarPath(movie.rating);
-                movie.rateNumber = (string)obj["ratings_count"];
+                if (movie.rateNumber == "" || movie.rateNumber == null)
+                {
+                    movie.rateNumber = JsonParser.getValue(obj, "ratings_count");
+                }
                 if (movie.posterUrl == "" || movie.posterUrl == null)
                 {
-                    movie.posterUrl = (string)obj["images"]["medium"];
+                    movie.posterUrl = JsonParser.getDouble(obj, "images", "small");
                 }
                 object[] countries = obj["countries"].ToArray();
-                movie.region = "";
-                for (int i = 0; i < countries.Length - 1; i++)
+                if (movie.region == "" || movie.region == null)
                 {
-                    movie.region += countries[i].ToString();
-                    movie.region += " / ";
+                    movie.region = JsonParser.getArray(obj, "countries");
                 }
-                movie.region += countries[countries.Length - 1].ToString();
                 title.Text = movie.title;
                 posterImage.Source = new BitmapImage(new Uri(movie.posterUrl));
                 starImage.Source = new BitmapImage(new Uri(movie.star, UriKind.Relative));
@@ -81,6 +89,32 @@ namespace PanoramaApp2
                 trailer.NavigateUri = new Uri(Movie.movieLinkHeader + movie.id + "/trailer", UriKind.Absolute);
                 theater.Content = "选座购票";
                 theater.NavigateUri = new Uri(Movie.movieLinkHeader + movie.id + "/cinema", UriKind.Absolute);
+
+                List<People> peoples = new List<People>();
+                JArray array = (JArray)obj["directors"];
+                for (int i = 0; i < array.Count; i++)
+                {
+                    People people = new People();
+                    people.posterUrl = JsonParser.getDouble(array[i], "avatars", "small");
+                    people.id = JsonParser.getValue(array[i], "id");
+                    people.name = JsonParser.getValue(array[i], "name");
+                    people.positionName = "导演";
+                    people.position = People.DIRECTOR;
+                    peoples.Add(people); 
+                }
+                array = (JArray)obj["casts"];
+                for (int i = 0; i < array.Count; i++)
+                {
+                    People people = new People();
+                    people.posterUrl = JsonParser.getDouble(array[i], "avatars", "small");
+                    people.id = JsonParser.getValue(array[i], "id");
+                    people.name = JsonParser.getValue(array[i], "name");
+                    people.positionName = "";
+                    people.position = People.ACTOR;
+                    peoples.Add(people);
+                }
+                peopleList.ItemsSource = peoples;
+
                 if (SystemTray.ProgressIndicator != null)
                 {
                     SystemTray.ProgressIndicator.IsVisible = false;

@@ -18,7 +18,7 @@
         </Style>
         
         <local:LocalizedStrings xmlns:local="clr-namespace:PanoramaApp2" x:Key="LocalizedStrings"/>
-        <DataTemplate x:Key="MyItemHeaderTemplate">
+        <DataTemplate x:Key="MyPivotItemHeaderTemplate">
             <Grid>
                 <ContentPresenter>
                     <TextBlock Text="{Binding}" FontSize="{StaticResource PhoneFontSizeExtraLarge}" />

@@ -22,9 +22,8 @@ namespace PanoramaApp2
         public static ProgressIndicator indicator;
         public static ObservableCollection<Movie> observableMovieList = new ObservableCollection<Movie>();
 
-        public static void parseTop250(ProgressIndicator indicator)
+        public static void parseTop250()
         {
-            Top250HtmlParser.indicator = indicator;
             WebClient client = new WebClient();
             client.DownloadStringCompleted += downloadTop250Completed;
             client.DownloadStringAsync(new Uri(Movie.top250 + "?start=" + currentIndex * 25 + "&format="));
@@ -60,14 +59,11 @@ namespace PanoramaApp2
                 {
                     observableMovieList.Add(movie);
                 }
-                if (currentIndex > 0)
+                if (indicator != null)
                 {
-                    if (indicator != null)
-                    {
-                        indicator.IsVisible = false;
-                    }
-                    SystemTray.IsVisible = false;
+                    indicator.IsVisible = false;
                 }
+                SystemTray.IsVisible = false;
                 currentIndex++;
                 if (currentIndex > maxIndex)
                 {

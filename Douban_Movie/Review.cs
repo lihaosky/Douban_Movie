@@ -9,7 +9,7 @@ namespace PanoramaApp2
 {
     class Review
     {
-        private string _id;
+        private string _id = "";
         public string id 
         {
             get
@@ -22,7 +22,7 @@ namespace PanoramaApp2
                 NotifyPropertyChanged("id");
             }
         }
-        private string _title;
+        private string _title = "";
         public string title 
         {
             get
@@ -35,7 +35,7 @@ namespace PanoramaApp2
                 NotifyPropertyChanged("title");
             }
         }
-        private string _review;
+        private string _review = "";
         public string review 
         {
             get
@@ -48,7 +48,7 @@ namespace PanoramaApp2
                 NotifyPropertyChanged("review");
             }
         }
-        private string _reviewer;
+        private string _reviewer = "";
         public string reviewer
         {
             get
@@ -61,7 +61,7 @@ namespace PanoramaApp2
                 NotifyPropertyChanged("revewer");
             }
         }
-        private string _date;
+        private string _date = "";
         public string date 
         {
             get
@@ -74,7 +74,7 @@ namespace PanoramaApp2
                 NotifyPropertyChanged("date");
             }
         }
-        private string _movieId;
+        private string _movieId = "";
         public string movieId 
         {
             get
@@ -87,7 +87,7 @@ namespace PanoramaApp2
                 NotifyPropertyChanged("movieId");
             }
         }
-        private string _movieName;
+        private string _movieName = "";
         public string movieName 
         {
             get
@@ -100,7 +100,7 @@ namespace PanoramaApp2
                 NotifyPropertyChanged("movieName");
             }
         }
-        private string _star;
+        private string _star = "";
         public string star {
             get
             {

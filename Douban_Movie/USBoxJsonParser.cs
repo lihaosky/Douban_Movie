@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls;
-using Microsoft.Phone.Controls;
+using HtmlAgilityPack;
 using System.Net;
+using System.Windows.Controls.Primitives;
+using Microsoft.Phone.Controls;
+using System.Windows.Controls;
+using System.Collections.ObjectModel;
+using Microsoft.Phone.Shell;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace PanoramaApp2
@@ -13,6 +18,7 @@ namespace PanoramaApp2
     class USBoxJsonParser
     {
         public static LongListSelector usboxLongListSelector;
+        public static ProgressIndicator indicator;
 
         public static void parseUSBox()
         {
@@ -32,15 +38,20 @@ namespace PanoramaApp2
                 for (int i = 0; i < array.Count; i++)
                 {
                     Movie movie = new Movie();
-                    movie.id = (string)array[i]["subject"]["id"];
-                    movie.posterUrl = (string)array[i]["subject"]["images"]["medium"];
-                    movie.money = (string)array[i]["box"];
-                    movie.rating = (string)array[i]["subject"]["rating"]["average"];
-                    movie.title = (string)array[i]["subject"]["title"];
+                    movie.id = JsonParser.getDouble(array[i], "subject", "id");
+                    movie.posterUrl = JsonParser.getTriple(array[i], "subject", "images", "small");
+                    movie.money = JsonParser.getValue(array[i], "box");
+                    movie.rating = JsonParser.getTriple(array[i], "subject", "rating", "average");
+                    movie.title = JsonParser.getDouble(array[i], "subject", "title");
                     movie.star = Util.getStarPath(movie.rating);
                     movieList.Add(movie);
                 }
                 usboxLongListSelector.ItemsSource = movieList;
+                if (indicator != null)
+                {
+                    indicator.IsVisible = false;
+                }
+                SystemTray.IsVisible = false;
             }
         }
     }

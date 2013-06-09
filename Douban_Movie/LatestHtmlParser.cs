@@ -16,6 +16,7 @@ namespace PanoramaApp2
     class LatestHtmlParser
     {
         public static LongListSelector selector;
+        public static ProgressIndicator indicator;
 
         public static void parseLatestMovie() {
             WebClient client = new WebClient();
@@ -70,6 +71,11 @@ namespace PanoramaApp2
                     }
                 }
                 selector.ItemsSource = movieList;
+                if (indicator != null)
+                {
+                    indicator.IsVisible = false;
+                }
+                SystemTray.IsVisible = false;
             }
         }
 

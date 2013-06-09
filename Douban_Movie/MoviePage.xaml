@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -11,7 +12,8 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
-    shell:SystemTray.IsVisible="False">
+    shell:SystemTray.IsVisible="False"
+    toolkit:TiltEffect.IsTiltEnabled="True">
 
     <!--LayoutRoot contains the root grid where all other page content is placed-->
     <Grid x:Name="LayoutRoot" Background="#1BA8E0">
@@ -29,12 +31,12 @@
             <Image Source="/DoubanMovie;component/Assets/logo.png" Height="120" Width="200" HorizontalAlignment="Left" Grid.Column="0"/>
             <Image Source="/DoubanMovie;component/Assets/search.png" Height="60" Width="60" Grid.Column="1" Margin="150, 0, 0, 0"/>
         </Grid>
-        
-        <phone:Panorama Margin="0,0,0,0" Grid.RowSpan="1" Loaded="Panorama_Loaded" Background="#1BA8E0" Grid.Row="1">
+
+        <phone:Pivot Margin="0,-24,0,0" Grid.RowSpan="1" Background="#1BA8E0" Grid.Row="1" HeaderTemplate="{StaticResource MyPivotItemHeaderTemplate}" SelectionChanged="Pivot_SelectionChanged">
 
             <!--Panorama item one-->
-            <phone:PanoramaItem Header="电影信息" HeaderTemplate="{StaticResource MyItemHeaderTemplate}">
-                <Grid Margin="0, -36, 0, 0">
+            <phone:PivotItem Header="电影信息">
+                <Grid Margin="0, -12, 0, 0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
@@ -62,18 +64,29 @@
                         <TextBlock x:Name="summary" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" Margin="2, 2, 2, 2"/>
                     </ScrollViewer>
                 </Grid>
-            </phone:PanoramaItem>
+            </phone:PivotItem>
 
             <!--Panorama item two-->
-            <phone:PanoramaItem Header="item2" HeaderTemplate="{StaticResource MyItemHeaderTemplate}">
-                <Grid>
+            <phone:PivotItem Header="演职员表">
+                <Grid Margin="24, -12, 24, 24">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="23*"/>
-                        <RowDefinition Height="533*"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
+                    <phone:LongListSelector x:Name="peopleSelector">
+                        <phone:LongListSelector.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Margin="0, 12, 0, 0">
+                                    <Image x:Name="peoplePosterUrl" Source="{Binding posterUrl}" Width="100" Height="120" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding name}" FontSize="{StaticResource PhoneFontSizeMedium}" TextWrapping="Wrap" Width="240"/>
+                                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding positionName}" Margin="0, 0, 0, 0" TextWrapping="Wrap" Style="{StaticResource PhoneTextSmallStyle}" Width="auto"/>
+                                    <TextBlock Text="{Binding id}" Visibility="Collapsed"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </phone:LongListSelector.ItemTemplate>
+                    </phone:LongListSelector>
                 </Grid>
-            </phone:PanoramaItem>
-        </phone:Panorama>
+            </phone:PivotItem>
+        </phone:Pivot>
     </Grid>
 
 </phone:PhoneApplicationPage>

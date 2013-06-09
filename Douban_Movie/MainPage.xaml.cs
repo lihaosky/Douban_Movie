@@ -14,6 +14,10 @@ namespace PanoramaApp2
     public partial class MainPage : PhoneApplicationPage
     {
         private Popup popup;
+        private bool latestLoaded = false;
+        private bool top250Loaded = false;
+        private bool usboxLoaded = false;
+        private bool commentLoaded = false;
 
         // Constructor
         public MainPage()
@@ -25,26 +29,6 @@ namespace PanoramaApp2
             HotMovieHtmlParser.selector = hotLongListSelector;
             HotMovieHtmlParser.popup = popup;
             HotMovieHtmlParser.parseHottMovie();
-
-            // Get latest
-            LatestHtmlParser.selector = latestListSelector;
-            LatestHtmlParser.parseLatestMovie();
-
-            // Get top 250 movie
-            top250LongListSelector.ItemsSource = Top250HtmlParser.observableMovieList;
-            Top250HtmlParser.loadText = loadText;
-            Top250HtmlParser.loadMoreButton = loadMoreButton;
-            Top250HtmlParser.parseTop250(new ProgressIndicator());
-
-            // Get us box
-            USBoxJsonParser.usboxLongListSelector = usboxLongListSelector;
-            USBoxJsonParser.parseUSBox();
-
-            // Get hot review
-            hotReviewLongListSelector.ItemsSource = HotReviewHtmlParser.reviewCollection;
-            HotReviewHtmlParser.buttonText = loadReviewText;
-            HotReviewHtmlParser.loadmoreButton = loadMoreReviewButton;
-            HotReviewHtmlParser.parseHotReview(new ProgressIndicator());
 
             // Create an application bar
             ApplicationBar = new ApplicationBar();
@@ -78,15 +62,6 @@ namespace PanoramaApp2
         // Load data for the ViewModel Items
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (!App.ViewModel.IsDataLoaded)
-            {
-                App.ViewModel.LoadData();
-            }
-        }
-
-        private void Panorama_Loaded(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void hotLongListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -132,7 +107,8 @@ namespace PanoramaApp2
             SystemTray.ProgressIndicator.IsIndeterminate = true;
             SystemTray.ProgressIndicator.Text = "加载中...";
             SystemTray.ProgressIndicator.IsVisible = true;
-            Top250HtmlParser.parseTop250(indicator);
+            Top250HtmlParser.indicator = indicator;
+            Top250HtmlParser.parseTop250();
         }
 
         private void loadReviewMoreButton_Click(object sender, RoutedEventArgs e)
@@ -145,7 +121,8 @@ namespace PanoramaApp2
             SystemTray.ProgressIndicator.IsIndeterminate = true;
             SystemTray.ProgressIndicator.Text = "加载中...";
             SystemTray.ProgressIndicator.IsVisible = true;
-            HotReviewHtmlParser.parseHotReview(indicator);
+            HotReviewHtmlParser.indicator = indicator;
+            HotReviewHtmlParser.parseHotReview();
         }
 
         private void latestListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -162,6 +139,110 @@ namespace PanoramaApp2
         private void hotReviewLongListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void loadLatestPivotItem()
+        {
+            // Get latest
+            SystemTray.Opacity = 0;
+            SystemTray.IsVisible = true;
+            ProgressIndicator indicator = new ProgressIndicator();
+            SystemTray.ProgressIndicator = indicator;
+            SystemTray.ProgressIndicator.IsIndeterminate = true;
+            SystemTray.ProgressIndicator.Text = "加载中...";
+            SystemTray.ProgressIndicator.IsVisible = true;
+            LatestHtmlParser.selector = latestListSelector;
+            LatestHtmlParser.indicator = indicator;
+            LatestHtmlParser.parseLatestMovie();
+        }
+
+        private void loadTopPivotItem()
+        {
+            // Get top 250 movie
+            top250LongListSelector.ItemsSource = Top250HtmlParser.observableMovieList;
+            loadMoreButton.IsEnabled = false;
+            SystemTray.Opacity = 0;
+            SystemTray.IsVisible = true;
+            ProgressIndicator indicator = new ProgressIndicator();
+            SystemTray.ProgressIndicator = indicator;
+            SystemTray.ProgressIndicator.IsIndeterminate = true;
+            SystemTray.ProgressIndicator.Text = "加载中...";
+            SystemTray.ProgressIndicator.IsVisible = true;
+            Top250HtmlParser.indicator = indicator;
+            Top250HtmlParser.loadText = loadText;
+            Top250HtmlParser.loadMoreButton = loadMoreButton;
+            Top250HtmlParser.parseTop250();
+
+        }
+
+        private void loadUSBoxPivotItem() 
+        {
+            // Get us box
+            SystemTray.Opacity = 0;
+            SystemTray.IsVisible = true;
+            ProgressIndicator indicator = new ProgressIndicator();
+            SystemTray.ProgressIndicator = indicator;
+            SystemTray.ProgressIndicator.IsIndeterminate = true;
+            SystemTray.ProgressIndicator.Text = "加载中...";
+            SystemTray.ProgressIndicator.IsVisible = true;
+            USBoxJsonParser.usboxLongListSelector = usboxLongListSelector;
+            USBoxJsonParser.indicator = indicator;
+            USBoxJsonParser.parseUSBox();
+        }
+
+        private void loadReviewPivotItem()
+        {
+            // Get hot review
+            loadMoreReviewButton.IsEnabled = false;
+            SystemTray.Opacity = 0;
+            SystemTray.IsVisible = true;
+            ProgressIndicator indicator = new ProgressIndicator();
+            SystemTray.ProgressIndicator = indicator;
+            SystemTray.ProgressIndicator.IsIndeterminate = true;
+            SystemTray.ProgressIndicator.Text = "加载中...";
+            SystemTray.ProgressIndicator.IsVisible = true;
+            hotReviewLongListSelector.ItemsSource = HotReviewHtmlParser.reviewCollection;
+            HotReviewHtmlParser.indicator = indicator;
+            HotReviewHtmlParser.buttonText = loadReviewText;
+            HotReviewHtmlParser.loadmoreButton = loadMoreReviewButton;
+            HotReviewHtmlParser.parseHotReview();
+        }
+
+        private void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int index = ((Pivot)sender).SelectedIndex;
+            if (index == 1)
+            {
+                if (latestLoaded == false)
+                {
+                    latestLoaded = true;
+                    loadLatestPivotItem();
+                }
+            }
+            else if (index == 2)
+            {
+                if (top250Loaded == false)
+                {
+                    top250Loaded = true;
+                    loadTopPivotItem();
+                }
+            }
+            else if (index == 3)
+            {
+                if (usboxLoaded == false)
+                {
+                    usboxLoaded = true;
+                    loadUSBoxPivotItem();
+                }
+            }
+            else if (index == 4)
+            {
+                if (commentLoaded == false)
+                {
+                    commentLoaded = true;
+                    loadReviewPivotItem();
+                }
+            }
         }
     }
 }

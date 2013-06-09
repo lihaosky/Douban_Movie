@@ -9,7 +9,7 @@ namespace PanoramaApp2
 {
     public class Movie : INotifyPropertyChanged
     {
-        private string _id;
+        private string _id = "";
         public string id
         {
             get { return _id; }
@@ -19,7 +19,7 @@ namespace PanoramaApp2
                 NotifyPropertyChanged("id");
             }
         }
-        private string _title;
+        private string _title = "";
         public string title 
         {
             get
@@ -32,7 +32,7 @@ namespace PanoramaApp2
                 NotifyPropertyChanged("title");
             }
         }
-        private string _posterUrl;
+        private string _posterUrl = "";
         public string posterUrl
         {
             get
@@ -45,7 +45,7 @@ namespace PanoramaApp2
                 NotifyPropertyChanged("posterUrl");
             }
         }
-        private string _rating;
+        private string _rating = "";
         public string rating {
             get
             {
@@ -57,7 +57,7 @@ namespace PanoramaApp2
                 NotifyPropertyChanged("rating");
             }
         }
-        private string _star;
+        private string _star = "";
         public string star
         {
             get
@@ -70,7 +70,7 @@ namespace PanoramaApp2
                 NotifyPropertyChanged("star");
             }
         }
-        private string _actors_list;
+        private string _actors_list = "";
         public string actors_list {
             get
             {
@@ -82,7 +82,7 @@ namespace PanoramaApp2
                 NotifyPropertyChanged("actors_list");
             }
         }
-        private string _length;
+        private string _length = "";
         public string length
         {
             get
@@ -95,7 +95,7 @@ namespace PanoramaApp2
                 NotifyPropertyChanged("length");
             }
         }
-        private string _year;
+        private string _year = "";
         public string year 
         {
             get
@@ -108,7 +108,7 @@ namespace PanoramaApp2
                 NotifyPropertyChanged("year");
             }
         }
-        private string _region;
+        private string _region = "";
         public string region 
         {
             get
@@ -121,12 +121,12 @@ namespace PanoramaApp2
                 NotifyPropertyChanged("region");
             }
         }
-        private string _rateNumber;
+        private string _rateNumber = "";
         public string rateNumber
         {
             get
             {
-                return _region;
+                return _rateNumber;
             }
             set
             {
@@ -134,7 +134,7 @@ namespace PanoramaApp2
                 NotifyPropertyChanged("rateNumber");
             }
         }
-        private string _summary;
+        private string _summary = "";
         public string summary {
             get
             {
@@ -146,7 +146,7 @@ namespace PanoramaApp2
                 NotifyPropertyChanged("summary");
             }
         }
-        private string _genre;
+        private string _genre = "";
         public string genre 
         {
             get
@@ -159,7 +159,7 @@ namespace PanoramaApp2
                 NotifyPropertyChanged("genre");
             }
         }
-        private string _money;
+        private string _money = "";
         public string money 
         {
             get
@@ -172,7 +172,7 @@ namespace PanoramaApp2
                 NotifyPropertyChanged("money");
             }
         }
-        private string _quote;
+        private string _quote = "";
         public string quote 
         {
             get
@@ -185,7 +185,7 @@ namespace PanoramaApp2
                 NotifyPropertyChanged("quote");
             }
         }
-        private string _releaseDate;
+        private string _releaseDate = "";
         public string releaseDate 
         {
             get

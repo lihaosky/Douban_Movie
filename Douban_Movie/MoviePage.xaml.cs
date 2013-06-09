@@ -13,7 +13,7 @@ namespace PanoramaApp2
 {
     public partial class MoviePage : PhoneApplicationPage
     {
-        private MovieJsonParser jparser;
+        private MovieJsonParser movieParser;
 
         public MoviePage()
         {
@@ -35,32 +35,33 @@ namespace PanoramaApp2
             {
                 System.Diagnostics.Debug.WriteLine("Shouldn't be null!");
             }
-            jparser = new MovieJsonParser();
-            jparser.movie = movie;
-            jparser.title = title;
-            jparser.posterImage = posterUrl;
-            jparser.rating = rating;
-            jparser.rateNumber = rateNumber;
-            jparser.year_duration = year_duration;
-            jparser.starImage = ratingUrl;
-            jparser.name = fixedName;
-            jparser.region = region;
-            jparser.genre = genre;
-            jparser.trailer = trailer;
-            jparser.theater = theater;
-            jparser.summary = summary;
-            jparser.getMovieByID();
+            movieParser = new MovieJsonParser();
+            movieParser.movie = movie;
+            movieParser.title = title;
+            movieParser.posterImage = posterUrl;
+            movieParser.rating = rating;
+            movieParser.rateNumber = rateNumber;
+            movieParser.year_duration = year_duration;
+            movieParser.starImage = ratingUrl;
+            movieParser.name = fixedName;
+            movieParser.region = region;
+            movieParser.genre = genre;
+            movieParser.trailer = trailer;
+            movieParser.theater = theater;
+            movieParser.summary = summary;
+            movieParser.peopleList = peopleSelector;
+            movieParser.getMovieByID();
         }
 
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
         {
-            if (jparser != null)
+            if (movieParser != null)
             {
-                jparser.cancelDownLoad();
+                movieParser.cancelDownLoad();
             }
         }
 
-        private void Panorama_Loaded(object sender, RoutedEventArgs e)
+        private void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }

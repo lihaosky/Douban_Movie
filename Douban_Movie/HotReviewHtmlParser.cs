@@ -21,9 +21,8 @@ namespace PanoramaApp2
         public static ProgressIndicator indicator;
         public static ObservableCollection<Review> reviewCollection = new ObservableCollection<Review>();
 
-        public static void parseHotReview(ProgressIndicator indicator)
+        public static void parseHotReview()
         {
-            HotReviewHtmlParser.indicator = indicator;
             WebClient client = new WebClient();
             client.DownloadStringCompleted += downloadHotReviewComplete;
             client.DownloadStringAsync(new Uri(nextLink));
