@@ -153,6 +153,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Assets\progress image.jpg" />
     <Resource Include="Assets\00 star.png" />
     <Resource Include="Assets\05 star.png" />
     <Resource Include="Assets\10 star.png" />
@@ -164,9 +165,8 @@
     <Resource Include="Assets\40 star.png" />
     <Resource Include="Assets\45 star.png" />
     <Resource Include="Assets\50 star.png" />
-    <Resource Include="Assets\progress image.jpg" />
-    <Resource Include="Assets\search.png" />
     <Content Include="Assets\ApplicationIcon.png" />
+    <Resource Include="Assets\search.png" />
     <Content Include="Assets\Tiles\IconTileMediumLarge.png" />
     <Content Include="Assets\Tiles\IconTileSmall.png" />
     <Content Include="SplashScreenImage.screen-720p.jpg" />

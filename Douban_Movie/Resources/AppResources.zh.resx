@@ -146,4 +146,7 @@
   <data name="USPivot" xml:space="preserve">
     <value>US Box Office</value>
   </data>
+  <data name="LoadingText" xml:space="preserve">
+    <value>Loading</value>
+  </data>
 </root>

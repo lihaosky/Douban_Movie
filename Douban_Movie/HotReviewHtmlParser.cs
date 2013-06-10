@@ -19,7 +19,7 @@ namespace PanoramaApp2
         public static Button loadmoreButton;
         public static TextBlock buttonText;
         public static string nextLink = Review.hotReviewHeader;
-        public static ProgressIndicator indicator;
+        public static ProgressBar progressBar;
         public static ObservableCollection<Review> reviewCollection = new ObservableCollection<Review>();
 
         public static void parseHotReview()
@@ -56,11 +56,10 @@ namespace PanoramaApp2
                             }
                             reviewCollection.Add(review);
                         }
-                        if (indicator != null)
+                        if (progressBar != null)
                         {
-                            indicator.IsVisible = false;
+                            progressBar.Visibility = Visibility.Collapsed;
                         }
-                        SystemTray.IsVisible = false;
                         HtmlNodeCollection nextLinkNode = doc.DocumentNode.SelectNodes("//span[@class='next']")[0].SelectNodes("a");
                         if (nextLinkNode == null)
                         {
@@ -75,11 +74,10 @@ namespace PanoramaApp2
                     }
                     else
                     {
-                        if (indicator != null)
+                        if (progressBar != null)
                         {
-                            indicator.IsVisible = false;
+                            progressBar.Visibility = Visibility.Collapsed;
                         }
-                        SystemTray.IsVisible = false;
                         loadmoreButton.IsEnabled = false;
                         buttonText.Text = "完了:-)";
                     }
@@ -87,16 +85,19 @@ namespace PanoramaApp2
                 else
                 {
                     MessageBoxResult result = MessageBox.Show("无法连接到豆瓣网,请检查网络连接", "", MessageBoxButton.OK);
-                    if (indicator != null)
+                    if (progressBar != null)
                     {
-                        indicator.IsVisible = false;
+                        progressBar.Visibility = Visibility.Collapsed;
                     }
-                    SystemTray.IsVisible = false;
                 }
             }
             catch (WebException)
             {
                 MessageBoxResult result = MessageBox.Show("无法连接到豆瓣网,请检查网络连接", "", MessageBoxButton.OK);
+                if (progressBar != null)
+                {
+                    progressBar.Visibility = Visibility.Collapsed;
+                }
             }
         }
 

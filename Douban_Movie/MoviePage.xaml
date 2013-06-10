@@ -16,14 +16,14 @@
     toolkit:TiltEffect.IsTiltEnabled="True">
 
     <!--LayoutRoot contains the root grid where all other page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="#1BA8E0">
+    <Grid x:Name="LayoutRoot" Background="#2B4F81">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <!--Logo and search button-->
-        <Grid HorizontalAlignment="Center" Height="auto" Margin="0, 24, 0, 0"  VerticalAlignment="Center" Width="440" Grid.Row="0" Background="#1BA8E0">
+        <Grid HorizontalAlignment="Center" Height="auto" Margin="0, 0, 0, 0"  VerticalAlignment="Center" Width="440" Grid.Row="0" Background="#2B4F81">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"/>
                 <ColumnDefinition Width="200"/>
@@ -32,22 +32,24 @@
             <Image Source="/DoubanMovie;component/Assets/search.png" Height="60" Width="60" Grid.Column="1" Tap="Image_Tap" HorizontalAlignment="Right"/>
         </Grid>
 
-        <phone:Pivot Margin="0,0,0,0" Grid.RowSpan="1" Background="#1BA8E0" Grid.Row="1" HeaderTemplate="{StaticResource MyPivotItemHeaderTemplate}" SelectionChanged="Pivot_SelectionChanged">
+        <phone:Pivot Margin="0,0,0,0" Grid.RowSpan="1" Background="#2B4F81" Grid.Row="1" HeaderTemplate="{StaticResource MyPivotItemHeaderTemplate}" SelectionChanged="Pivot_SelectionChanged">
 
             <!--Panorama item one-->
-            <phone:PivotItem Header="电影信息">
-                <Grid Margin="0, -12, 0, 0">
+            <phone:PivotItem Header="电影信息" Margin="24, 24, 24, 24">
+                <ScrollViewer VerticalScrollBarVisibility="Auto"  HorizontalScrollBarVisibility="Disabled">
+                <Grid Margin="0, 0, 0, 0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
-                        <RowDefinition Height="*"/>
+                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <StackPanel Orientation="Horizontal" Margin="24, 12, 0, 0" HorizontalAlignment="Left" Grid.Row="0">
-                        <Image x:Name="posterUrl" Width="132" Height="200" HorizontalAlignment="Left" Stretch="Fill"/>
+                        <ProgressBar x:Name="MovieProgressBar" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="383"/>
+                        <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 0" HorizontalAlignment="Left" Grid.Row="0">
+                        <Image x:Name="posterUrl" Width="132" Height="200" HorizontalAlignment="Left" Stretch="UniformToFill"/>
                         <StackPanel Orientation="Vertical" Margin="12, 0, 0, 0">
-                            <TextBlock x:Name="title" FontSize="27" HorizontalAlignment="Left" TextWrapping="Wrap" Width="250"/>
+                            <TextBlock x:Name="title" FontSize="30" HorizontalAlignment="Left" TextWrapping="Wrap" Width="250" Foreground="White"/>
                             <StackPanel Orientation="Horizontal" Margin="-6, 0, 0, 0" >
                                 <Image x:Name="ratingUrl" Width="100" Height="65" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                <TextBlock x:Name="rating" Style="{StaticResource PhoneTextSmallStyle}" Foreground="#FFC90E" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="-3, 0, 0, 0"/>
+                                <TextBlock x:Name="rating" Style="{StaticResource PhoneTextSmallStyle}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="-3, 0, 0, 0"/>
                                 <TextBlock x:Name="rateNumber" Style="{StaticResource PhoneTextSmallStyle}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                                 <TextBlock x:Name="fixedName" Style="{StaticResource PhoneTextSmallStyle}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="-10, 0, 0, 0"/>
                             </StackPanel>
@@ -60,15 +62,14 @@
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" Margin="24, 24, 12, 24" HorizontalScrollBarVisibility="Disabled">
-                        <TextBlock x:Name="summary" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" Margin="2, 2, 2, 2"/>
-                    </ScrollViewer>
+                        <TextBlock x:Name="summary" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" Margin="0, 24, 0, 0" Grid.Row="1" Foreground="White"/>
                 </Grid>
+                </ScrollViewer>
             </phone:PivotItem>
 
             <!--Panorama item two-->
-            <phone:PivotItem Header="演职员表">
-                <Grid Margin="24, -12, 24, 24">
+            <phone:PivotItem Header="演职员表"  Margin="24,24, 24, 24">
+                <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
@@ -76,10 +77,9 @@
                         <phone:LongListSelector.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" Margin="0, 12, 0, 0">
-                                    <Image x:Name="peoplePosterUrl" Source="{Binding posterUrl}" Width="120" Height="120" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding name}" FontSize="30" TextWrapping="Wrap" Width="220" Foreground="White"/>
-                                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding positionName}" Margin="0, 0, 0, 0" TextWrapping="Wrap" Style="{StaticResource PhoneTextSmallStyle}" Width="auto"/>
-                                    <TextBlock Text="{Binding id}" Visibility="Collapsed"/>
+                                    <Image x:Name="peoplePosterUrl" Source="{Binding posterUrl}" Width="100" Height="100" HorizontalAlignment="Left" VerticalAlignment="Center" Stretch="UniformToFill"/>
+                                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding name}" FontSize="30" TextWrapping="Wrap" Width="220" Foreground="White" Margin="12, 0, 0, 0"/>
+                                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding positionName}" Margin="0, 0, 0, 0" TextWrapping="Wrap" Style="{StaticResource PhoneTextSmallStyle}" Width="auto" Foreground="White"/>
                                 </StackPanel>
                             </DataTemplate>
                         </phone:LongListSelector.ItemTemplate>
@@ -87,16 +87,16 @@
                 </Grid>
             </phone:PivotItem>
 
-            <phone:PivotItem Header="短评">
-                <Grid Margin="24, -12, 24, 0">
+            <phone:PivotItem Header="短评"  Margin="24, 24, 24, 0">
+                <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
-                    <phone:LongListSelector x:Name="shortReviewSelector" Margin="0, 0, 0, 12">
+                    <ProgressBar x:Name="ShortReviewProgressBar" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="383"/>
+                    <phone:LongListSelector x:Name="shortReviewSelector" Margin="0, 0, 0, 0">
                         <phone:LongListSelector.ItemTemplate>
                             <DataTemplate>
-                                <Border BorderThickness="0, 0, 0, 1" BorderBrush="White">
                                     <StackPanel Orientation="Vertical" Margin="0, 24, 0, 24">
                                         <Border Background="#82CAFF">
                                             <TextBlock Text="{Binding author}" Foreground="White" Width="auto" FontSize="{StaticResource PhoneFontSizeMedium}" TextWrapping="Wrap"/>
@@ -107,7 +107,6 @@
                                         </StackPanel>
                                         <TextBlock Text="{Binding content}" TextWrapping="Wrap" Width="auto" HorizontalAlignment="Left" Foreground="White"/>
                                     </StackPanel>
-                                </Border>
                             </DataTemplate>
                         </phone:LongListSelector.ItemTemplate>
                     </phone:LongListSelector>
@@ -117,17 +116,17 @@
                 </Grid>
             </phone:PivotItem>
 
-            <phone:PivotItem Header="影评">
-                <Grid Margin="24, -12, 24, 0">
+            <phone:PivotItem Header="影评"  Margin="24, 24, 24, 0">
+                <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
                     <!--Single line list with text wrapping-->
+                    <ProgressBar x:Name="ReviewProgressBar" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="383"/>
                     <phone:LongListSelector Margin="0,0,0,12" Name="reviewLongListSelector" SelectionChanged="reviewLongListSelector_SelectionChanged" Grid.Row="0">
                         <phone:LongListSelector.ItemTemplate>
                             <DataTemplate>
-                                <Border BorderThickness="0, 0, 0, 1" BorderBrush="White">
                                     <StackPanel Margin="0,24,0,24" Orientation="Vertical" Height="auto" Width="auto">
                                         <Border Background="#82CAFF">
                                             <TextBlock Text="{Binding title}" Margin="0, 0, 0, 0" TextWrapping="Wrap" Foreground="White" FontSize="{StaticResource PhoneFontSizeMedium}" VerticalAlignment="Top" Width="auto" HorizontalAlignment="Left"/>
@@ -139,7 +138,6 @@
                                         <TextBlock Text="{Binding date}" Foreground="White" Width="auto" TextWrapping="Wrap" Margin="0, -12, 0, 0"/>
                                         <TextBlock Text="{Binding reviewShort}" TextWrapping="Wrap" Width="auto" Foreground="White" Margin="0, 12, 0, 0"/>
                                     </StackPanel>
-                                </Border>
                             </DataTemplate>
                         </phone:LongListSelector.ItemTemplate>
                     </phone:LongListSelector>
@@ -156,6 +154,7 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
+                    <ProgressBar x:Name="ImageProgressBar" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="383"/>
                     <!--Single line list with text wrapping-->
                     <ListBox x:Name="imageListBox" SelectionChanged="imageListBox_SelectionChanged" Grid.Row="0">
                         <ListBox.ItemsPanel>
@@ -165,9 +164,9 @@
                         </ListBox.ItemsPanel>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Margin="6">
+                                <StackPanel Margin="12">
                                     <StackPanel Orientation="Vertical">
-                                        <Image Width="120" Height="120" Source="{Binding smallUrl}"/>
+                                        <Image Width="120" Height="120" Source="{Binding smallUrl}" Stretch="UniformToFill"/>
                                     </StackPanel>
                                 </StackPanel>
                             </DataTemplate>

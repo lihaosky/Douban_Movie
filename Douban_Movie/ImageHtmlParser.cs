@@ -19,6 +19,7 @@ namespace PanoramaApp2
         private Movie movie;
         public Button button { get; set; }
         public TextBlock text { get; set; }
+        public ProgressBar progressBar { get; set; }
         public ObservableCollection<MovieImage> imageCollection = new ObservableCollection<MovieImage>();
         private WebClient client;
 
@@ -46,11 +47,10 @@ namespace PanoramaApp2
                     HtmlNodeCollection nodeCollection = doc.DocumentNode.SelectNodes("//div[@class='cover']");
                     if (nodeCollection == null)
                     {
-                        if (SystemTray.ProgressIndicator != null)
+                        if (progressBar != null)
                         {
-                            SystemTray.ProgressIndicator.IsVisible = false;
+                            progressBar.Visibility = Visibility.Collapsed;
                         }
-                        SystemTray.IsVisible = false;
                         movie.hasMoreShortReview = false;
                         button.IsEnabled = false;
                         text.Text = "完了:-)";
@@ -70,11 +70,10 @@ namespace PanoramaApp2
                             }
                             imageCollection.Add(image);
                         }
-                        if (SystemTray.ProgressIndicator != null)
+                        if (progressBar != null)
                         {
-                            SystemTray.ProgressIndicator.IsVisible = false;
+                            progressBar.Visibility = Visibility.Collapsed;
                         }
-                        SystemTray.IsVisible = false;
                         nodeCollection = doc.DocumentNode.SelectNodes("//div[@class='paginator']");
                         if (nodeCollection == null)
                         {
@@ -114,15 +113,18 @@ namespace PanoramaApp2
                 }
                 else
                 {
-                    if (SystemTray.ProgressIndicator != null)
+                    if (progressBar != null)
                     {
-                        SystemTray.ProgressIndicator.IsVisible = false;
+                        progressBar.Visibility = Visibility.Collapsed;
                     }
-                    SystemTray.IsVisible = false;
                 }
             }
             catch (WebException)
             {
+                if (progressBar != null)
+                {
+                    progressBar.Visibility = Visibility.Collapsed;
+                }
                 MessageBoxResult result = MessageBox.Show("无法连接到豆瓣网,请检查网络连接", "", MessageBoxButton.OK);
             }
         }

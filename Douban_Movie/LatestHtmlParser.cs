@@ -17,7 +17,7 @@ namespace PanoramaApp2
     class LatestHtmlParser
     {
         public static LongListSelector selector;
-        public static ProgressIndicator indicator;
+        public static ProgressBar progressbar;
 
         public static void parseLatestMovie() {
             WebClient client = new WebClient();
@@ -74,20 +74,18 @@ namespace PanoramaApp2
                         }
                     }
                     selector.ItemsSource = movieList;
-                    if (indicator != null)
+                    if (progressbar != null)
                     {
-                        indicator.IsVisible = false;
+                        progressbar.Visibility = Visibility.Collapsed;
                     }
-                    SystemTray.IsVisible = false;
                 }
                 else
                 {
                     MessageBoxResult result = MessageBox.Show("无法连接到豆瓣网,请检查网络连接", "", MessageBoxButton.OK);
-                    if (indicator != null)
+                    if (progressbar != null)
                     {
-                        indicator.IsVisible = false;
+                        progressbar.Visibility = Visibility.Collapsed;
                     }
-                    SystemTray.IsVisible = false;
                 }
             }
             catch (WebException)

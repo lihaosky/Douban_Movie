@@ -30,6 +30,7 @@ namespace PanoramaApp2
         public HyperlinkButton theater { get; set; }
         public TextBlock summary { get; set; }
         public LongListSelector peopleList { get; set; }
+        public ProgressBar progressBar { get; set; }
         public WebClient client;
 
         public MovieJsonParser(Movie m)
@@ -123,24 +124,25 @@ namespace PanoramaApp2
                     }
                     peopleList.ItemsSource = peoples;
 
-                    if (SystemTray.ProgressIndicator != null)
+                    if (progressBar != null)
                     {
-                        SystemTray.ProgressIndicator.IsVisible = false;
+                        progressBar.Visibility = Visibility.Collapsed;
                     }
-                    SystemTray.IsVisible = false;
                 }
                 else
                 {
-
-                    if (SystemTray.ProgressIndicator != null)
+                    if (progressBar != null)
                     {
-                        SystemTray.ProgressIndicator.IsVisible = false;
+                        progressBar.Visibility = Visibility.Collapsed;
                     }
-                    SystemTray.IsVisible = false;
                 }
             }
             catch (WebException)
             {
+                if (progressBar != null)
+                {
+                    progressBar.Visibility = Visibility.Collapsed;
+                }
                 MessageBoxResult result = MessageBox.Show("无法连接到豆瓣网,请检查网络连接", "", MessageBoxButton.OK);
             }
         }

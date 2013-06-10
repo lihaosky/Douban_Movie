@@ -20,7 +20,7 @@ namespace PanoramaApp2
         public static TextBlock loadText;
         public static int currentIndex = 0;
         public static int maxIndex = 9;
-        public static ProgressIndicator indicator;
+        public static ProgressBar progressBar;
         public static ObservableCollection<Movie> observableMovieList = new ObservableCollection<Movie>();
 
         public static void parseTop250()
@@ -56,11 +56,10 @@ namespace PanoramaApp2
                             observableMovieList.Add(movie);
                         }
                     }
-                    if (indicator != null)
+                    if (progressBar != null)
                     {
-                        indicator.IsVisible = false;
+                        progressBar.Visibility = Visibility.Collapsed;
                     }
-                    SystemTray.IsVisible = false;
                     currentIndex++;
                     if (currentIndex > maxIndex)
                     {
@@ -75,15 +74,18 @@ namespace PanoramaApp2
                 else
                 {
                     MessageBoxResult result = MessageBox.Show("无法连接到豆瓣网,请检查网络连接", "", MessageBoxButton.OK);
-                    if (indicator != null)
+                    if (progressBar != null)
                     {
-                        indicator.IsVisible = false;
+                        progressBar.Visibility = Visibility.Collapsed;
                     }
-                    SystemTray.IsVisible = false;
                 }
             }
             catch (WebException)
             {
+                if (progressBar != null)
+                {
+                    progressBar.Visibility = Visibility.Collapsed;
+                }
                 MessageBoxResult result = MessageBox.Show("无法连接到豆瓣网,请检查网络连接", "", MessageBoxButton.OK);
             }
         }

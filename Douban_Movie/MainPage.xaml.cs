@@ -110,28 +110,17 @@ namespace PanoramaApp2
         private void loadMoreButton_Click(object sender, RoutedEventArgs e)
         {
             loadMoreButton.IsEnabled = false;
-            SystemTray.Opacity = 0;
-            SystemTray.IsVisible = true;
-            ProgressIndicator indicator = new ProgressIndicator();
-            SystemTray.ProgressIndicator = indicator;
-            SystemTray.ProgressIndicator.IsIndeterminate = true;
-            SystemTray.ProgressIndicator.Text = "加载中...";
-            SystemTray.ProgressIndicator.IsVisible = true;
-            Top250HtmlParser.indicator = indicator;
+            TopProgressBar.IsIndeterminate = true;
+            TopProgressBar.Visibility = System.Windows.Visibility.Visible;
             Top250HtmlParser.parseTop250();
         }
 
         private void loadReviewMoreButton_Click(object sender, RoutedEventArgs e)
         {
             loadMoreReviewButton.IsEnabled = false;
-            SystemTray.Opacity = 0;
-            SystemTray.IsVisible = true;
-            ProgressIndicator indicator = new ProgressIndicator();
-            SystemTray.ProgressIndicator = indicator;
-            SystemTray.ProgressIndicator.IsIndeterminate = true;
-            SystemTray.ProgressIndicator.Text = "加载中...";
-            SystemTray.ProgressIndicator.IsVisible = true;
-            HotReviewHtmlParser.indicator = indicator;
+            HotReviewProgressBar.IsIndeterminate = true;
+            HotReviewProgressBar.Visibility = System.Windows.Visibility.Visible;
+            HotReviewHtmlParser.progressBar = HotReviewProgressBar;
             HotReviewHtmlParser.parseHotReview();
         }
 
@@ -154,15 +143,10 @@ namespace PanoramaApp2
         private void loadLatestPivotItem()
         {
             // Get latest
-            SystemTray.Opacity = 0;
-            SystemTray.IsVisible = true;
-            ProgressIndicator indicator = new ProgressIndicator();
-            SystemTray.ProgressIndicator = indicator;
-            SystemTray.ProgressIndicator.IsIndeterminate = true;
-            SystemTray.ProgressIndicator.Text = "加载中...";
-            SystemTray.ProgressIndicator.IsVisible = true;
+            UpcomingProgressBar.IsIndeterminate = true;
+            UpcomingProgressBar.Visibility = System.Windows.Visibility.Visible;
             LatestHtmlParser.selector = latestListSelector;
-            LatestHtmlParser.indicator = indicator;
+            LatestHtmlParser.progressbar = UpcomingProgressBar;
             LatestHtmlParser.parseLatestMovie();
         }
 
@@ -171,14 +155,9 @@ namespace PanoramaApp2
             // Get top 250 movie
             top250LongListSelector.ItemsSource = Top250HtmlParser.observableMovieList;
             loadMoreButton.IsEnabled = false;
-            SystemTray.Opacity = 0;
-            SystemTray.IsVisible = true;
-            ProgressIndicator indicator = new ProgressIndicator();
-            SystemTray.ProgressIndicator = indicator;
-            SystemTray.ProgressIndicator.IsIndeterminate = true;
-            SystemTray.ProgressIndicator.Text = "加载中...";
-            SystemTray.ProgressIndicator.IsVisible = true;
-            Top250HtmlParser.indicator = indicator;
+            TopProgressBar.IsIndeterminate = true;
+            TopProgressBar.Visibility = System.Windows.Visibility.Visible;
+            Top250HtmlParser.progressBar = TopProgressBar;
             Top250HtmlParser.loadText = loadText;
             Top250HtmlParser.loadMoreButton = loadMoreButton;
             Top250HtmlParser.parseTop250();
@@ -188,15 +167,10 @@ namespace PanoramaApp2
         private void loadUSBoxPivotItem() 
         {
             // Get us box
-            SystemTray.Opacity = 0;
-            SystemTray.IsVisible = true;
-            ProgressIndicator indicator = new ProgressIndicator();
-            SystemTray.ProgressIndicator = indicator;
-            SystemTray.ProgressIndicator.IsIndeterminate = true;
-            SystemTray.ProgressIndicator.Text = "加载中...";
-            SystemTray.ProgressIndicator.IsVisible = true;
+            USBoxProgressBar.IsIndeterminate = true;
+            USBoxProgressBar.Visibility = System.Windows.Visibility.Visible;
             USBoxJsonParser.usboxLongListSelector = usboxLongListSelector;
-            USBoxJsonParser.indicator = indicator;
+            USBoxJsonParser.progressBar = USBoxProgressBar;
             USBoxJsonParser.parseUSBox();
         }
 
@@ -204,15 +178,10 @@ namespace PanoramaApp2
         {
             // Get hot review
             loadMoreReviewButton.IsEnabled = false;
-            SystemTray.Opacity = 0;
-            SystemTray.IsVisible = true;
-            ProgressIndicator indicator = new ProgressIndicator();
-            SystemTray.ProgressIndicator = indicator;
-            SystemTray.ProgressIndicator.IsIndeterminate = true;
-            SystemTray.ProgressIndicator.Text = "加载中...";
-            SystemTray.ProgressIndicator.IsVisible = true;
             hotReviewLongListSelector.ItemsSource = HotReviewHtmlParser.reviewCollection;
-            HotReviewHtmlParser.indicator = indicator;
+            HotReviewProgressBar.IsIndeterminate = true;
+            HotReviewProgressBar.Visibility = System.Windows.Visibility.Visible;
+            HotReviewHtmlParser.progressBar = HotReviewProgressBar;
             HotReviewHtmlParser.buttonText = loadReviewText;
             HotReviewHtmlParser.loadmoreButton = loadMoreReviewButton;
             HotReviewHtmlParser.parseHotReview();

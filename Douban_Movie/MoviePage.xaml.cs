@@ -30,6 +30,7 @@ namespace PanoramaApp2
             imageLoaded = false;
             movie = App.moviePassed;
             movieParser = new MovieJsonParser(movie);
+            movieParser.progressBar = MovieProgressBar;
             movieParser.title = title;
             movieParser.posterImage = posterUrl;
             movieParser.rating = rating;
@@ -43,18 +44,6 @@ namespace PanoramaApp2
             movieParser.theater = theater;
             movieParser.summary = summary;
             movieParser.peopleList = peopleSelector;
-            this.Loaded += page_loaded;
-        }
-
-        void page_loaded(object sender, RoutedEventArgs e)
-        {
-            SystemTray.Opacity = 0;
-            SystemTray.IsVisible = true;
-            SystemTray.SetForegroundColor(this, System.Windows.Media.Colors.White);
-            SystemTray.ProgressIndicator = new ProgressIndicator();
-            SystemTray.ProgressIndicator.IsIndeterminate = true;
-            SystemTray.ProgressIndicator.Text = "加载中...";
-            SystemTray.ProgressIndicator.IsVisible = true;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -62,6 +51,8 @@ namespace PanoramaApp2
             base.OnNavigatedTo(e);
             if (e.NavigationMode == NavigationMode.New)
             {
+                MovieProgressBar.IsIndeterminate = true;
+                MovieProgressBar.Visibility = System.Windows.Visibility.Visible;
                 movieParser.getMovieByID();
             }
         }
@@ -85,15 +76,11 @@ namespace PanoramaApp2
         private void loadShortReview() 
         {
             loadMoreButton.IsEnabled = false;
-            SystemTray.Opacity = 0;
-            SystemTray.IsVisible = true;
-            ProgressIndicator indicator = new ProgressIndicator();
-            SystemTray.ProgressIndicator = indicator;
-            SystemTray.ProgressIndicator.IsIndeterminate = true;
-            SystemTray.ProgressIndicator.Text = "加载中...";
-            SystemTray.ProgressIndicator.IsVisible = true;
             movie.nextShortReviewLink = Movie.movieLinkHeader + movie.id + "/comments";
             shortReviewParser = new ShortReviewHtmlParser(movie);
+            shortReviewParser.progressBar = ShortReviewProgressBar;
+            ShortReviewProgressBar.IsIndeterminate = true;
+            ShortReviewProgressBar.Visibility = System.Windows.Visibility.Visible;
             shortReviewParser.button = loadMoreButton;
             shortReviewParser.text = loadText;
             shortReviewSelector.ItemsSource = shortReviewParser.shortReviewCollection;
@@ -103,15 +90,11 @@ namespace PanoramaApp2
         private void loadReview()
         {
             loadMoreReviewButton.IsEnabled = false;
-            SystemTray.Opacity = 0;
-            SystemTray.IsVisible = true;
-            ProgressIndicator indicator = new ProgressIndicator();
-            SystemTray.ProgressIndicator = indicator;
-            SystemTray.ProgressIndicator.IsIndeterminate = true;
-            SystemTray.ProgressIndicator.Text = "加载中...";
-            SystemTray.ProgressIndicator.IsVisible = true;
             movie.nextReviewLink = Movie.movieLinkHeader + movie.id + "/reviews";
             reviewParser = new ReviewParser(movie);
+            reviewParser.progressBar = ReviewProgressBar;
+            ReviewProgressBar.IsIndeterminate = true;
+            ReviewProgressBar.Visibility = System.Windows.Visibility.Visible;
             reviewParser.button = loadMoreReviewButton;
             reviewParser.text = loadReviewText;
             reviewLongListSelector.ItemsSource = reviewParser.reviewCollection;
@@ -150,15 +133,11 @@ namespace PanoramaApp2
         private void loadImage()
         {
             loadMoreImageButton.IsEnabled = false;
-            SystemTray.Opacity = 0;
-            SystemTray.IsVisible = true;
-            ProgressIndicator indicator = new ProgressIndicator();
-            SystemTray.ProgressIndicator = indicator;
-            SystemTray.ProgressIndicator.IsIndeterminate = true;
-            SystemTray.ProgressIndicator.Text = "加载中...";
-            SystemTray.ProgressIndicator.IsVisible = true;
             movie.nextImageLink = Movie.movieLinkHeader + movie.id + "/photos?type=S";
             imageParser = new ImageHtmlParser(movie);
+            imageParser.progressBar = ImageProgressBar;
+            ImageProgressBar.IsIndeterminate = true;
+            ImageProgressBar.Visibility = System.Windows.Visibility.Visible;
             imageParser.button = loadMoreImageButton;
             imageParser.text = loadImageText;
             imageListBox.ItemsSource = imageParser.imageCollection;
@@ -170,13 +149,8 @@ namespace PanoramaApp2
             if (shortReviewParser != null)
             {
                 loadMoreButton.IsEnabled = false;
-                SystemTray.Opacity = 0;
-                SystemTray.IsVisible = true;
-                ProgressIndicator indicator = new ProgressIndicator();
-                SystemTray.ProgressIndicator = indicator;
-                SystemTray.ProgressIndicator.IsIndeterminate = true;
-                SystemTray.ProgressIndicator.Text = "加载中...";
-                SystemTray.ProgressIndicator.IsVisible = true;
+                ShortReviewProgressBar.IsIndeterminate = true;
+                ShortReviewProgressBar.Visibility = System.Windows.Visibility.Visible;
                 shortReviewParser.parseShortReview();
             }
         }
@@ -191,13 +165,8 @@ namespace PanoramaApp2
             if (reviewParser != null)
             {
                 loadMoreReviewButton.IsEnabled = false;
-                SystemTray.Opacity = 0;
-                SystemTray.IsVisible = true;
-                ProgressIndicator indicator = new ProgressIndicator();
-                SystemTray.ProgressIndicator = indicator;
-                SystemTray.ProgressIndicator.IsIndeterminate = true;
-                SystemTray.ProgressIndicator.Text = "加载中...";
-                SystemTray.ProgressIndicator.IsVisible = true;
+                ReviewProgressBar.IsIndeterminate = true;
+                ReviewProgressBar.Visibility = System.Windows.Visibility.Visible;
                 reviewParser.parseReview();
             }
         }
@@ -217,13 +186,8 @@ namespace PanoramaApp2
             if (imageParser != null)
             {
                 loadMoreImageButton.IsEnabled = false;
-                SystemTray.Opacity = 0;
-                SystemTray.IsVisible = true;
-                ProgressIndicator indicator = new ProgressIndicator();
-                SystemTray.ProgressIndicator = indicator;
-                SystemTray.ProgressIndicator.IsIndeterminate = true;
-                SystemTray.ProgressIndicator.Text = "加载中...";
-                SystemTray.ProgressIndicator.IsVisible = true;
+                ImageProgressBar.Visibility = System.Windows.Visibility.Visible;
+                ImageProgressBar.IsIndeterminate = true;
                 imageParser.parseImage();
             }
         }

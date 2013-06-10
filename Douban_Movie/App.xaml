@@ -21,7 +21,7 @@
         <DataTemplate x:Key="MyPivotItemHeaderTemplate">
             <Grid>
                 <ContentPresenter>
-                    <TextBlock Text="{Binding}" FontSize="{StaticResource PhoneFontSizeExtraLarge}" />
+                    <TextBlock Text="{Binding}" FontSize="45" Foreground="White"/>
                 </ContentPresenter>
             </Grid>
         </DataTemplate>
