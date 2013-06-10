@@ -16,34 +16,20 @@ namespace PanoramaApp2
         private MovieJsonParser movieParser;
         private bool shortReviewLoaded;
         private bool reviewLoaded;
+        private bool imageLoaded;
         private Movie movie;
         private ShortReviewHtmlParser shortReviewParser = null;
         private ReviewParser reviewParser = null;
+        private ImageHtmlParser imageParser = null;
 
         public MoviePage()
         {
             InitializeComponent();
             shortReviewLoaded = false;
             reviewLoaded = false;
+            imageLoaded = false;
             movie = App.moviePassed;
-            this.Loaded += page_loaded;
-        }
-
-        void page_loaded(object sender, RoutedEventArgs e)
-        {
-            SystemTray.Opacity = 0;
-            SystemTray.IsVisible = true;
-            SystemTray.SetForegroundColor(this, System.Windows.Media.Colors.White);
-            SystemTray.ProgressIndicator = new ProgressIndicator();
-            SystemTray.ProgressIndicator.IsIndeterminate = true;
-            SystemTray.ProgressIndicator.Text = "加载中...";
-            SystemTray.ProgressIndicator.IsVisible = true;
-            if (movie == null)
-            {
-                System.Diagnostics.Debug.WriteLine("Shouldn't be null!");
-            }
-            movieParser = new MovieJsonParser();
-            movieParser.movie = movie;
+            movieParser = new MovieJsonParser(movie);
             movieParser.title = title;
             movieParser.posterImage = posterUrl;
             movieParser.rating = rating;
@@ -57,7 +43,27 @@ namespace PanoramaApp2
             movieParser.theater = theater;
             movieParser.summary = summary;
             movieParser.peopleList = peopleSelector;
-            movieParser.getMovieByID();
+            this.Loaded += page_loaded;
+        }
+
+        void page_loaded(object sender, RoutedEventArgs e)
+        {
+            SystemTray.Opacity = 0;
+            SystemTray.IsVisible = true;
+            SystemTray.SetForegroundColor(this, System.Windows.Media.Colors.White);
+            SystemTray.ProgressIndicator = new ProgressIndicator();
+            SystemTray.ProgressIndicator.IsIndeterminate = true;
+            SystemTray.ProgressIndicator.Text = "加载中...";
+            SystemTray.ProgressIndicator.IsVisible = true;
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (e.NavigationMode == NavigationMode.New)
+            {
+                movieParser.getMovieByID();
+            }
         }
 
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
@@ -131,6 +137,32 @@ namespace PanoramaApp2
                     loadReview();
                 }
             }
+            if (index == 4)
+            {
+                if (imageLoaded == false)
+                {
+                    imageLoaded = true;
+                    loadImage();
+                }
+            }
+        }
+
+        private void loadImage()
+        {
+            loadMoreImageButton.IsEnabled = false;
+            SystemTray.Opacity = 0;
+            SystemTray.IsVisible = true;
+            ProgressIndicator indicator = new ProgressIndicator();
+            SystemTray.ProgressIndicator = indicator;
+            SystemTray.ProgressIndicator.IsIndeterminate = true;
+            SystemTray.ProgressIndicator.Text = "加载中...";
+            SystemTray.ProgressIndicator.IsVisible = true;
+            movie.nextImageLink = Movie.movieLinkHeader + movie.id + "/photos?type=S";
+            imageParser = new ImageHtmlParser(movie);
+            imageParser.button = loadMoreImageButton;
+            imageParser.text = loadImageText;
+            imageListBox.ItemsSource = imageParser.imageCollection;
+            imageParser.parseImage();
         }
 
         private void loadMoreButton_Click(object sender, RoutedEventArgs e)
@@ -167,6 +199,32 @@ namespace PanoramaApp2
                 SystemTray.ProgressIndicator.Text = "加载中...";
                 SystemTray.ProgressIndicator.IsVisible = true;
                 reviewParser.parseReview();
+            }
+        }
+
+        private void Image_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+
+        }
+
+        private void imageListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void loadMoreImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (imageParser != null)
+            {
+                loadMoreImageButton.IsEnabled = false;
+                SystemTray.Opacity = 0;
+                SystemTray.IsVisible = true;
+                ProgressIndicator indicator = new ProgressIndicator();
+                SystemTray.ProgressIndicator = indicator;
+                SystemTray.ProgressIndicator.IsIndeterminate = true;
+                SystemTray.ProgressIndicator.Text = "加载中...";
+                SystemTray.ProgressIndicator.IsVisible = true;
+                imageParser.parseImage();
             }
         }
     }

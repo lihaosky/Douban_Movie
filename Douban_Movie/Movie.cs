@@ -246,6 +246,30 @@ namespace PanoramaApp2
                 _hasMoreReview = value;
             }
         }
+        private string _nextImageLink = "";
+        public string nextImageLink
+        {
+            get
+            {
+                return _nextImageLink;
+            }
+            set
+            {
+                _nextImageLink = value;
+            }
+        }
+        private bool _hasMoreImage;
+        public bool hasMoreImage
+        {
+            get
+            {
+                return _hasMoreImage;
+            }
+            set
+            {
+                _hasMoreImage = value;
+            }
+        }
         public static string movieLinkHeader = "http://movie.douban.com/subject/";
         public static string apiMovieHeader = "http://api.douban.com/v2/movie/subject/";
         public static string apiUSBoxHeader = "http://api.douban.com/v2/movie/us_box";

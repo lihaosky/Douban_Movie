@@ -32,52 +32,59 @@ namespace PanoramaApp2
 
         public static void downloadTop250Completed(object sender, DownloadStringCompletedEventArgs e)
         {
-            if (e.Error == null && !e.Cancelled)
+            try
             {
-                string page = e.Result;
-                HtmlDocument doc = new HtmlDocument();
-                doc.LoadHtml(page);
-                HtmlNodeCollection nodeCollection = doc.DocumentNode.SelectNodes("//div[@class='item']");
-                if (nodeCollection != null)
+                if (e.Error == null && !e.Cancelled)
                 {
-                    foreach (HtmlNode node in nodeCollection)
+                    string page = e.Result;
+                    HtmlDocument doc = new HtmlDocument();
+                    doc.LoadHtml(page);
+                    HtmlNodeCollection nodeCollection = doc.DocumentNode.SelectNodes("//div[@class='item']");
+                    if (nodeCollection != null)
                     {
-                        Movie movie;
-                        try
+                        foreach (HtmlNode node in nodeCollection)
                         {
-                            movie = getTopMovie(node);
+                            Movie movie;
+                            try
+                            {
+                                movie = getTopMovie(node);
+                            }
+                            catch (Exception)
+                            {
+                                continue;
+                            }
+                            observableMovieList.Add(movie);
                         }
-                        catch (Exception)
-                        {
-                            continue;
-                        }
-                        observableMovieList.Add(movie);
                     }
-                }
-                if (indicator != null)
-                {
-                    indicator.IsVisible = false;
-                }
-                SystemTray.IsVisible = false;
-                currentIndex++;
-                if (currentIndex > maxIndex)
-                {
-                    loadMoreButton.IsEnabled = false;
-                    loadText.Text = "完了:-)";
+                    if (indicator != null)
+                    {
+                        indicator.IsVisible = false;
+                    }
+                    SystemTray.IsVisible = false;
+                    currentIndex++;
+                    if (currentIndex > maxIndex)
+                    {
+                        loadMoreButton.IsEnabled = false;
+                        loadText.Text = "完了:-)";
+                    }
+                    else
+                    {
+                        loadMoreButton.IsEnabled = true;
+                    }
                 }
                 else
                 {
-                    loadMoreButton.IsEnabled = true;
+                    MessageBoxResult result = MessageBox.Show("无法连接到豆瓣网,请检查网络连接", "", MessageBoxButton.OK);
+                    if (indicator != null)
+                    {
+                        indicator.IsVisible = false;
+                    }
+                    SystemTray.IsVisible = false;
                 }
             }
-            else
+            catch (WebException)
             {
                 MessageBoxResult result = MessageBox.Show("无法连接到豆瓣网,请检查网络连接", "", MessageBoxButton.OK);
-                if (indicator != null)
-                {
-                    indicator.IsVisible = false;
-                }
-                SystemTray.IsVisible = false;
             }
         }
 

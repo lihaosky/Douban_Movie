@@ -32,64 +32,71 @@ namespace PanoramaApp2
 
         public static void downloadHotReviewComplete(object sender, DownloadStringCompletedEventArgs e)
         {
-            if (e.Error == null && !e.Cancelled)
+            try
             {
-                string page = e.Result;
-                HtmlDocument doc = new HtmlDocument();
-                doc.LoadHtml(page);
-                HtmlNodeCollection nodeCollction = doc.DocumentNode.SelectNodes("//ul[@class='tlst clearfix']");
-                if (nodeCollction != null)
+                if (e.Error == null && !e.Cancelled)
                 {
+                    string page = e.Result;
+                    HtmlDocument doc = new HtmlDocument();
+                    doc.LoadHtml(page);
+                    HtmlNodeCollection nodeCollction = doc.DocumentNode.SelectNodes("//ul[@class='tlst clearfix']");
+                    if (nodeCollction != null)
+                    {
 
-                    foreach (HtmlNode node in nodeCollction)
-                    {
-                        Review review;
-                        try
+                        foreach (HtmlNode node in nodeCollction)
                         {
-                            review = getReview(node);
+                            Review review;
+                            try
+                            {
+                                review = getReview(node);
+                            }
+                            catch (Exception)
+                            {
+                                continue;
+                            }
+                            reviewCollection.Add(review);
                         }
-                        catch (Exception)
+                        if (indicator != null)
                         {
-                            continue;
+                            indicator.IsVisible = false;
                         }
-                        reviewCollection.Add(review);
-                    }
-                    if (indicator != null)
-                    {
-                        indicator.IsVisible = false;
-                    }
-                    SystemTray.IsVisible = false;
-                    HtmlNodeCollection nextLinkNode = doc.DocumentNode.SelectNodes("//span[@class='next']")[0].SelectNodes("a");
-                    if (nextLinkNode == null)
-                    {
-                        loadmoreButton.IsEnabled = false;
-                        buttonText.Text = "完了:-)";
+                        SystemTray.IsVisible = false;
+                        HtmlNodeCollection nextLinkNode = doc.DocumentNode.SelectNodes("//span[@class='next']")[0].SelectNodes("a");
+                        if (nextLinkNode == null)
+                        {
+                            loadmoreButton.IsEnabled = false;
+                            buttonText.Text = "完了:-)";
+                        }
+                        else
+                        {
+                            nextLink = nextLinkNode[0].Attributes["href"].Value;
+                            loadmoreButton.IsEnabled = true;
+                        }
                     }
                     else
                     {
-                        nextLink = nextLinkNode[0].Attributes["href"].Value;
-                        loadmoreButton.IsEnabled = true;
+                        if (indicator != null)
+                        {
+                            indicator.IsVisible = false;
+                        }
+                        SystemTray.IsVisible = false;
+                        loadmoreButton.IsEnabled = false;
+                        buttonText.Text = "完了:-)";
                     }
                 }
                 else
                 {
+                    MessageBoxResult result = MessageBox.Show("无法连接到豆瓣网,请检查网络连接", "", MessageBoxButton.OK);
                     if (indicator != null)
                     {
                         indicator.IsVisible = false;
                     }
                     SystemTray.IsVisible = false;
-                    loadmoreButton.IsEnabled = false;
-                    buttonText.Text = "完了:-)";
                 }
             }
-            else
+            catch (WebException)
             {
                 MessageBoxResult result = MessageBox.Show("无法连接到豆瓣网,请检查网络连接", "", MessageBoxButton.OK);
-                if (indicator != null)
-                {
-                    indicator.IsVisible = false;
-                }
-                SystemTray.IsVisible = false;
             }
         }
 

@@ -61,7 +61,7 @@ namespace PanoramaApp2.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to my application.
+        ///   Looks up a localized string similar to DOUBAN.
         /// </summary>
         public static string ApplicationTitle {
             get {

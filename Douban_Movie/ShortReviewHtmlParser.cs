@@ -36,54 +36,47 @@ namespace PanoramaApp2
 
         public void downloadShortReviewCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
-            if (e.Error == null && !e.Cancelled)
+            try
             {
-                string page = e.Result;
-                HtmlDocument doc = new HtmlDocument();
-                doc.LoadHtml(page);
-                HtmlNodeCollection nodeCollection = doc.DocumentNode.SelectNodes("//div[@class='comment']");
-                if (nodeCollection == null)
+                if (e.Error == null && !e.Cancelled)
                 {
-                    if (SystemTray.ProgressIndicator != null)
-                    {
-                        SystemTray.ProgressIndicator.IsVisible = false;
-                    }
-                    SystemTray.IsVisible = false;
-                    movie.hasMoreShortReview = false;
-                    button.IsEnabled = false;
-                    text.Text = "完了:-)";
-                }
-                else
-                {
-                    foreach (HtmlNode node in nodeCollection)
-                    {
-                        ShortReview sr;
-                        try
-                        {
-                            sr = getShortReview(node);
-                        }
-                        catch (Exception)
-                        {
-                            continue;
-                        }
-                        shortReviewCollection.Add(sr);
-                    }
-                    if (SystemTray.ProgressIndicator != null)
-                    {
-                        SystemTray.ProgressIndicator.IsVisible = false;
-                    }
-                    SystemTray.IsVisible = false;
-                    nodeCollection = doc.DocumentNode.SelectNodes("//div[@id='paginator']");
+                    string page = e.Result;
+                    HtmlDocument doc = new HtmlDocument();
+                    doc.LoadHtml(page);
+                    HtmlNodeCollection nodeCollection = doc.DocumentNode.SelectNodes("//div[@class='comment']");
                     if (nodeCollection == null)
                     {
+                        if (SystemTray.ProgressIndicator != null)
+                        {
+                            SystemTray.ProgressIndicator.IsVisible = false;
+                        }
+                        SystemTray.IsVisible = false;
                         movie.hasMoreShortReview = false;
                         button.IsEnabled = false;
                         text.Text = "完了:-)";
                     }
                     else
                     {
-                        HtmlNodeCollection nc = nodeCollection[0].SelectNodes("a[@class='next']");
-                        if (nc == null)
+                        foreach (HtmlNode node in nodeCollection)
+                        {
+                            ShortReview sr;
+                            try
+                            {
+                                sr = getShortReview(node);
+                            }
+                            catch (Exception)
+                            {
+                                continue;
+                            }
+                            shortReviewCollection.Add(sr);
+                        }
+                        if (SystemTray.ProgressIndicator != null)
+                        {
+                            SystemTray.ProgressIndicator.IsVisible = false;
+                        }
+                        SystemTray.IsVisible = false;
+                        nodeCollection = doc.DocumentNode.SelectNodes("//div[@id='paginator']");
+                        if (nodeCollection == null)
                         {
                             movie.hasMoreShortReview = false;
                             button.IsEnabled = false;
@@ -91,22 +84,36 @@ namespace PanoramaApp2
                         }
                         else
                         {
-                            movie.hasMoreShortReview = true;
-                            string link = nc[0].Attributes["href"].Value;
-                            link = link.Replace("&amp;", "&");
-                            movie.nextShortReviewLink = Movie.movieLinkHeader + movie.id + "/comments" + link;
-                            button.IsEnabled = true;
+                            HtmlNodeCollection nc = nodeCollection[0].SelectNodes("a[@class='next']");
+                            if (nc == null)
+                            {
+                                movie.hasMoreShortReview = false;
+                                button.IsEnabled = false;
+                                text.Text = "完了:-)";
+                            }
+                            else
+                            {
+                                movie.hasMoreShortReview = true;
+                                string link = nc[0].Attributes["href"].Value;
+                                link = link.Replace("&amp;", "&");
+                                movie.nextShortReviewLink = Movie.movieLinkHeader + movie.id + "/comments" + link;
+                                button.IsEnabled = true;
+                            }
                         }
                     }
                 }
-            }
-            else
-            {
-                if (SystemTray.ProgressIndicator != null)
+                else
                 {
-                    SystemTray.ProgressIndicator.IsVisible = false;
+                    if (SystemTray.ProgressIndicator != null)
+                    {
+                        SystemTray.ProgressIndicator.IsVisible = false;
+                    }
+                    SystemTray.IsVisible = false;
                 }
-                SystemTray.IsVisible = false;
+            }
+            catch (WebException)
+            {
+                MessageBoxResult result = MessageBox.Show("无法连接到豆瓣网,请检查网络连接", "", MessageBoxButton.OK);
             }
         }
 

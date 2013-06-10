@@ -14,22 +14,26 @@ namespace PanoramaApp2
     public partial class MainPage : PhoneApplicationPage
     {
         private Popup popup;
-        private bool latestLoaded = false;
-        private bool top250Loaded = false;
-        private bool usboxLoaded = false;
-        private bool commentLoaded = false;
+        private bool latestLoaded;
+        private bool top250Loaded;
+        private bool usboxLoaded;
+        private bool commentLoaded;
 
         // Constructor
         public MainPage()
         {
             InitializeComponent();
-            showPopup();
-            
+
+            latestLoaded = false;
+            top250Loaded = false;
+            usboxLoaded = false;
+            commentLoaded = false;
+
             // Get hot movie
             HotMovieHtmlParser.selector = hotLongListSelector;
+            popup = new Popup();
             HotMovieHtmlParser.popup = popup;
-            HotMovieHtmlParser.parseHottMovie();
-
+            
             // Create an application bar
             ApplicationBar = new ApplicationBar();
 
@@ -47,13 +51,11 @@ namespace PanoramaApp2
             ApplicationBarMenuItem menuItem3 = new ApplicationBarMenuItem();
             menuItem3.Text = "关于";
             ApplicationBar.MenuItems.Add(menuItem3);
-
-           
         }
 
         private void showPopup()
         {
-            popup = new Popup();
+            
             PopupSplash splash = new PopupSplash();
             splash.Height = Application.Current.Host.Content.ActualHeight;
             splash.Width = Application.Current.Host.Content.ActualWidth;
@@ -64,6 +66,12 @@ namespace PanoramaApp2
         // Load data for the ViewModel Items
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            base.OnNavigatedTo(e);
+            if (e.NavigationMode == NavigationMode.New)
+            {
+                showPopup();
+                HotMovieHtmlParser.parseHottMovie();
+            }
         }
 
         private void hotLongListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -245,6 +253,11 @@ namespace PanoramaApp2
                     loadReviewPivotItem();
                 }
             }
+        }
+
+        private void Image_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("tapped");
         }
     }
 }

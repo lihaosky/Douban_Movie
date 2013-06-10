@@ -30,38 +30,45 @@ namespace PanoramaApp2
 
         public static void downloadUSBoxCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
-            if (e.Error == null && !e.Cancelled)
+            try
             {
-                string data = e.Result;
-                JObject obj = JObject.Parse(data);
-                JArray array = (JArray)obj["subjects"];
-                List<Movie> movieList = new List<Movie>();
-                for (int i = 0; i < array.Count; i++)
+                if (e.Error == null && !e.Cancelled)
                 {
-                    Movie movie = new Movie();
-                    movie.id = JsonParser.getDouble(array[i], "subject", "id");
-                    movie.posterUrl = JsonParser.getTriple(array[i], "subject", "images", "small");
-                    movie.money = JsonParser.getValue(array[i], "box");
-                    movie.rating = JsonParser.getTriple(array[i], "subject", "rating", "average");
-                    movie.title = JsonParser.getDouble(array[i], "subject", "title");
-                    movie.star = Util.getStarPath(movie.rating);
-                    movieList.Add(movie);
+                    string data = e.Result;
+                    JObject obj = JObject.Parse(data);
+                    JArray array = (JArray)obj["subjects"];
+                    List<Movie> movieList = new List<Movie>();
+                    for (int i = 0; i < array.Count; i++)
+                    {
+                        Movie movie = new Movie();
+                        movie.id = JsonParser.getDouble(array[i], "subject", "id");
+                        movie.posterUrl = JsonParser.getTriple(array[i], "subject", "images", "small");
+                        movie.money = JsonParser.getValue(array[i], "box");
+                        movie.rating = JsonParser.getTriple(array[i], "subject", "rating", "average");
+                        movie.title = JsonParser.getDouble(array[i], "subject", "title");
+                        movie.star = Util.getStarPath(movie.rating);
+                        movieList.Add(movie);
+                    }
+                    usboxLongListSelector.ItemsSource = movieList;
+                    if (indicator != null)
+                    {
+                        indicator.IsVisible = false;
+                    }
+                    SystemTray.IsVisible = false;
                 }
-                usboxLongListSelector.ItemsSource = movieList;
-                if (indicator != null)
+                else
                 {
-                    indicator.IsVisible = false;
+                    MessageBoxResult result = MessageBox.Show("无法连接到豆瓣网,请检查网络连接", "", MessageBoxButton.OK);
+                    if (indicator != null)
+                    {
+                        indicator.IsVisible = false;
+                    }
+                    SystemTray.IsVisible = false;
                 }
-                SystemTray.IsVisible = false;
             }
-            else
+            catch (WebException)
             {
                 MessageBoxResult result = MessageBox.Show("无法连接到豆瓣网,请检查网络连接", "", MessageBoxButton.OK);
-                if (indicator != null)
-                {
-                    indicator.IsVisible = false;
-                }
-                SystemTray.IsVisible = false;
             }
         }
     }

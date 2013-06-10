@@ -16,7 +16,7 @@ namespace PanoramaApp2
 {
     class MovieJsonParser
     {
-        public Movie movie { get; set; }
+        private Movie movie;
         public Image posterImage { get; set; }
         public Image starImage { get; set; }
         public TextBlock title { get; set; }
@@ -32,6 +32,11 @@ namespace PanoramaApp2
         public LongListSelector peopleList { get; set; }
         public WebClient client;
 
+        public MovieJsonParser(Movie m)
+        {
+            movie = m;
+        }
+
         public void getMovieByID()
         {
             client = new WebClient();
@@ -41,95 +46,102 @@ namespace PanoramaApp2
 
         private void downloadJsonCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
-            if (e.Error == null && !e.Cancelled)
+            try
             {
-                string data = e.Result;
-                JObject obj = JObject.Parse(data);
-                movie.summary = JsonParser.getValue(obj, "summary");
-                if (movie.genre == "" || movie.genre == null)
+                if (e.Error == null && !e.Cancelled)
                 {
-                    movie.genre = JsonParser.getArray(obj, "genres");
-                }
-                if (movie.title == "" || movie.title == null)
-                {
-                    movie.title = JsonParser.getValue(obj, "title");
-                }
-                if (movie.year == "" || movie.year == null)
-                {
-                    movie.year = JsonParser.getValue(obj, "year");
-                }
-                if (movie.rating == "" || movie.rating == null)
-                {
-                    movie.rating = JsonParser.getDouble(obj, "rating", "average");
-                }
-                movie.star = Util.getStarPath(movie.rating);
-                if (movie.rateNumber == "" || movie.rateNumber == null)
-                {
-                    movie.rateNumber = JsonParser.getValue(obj, "ratings_count");
-                }
-                if (movie.posterUrl == "" || movie.posterUrl == null)
-                {
-                    movie.posterUrl = JsonParser.getDouble(obj, "images", "small");
-                }
-                object[] countries = obj["countries"].ToArray();
-                if (movie.region == "" || movie.region == null)
-                {
-                    movie.region = JsonParser.getArray(obj, "countries");
-                }
-                title.Text = movie.title;
-                posterImage.Source = new BitmapImage(new Uri(movie.posterUrl));
-                starImage.Source = new BitmapImage(new Uri(movie.star, UriKind.Relative));
-                rating.Text = movie.rating;
-                rateNumber.Text = movie.rateNumber;
-                year_duration.Text = movie.year + " / " + movie.length;
-                name.Text = "人评分";
-                region.Text = movie.region;
-                genre.Text = movie.genre;
-                summary.Text = movie.summary;
-                trailer.Content = "预告片";
-                trailer.NavigateUri = new Uri(Movie.movieLinkHeader + movie.id + "/trailer", UriKind.Absolute);
-                theater.Content = "选座购票";
-                theater.NavigateUri = new Uri(Movie.movieLinkHeader + movie.id + "/cinema", UriKind.Absolute);
+                    string data = e.Result;
+                    JObject obj = JObject.Parse(data);
+                    movie.summary = JsonParser.getValue(obj, "summary");
+                    if (movie.genre == "" || movie.genre == null)
+                    {
+                        movie.genre = JsonParser.getArray(obj, "genres");
+                    }
+                    if (movie.title == "" || movie.title == null)
+                    {
+                        movie.title = JsonParser.getValue(obj, "title");
+                    }
+                    if (movie.year == "" || movie.year == null)
+                    {
+                        movie.year = JsonParser.getValue(obj, "year");
+                    }
+                    if (movie.rating == "" || movie.rating == null)
+                    {
+                        movie.rating = JsonParser.getDouble(obj, "rating", "average");
+                    }
+                    movie.star = Util.getStarPath(movie.rating);
+                    if (movie.rateNumber == "" || movie.rateNumber == null)
+                    {
+                        movie.rateNumber = JsonParser.getValue(obj, "ratings_count");
+                    }
+                    if (movie.posterUrl == "" || movie.posterUrl == null)
+                    {
+                        movie.posterUrl = JsonParser.getDouble(obj, "images", "small");
+                    }
+                    object[] countries = obj["countries"].ToArray();
+                    if (movie.region == "" || movie.region == null)
+                    {
+                        movie.region = JsonParser.getArray(obj, "countries");
+                    }
+                    title.Text = movie.title;
+                    posterImage.Source = new BitmapImage(new Uri(movie.posterUrl));
+                    starImage.Source = new BitmapImage(new Uri(movie.star, UriKind.Relative));
+                    rating.Text = movie.rating;
+                    rateNumber.Text = movie.rateNumber;
+                    year_duration.Text = movie.year + " / " + movie.length;
+                    name.Text = "人评分";
+                    region.Text = movie.region;
+                    genre.Text = movie.genre;
+                    summary.Text = movie.summary;
+                    trailer.Content = "预告片";
+                    trailer.NavigateUri = new Uri(Movie.movieLinkHeader + movie.id + "/trailer", UriKind.Absolute);
+                    theater.Content = "选座购票";
+                    theater.NavigateUri = new Uri(Movie.movieLinkHeader + movie.id + "/cinema", UriKind.Absolute);
 
-                List<People> peoples = new List<People>();
-                JArray array = (JArray)obj["directors"];
-                for (int i = 0; i < array.Count; i++)
-                {
-                    People people = new People();
-                    people.posterUrl = JsonParser.getDouble(array[i], "avatars", "small");
-                    people.id = JsonParser.getValue(array[i], "id");
-                    people.name = JsonParser.getValue(array[i], "name");
-                    people.positionName = "导演";
-                    people.position = People.DIRECTOR;
-                    peoples.Add(people);
-                }
-                array = (JArray)obj["casts"];
-                for (int i = 0; i < array.Count; i++)
-                {
-                    People people = new People();
-                    people.posterUrl = JsonParser.getDouble(array[i], "avatars", "small");
-                    people.id = JsonParser.getValue(array[i], "id");
-                    people.name = JsonParser.getValue(array[i], "name");
-                    people.positionName = "";
-                    people.position = People.ACTOR;
-                    peoples.Add(people);
-                }
-                peopleList.ItemsSource = peoples;
+                    List<People> peoples = new List<People>();
+                    JArray array = (JArray)obj["directors"];
+                    for (int i = 0; i < array.Count; i++)
+                    {
+                        People people = new People();
+                        people.posterUrl = JsonParser.getDouble(array[i], "avatars", "small");
+                        people.id = JsonParser.getValue(array[i], "id");
+                        people.name = JsonParser.getValue(array[i], "name");
+                        people.positionName = "导演";
+                        people.position = People.DIRECTOR;
+                        peoples.Add(people);
+                    }
+                    array = (JArray)obj["casts"];
+                    for (int i = 0; i < array.Count; i++)
+                    {
+                        People people = new People();
+                        people.posterUrl = JsonParser.getDouble(array[i], "avatars", "small");
+                        people.id = JsonParser.getValue(array[i], "id");
+                        people.name = JsonParser.getValue(array[i], "name");
+                        people.positionName = "";
+                        people.position = People.ACTOR;
+                        peoples.Add(people);
+                    }
+                    peopleList.ItemsSource = peoples;
 
-                if (SystemTray.ProgressIndicator != null)
-                {
-                    SystemTray.ProgressIndicator.IsVisible = false;
+                    if (SystemTray.ProgressIndicator != null)
+                    {
+                        SystemTray.ProgressIndicator.IsVisible = false;
+                    }
+                    SystemTray.IsVisible = false;
                 }
-                SystemTray.IsVisible = false;
+                else
+                {
+
+                    if (SystemTray.ProgressIndicator != null)
+                    {
+                        SystemTray.ProgressIndicator.IsVisible = false;
+                    }
+                    SystemTray.IsVisible = false;
+                }
             }
-            else
+            catch (WebException)
             {
-
-                if (SystemTray.ProgressIndicator != null)
-                {
-                    SystemTray.ProgressIndicator.IsVisible = false;
-                }
-                SystemTray.IsVisible = false;
+                MessageBoxResult result = MessageBox.Show("无法连接到豆瓣网,请检查网络连接", "", MessageBoxButton.OK);
             }
         }
 

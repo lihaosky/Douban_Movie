@@ -38,56 +38,63 @@ namespace PanoramaApp2
         /// <param name="e"></param>
         private static void downloadLatestMovieCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
-            if (!e.Cancelled && e.Error == null)
+            try
             {
-                string page = e.Result;
-                HtmlDocument doc = new HtmlDocument();
-                doc.LoadHtml(page);
-                HtmlNodeCollection nodeCollection = doc.DocumentNode.SelectNodes("//li[@class='ui-slide-item s']");
-                List<Movie> movieList = new List<Movie>();
+                if (!e.Cancelled && e.Error == null)
+                {
+                    string page = e.Result;
+                    HtmlDocument doc = new HtmlDocument();
+                    doc.LoadHtml(page);
+                    HtmlNodeCollection nodeCollection = doc.DocumentNode.SelectNodes("//li[@class='ui-slide-item s']");
+                    List<Movie> movieList = new List<Movie>();
 
-                // Can't find movie! Hmmm, shouldn't happen...
-                if (nodeCollection != null)
-                {
-                    foreach (HtmlNode movieNode in nodeCollection)
+                    // Can't find movie! Hmmm, shouldn't happen...
+                    if (nodeCollection != null)
                     {
-                        Movie movie;
-                        try
+                        foreach (HtmlNode movieNode in nodeCollection)
                         {
-                            movie = getHotMovie(movieNode);
+                            Movie movie;
+                            try
+                            {
+                                movie = getHotMovie(movieNode);
+                            }
+                            catch (Exception)
+                            {
+                                continue;
+                            }
+                            movieList.Add(movie);
                         }
-                        catch (Exception)
-                        {
-                            continue;
-                        }
-                        movieList.Add(movie);
                     }
-                }
-                nodeCollection = doc.DocumentNode.SelectNodes("//li[@class='ui-slide-item']");
-                // Can't find movie! Hmmm, shouldn't happen...
-                if (nodeCollection != null)
-                {
-                    foreach (HtmlNode movieNode in nodeCollection)
+                    nodeCollection = doc.DocumentNode.SelectNodes("//li[@class='ui-slide-item']");
+                    // Can't find movie! Hmmm, shouldn't happen...
+                    if (nodeCollection != null)
                     {
-                        Movie movie;
-                        try
+                        foreach (HtmlNode movieNode in nodeCollection)
                         {
-                            movie = getHotMovie(movieNode);
+                            Movie movie;
+                            try
+                            {
+                                movie = getHotMovie(movieNode);
+                            }
+                            catch (Exception)
+                            {
+                                continue;
+                            }
+                            movieList.Add(movie);
                         }
-                        catch (Exception)
-                        {
-                            continue;
-                        }
-                        movieList.Add(movie);
                     }
+                    selector.ItemsSource = movieList;
+                    popup.IsOpen = false;
                 }
-                selector.ItemsSource = movieList;
-                popup.IsOpen = false;
+                else
+                {
+                    MessageBoxResult result = MessageBox.Show("无法连接到豆瓣网,请检查网络连接", "", MessageBoxButton.OK);
+                    popup.IsOpen = false;
+                }
             }
-            else
+            catch (WebException)
             {
                 MessageBoxResult result = MessageBox.Show("无法连接到豆瓣网,请检查网络连接", "", MessageBoxButton.OK);
-                popup.IsOpen = false;
             }
         }
 

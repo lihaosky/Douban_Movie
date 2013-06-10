@@ -95,6 +95,8 @@
     </Compile>
     <Compile Include="HotMovieHtmlParser.cs" />
     <Compile Include="HotReviewHtmlParser.cs" />
+    <Compile Include="MovieImage.cs" />
+    <Compile Include="ImageHtmlParser.cs" />
     <Compile Include="JsonParser.cs" />
     <Compile Include="LatestHtmlParser.cs" />
     <Compile Include="MovieJsonParser.cs" />

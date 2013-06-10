@@ -27,65 +27,72 @@ namespace PanoramaApp2
 
         public static void downloadLatestCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
-            if (e.Error == null && !e.Cancelled)
+            try
             {
-                string page = e.Result;
-                List<Movie> movieList = new List<Movie>();
-                HtmlDocument doc = new HtmlDocument();
-                doc.LoadHtml(page);
-                HtmlNodeCollection nodeCollection = doc.DocumentNode.SelectNodes("//div[@class='item mod odd']");
-                if (nodeCollection != null)
+                if (e.Error == null && !e.Cancelled)
                 {
-                    foreach (HtmlNode node in nodeCollection)
+                    string page = e.Result;
+                    List<Movie> movieList = new List<Movie>();
+                    HtmlDocument doc = new HtmlDocument();
+                    doc.LoadHtml(page);
+                    HtmlNodeCollection nodeCollection = doc.DocumentNode.SelectNodes("//div[@class='item mod odd']");
+                    if (nodeCollection != null)
                     {
-                        Movie movie;
-                        try
+                        foreach (HtmlNode node in nodeCollection)
                         {
-                            movie = getLatestMovie(node);
+                            Movie movie;
+                            try
+                            {
+                                movie = getLatestMovie(node);
+                            }
+                            catch (Exception)
+                            {
+                                continue;
+                            }
+                            movieList.Add(movie);
                         }
-                        catch (Exception)
-                        {
-                            continue;
-                        }
-                        movieList.Add(movie);
                     }
-                }
-                nodeCollection = doc.DocumentNode.SelectNodes("//div[@class='item mod ']");
-                if (nodeCollection == null)
-                {
-                    System.Diagnostics.Debug.WriteLine("null collection");
+                    nodeCollection = doc.DocumentNode.SelectNodes("//div[@class='item mod ']");
+                    if (nodeCollection == null)
+                    {
+                        System.Diagnostics.Debug.WriteLine("null collection");
+                    }
+                    else
+                    {
+                        foreach (HtmlNode node in nodeCollection)
+                        {
+                            Movie movie;
+                            try
+                            {
+                                movie = getLatestMovie(node);
+                            }
+                            catch (Exception)
+                            {
+                                continue;
+                            }
+                            movieList.Add(movie);
+                        }
+                    }
+                    selector.ItemsSource = movieList;
+                    if (indicator != null)
+                    {
+                        indicator.IsVisible = false;
+                    }
+                    SystemTray.IsVisible = false;
                 }
                 else
                 {
-                    foreach (HtmlNode node in nodeCollection)
+                    MessageBoxResult result = MessageBox.Show("无法连接到豆瓣网,请检查网络连接", "", MessageBoxButton.OK);
+                    if (indicator != null)
                     {
-                        Movie movie;
-                        try
-                        {
-                            movie = getLatestMovie(node);
-                        }
-                        catch (Exception)
-                        {
-                            continue;
-                        }
-                        movieList.Add(movie);
+                        indicator.IsVisible = false;
                     }
+                    SystemTray.IsVisible = false;
                 }
-                selector.ItemsSource = movieList;
-                if (indicator != null)
-                {
-                    indicator.IsVisible = false;
-                }
-                SystemTray.IsVisible = false;
             }
-            else
+            catch (WebException)
             {
                 MessageBoxResult result = MessageBox.Show("无法连接到豆瓣网,请检查网络连接", "", MessageBoxButton.OK);
-                if (indicator != null)
-                {
-                    indicator.IsVisible = false;
-                }
-                SystemTray.IsVisible = false;
             }
         }
 
