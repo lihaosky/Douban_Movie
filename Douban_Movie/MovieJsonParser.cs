@@ -85,6 +85,10 @@ namespace PanoramaApp2
                         movie.region = JsonParser.getArray(obj, "countries");
                     }
                     title.Text = movie.title;
+                    if (movie.posterUrl == "")
+                    {
+                        movie.posterUrl = App.imagePath + "default.png";
+                    }
                     posterImage.Source = new BitmapImage(new Uri(movie.posterUrl));
                     starImage.Source = new BitmapImage(new Uri(movie.star, UriKind.Relative));
                     rating.Text = movie.rating;
@@ -105,6 +109,10 @@ namespace PanoramaApp2
                     {
                         People people = new People();
                         people.posterUrl = JsonParser.getDouble(array[i], "avatars", "small");
+                        if (people.posterUrl == "")
+                        {
+                            people.posterUrl = App.imagePath + "default.png";
+                        }
                         people.id = JsonParser.getValue(array[i], "id");
                         people.name = JsonParser.getValue(array[i], "name");
                         people.positionName = "导演";
@@ -116,6 +124,10 @@ namespace PanoramaApp2
                     {
                         People people = new People();
                         people.posterUrl = JsonParser.getDouble(array[i], "avatars", "small");
+                        if (people.posterUrl == "")
+                        {
+                            people.posterUrl = App.imagePath + "default.png";
+                        }
                         people.id = JsonParser.getValue(array[i], "id");
                         people.name = JsonParser.getValue(array[i], "name");
                         people.positionName = "";

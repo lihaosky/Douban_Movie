@@ -13,7 +13,7 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
     shell:SystemTray.IsVisible="False"
-    toolkit:TiltEffect.IsTiltEnabled="True">
+    >
 
     <!--LayoutRoot contains the root grid where all other page content is placed-->
     <Grid x:Name="LayoutRoot" Background="#2B4F81">
@@ -44,9 +44,9 @@
                         </Grid.RowDefinitions>
                             <ProgressBar x:Name="MovieProgressBar" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="383" Margin="0, 250, 0, 0"/>
                             <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 0" HorizontalAlignment="Left" Grid.Row="0">
-                            <Image x:Name="posterUrl" Width="132" Height="200" HorizontalAlignment="Left" Stretch="UniformToFill"/>
-                            <StackPanel Orientation="Vertical" Margin="12, 0, 0, 0">
-                                <TextBlock x:Name="title" FontSize="30" HorizontalAlignment="Left" TextWrapping="Wrap" Width="250" Foreground="White"/>
+                            <Image x:Name="posterUrl" Width="140" Height="240" HorizontalAlignment="Left" Stretch="UniformToFill"/>
+                            <StackPanel Orientation="Vertical" Margin="12, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <TextBlock x:Name="title" FontSize="30" HorizontalAlignment="Left" TextWrapping="Wrap" Width="280" Foreground="White"/>
                                 <StackPanel Orientation="Horizontal" Margin="-6, 0, 0, 0" >
                                     <Image x:Name="ratingUrl" Width="100" Height="65" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                                     <TextBlock x:Name="rating" Style="{StaticResource PhoneTextSmallStyle}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="-3, 0, 0, 0"/>
@@ -68,7 +68,7 @@
             </phone:PivotItem>
 
             <!--Panorama item two-->
-            <phone:PivotItem Header="演职员表"  Margin="24,24, 24, 24">
+            <phone:PivotItem Header="演职员表"  Margin="24,24, 24, 24" toolkit:TiltEffect.IsTiltEnabled="True">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -98,10 +98,10 @@
                         <phone:LongListSelector.ItemTemplate>
                             <DataTemplate>
                                     <StackPanel Orientation="Vertical" Margin="0, 24, 0, 24">
-                                        <Border Background="#82CAFF">
+                                    <Border Background="#3063A5">
                                             <TextBlock Text="{Binding author}" Foreground="White" Width="auto" FontSize="{StaticResource PhoneFontSizeMedium}" TextWrapping="Wrap"/>
                                         </Border>
-                                        <StackPanel Orientation="Horizontal" Margin="-12, 0, 0, 0">
+                                        <StackPanel Orientation="Horizontal" Margin="-10, 0, 0, 0">
                                             <Image Source="{Binding star}"  Width="130" Height="auto" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                                             <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding time}" Margin="0, 0, 0, 0" TextWrapping="Wrap" Style="{StaticResource PhoneTextSmallStyle}" Width="auto" Foreground="White"/>
                                         </StackPanel>
@@ -116,7 +116,7 @@
                 </Grid>
             </phone:PivotItem>
 
-            <phone:PivotItem Header="影评"  Margin="24, 24, 24, 0">
+            <phone:PivotItem Header="影评"  Margin="24, 24, 24, 0" toolkit:TiltEffect.IsTiltEnabled="True">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -128,7 +128,7 @@
                         <phone:LongListSelector.ItemTemplate>
                             <DataTemplate>
                                     <StackPanel Margin="0,24,0,24" Orientation="Vertical" Height="auto" Width="auto">
-                                        <Border Background="#82CAFF">
+                                    <Border Background="#3063A5">
                                             <TextBlock Text="{Binding title}" Margin="0, 0, 0, 0" TextWrapping="Wrap" Foreground="White" FontSize="{StaticResource PhoneFontSizeMedium}" VerticalAlignment="Top" Width="auto" HorizontalAlignment="Left"/>
                                         </Border>
                                         <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 0">

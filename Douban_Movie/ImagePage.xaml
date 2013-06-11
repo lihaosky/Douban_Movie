@@ -11,16 +11,18 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     mc:Ignorable="d"
-    shell:SystemTray.IsVisible="True">
+    shell:SystemTray.IsVisible="False">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Black">
-        <ProgressBar x:Name="imageLoadingBar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="383" Foreground="White"/>
+        <!--<ProgressBar x:Name="imageLoadingBar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="383" Foreground="White"/>
         <Image x:Name="image" Width="auto" Height="auto" Stretch="Uniform" ImageOpened="image_ImageOpened" Hold="image_Hold">
             <toolkit:GestureService.GestureListener>
                 <toolkit:GestureListener Flick="GestureListener_Flick"/>
             </toolkit:GestureService.GestureListener>
-        </Image>
+        </Image>-->
+        <phone:Pivot x:Name="pivot" SelectionChanged="pivot_SelectionChanged">   
+        </phone:Pivot>
     </Grid>
 
 </phone:PhoneApplicationPage>

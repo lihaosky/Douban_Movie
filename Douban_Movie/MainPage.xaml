@@ -153,7 +153,7 @@
                         <phone:LongListSelector.ItemTemplate>
                             <DataTemplate>
                                     <StackPanel Margin="0,24,0,24" Orientation="Vertical" Height="auto" Width="auto">
-                                        <Border Background="#82CAFF">
+                                        <Border Background="#3063A5">
                                             <TextBlock Text="{Binding title}" Margin="0, 0, 0, 0" TextWrapping="Wrap" Foreground="White" FontSize="{StaticResource PhoneFontSizeMedium}" VerticalAlignment="Top" Width="auto" HorizontalAlignment="Left"/>
                                         </Border>
                                         <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 0">

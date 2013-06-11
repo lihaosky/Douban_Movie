@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
+using System.Net;
 
 namespace PanoramaApp2
 {
@@ -50,19 +51,7 @@ namespace PanoramaApp2
 
         public static string replaceSpecialChar(string text)
         {
-            text = text.Replace("&nbsp;", " ");
-            text = text.Replace("&ndash;", "-");
-            text = text.Replace("&quot;", "\"");
-            text = text.Replace("&ldquo;", "\"");
-            text = text.Replace("&rdquo;", "\"");
-            text = text.Replace("&lsquo;", "'");
-            text = text.Replace("&rsquo;", "'");
-            text = text.Replace("&laquo;", "<");
-            text = text.Replace("&raquo;", ">");
-            text = text.Replace("&lt;", "<");
-            text = text.Replace("&gt;", ">");
-            text = text.Replace("&amp;", "&");
-            return text;
+            return HttpUtility.HtmlDecode(text);
         }
     }
 }

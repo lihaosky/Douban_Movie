@@ -123,6 +123,9 @@
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Review.cs" />
+    <Compile Include="ReviewPage.xaml.cs">
+      <DependentUpon>ReviewPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ReviewParser.cs" />
     <Compile Include="ShortReview.cs" />
     <Compile Include="ShortReviewHtmlParser.cs" />
@@ -151,6 +154,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ReviewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -174,6 +181,7 @@
     <Resource Include="Assets\50 star.png" />
     <Content Include="Assets\ApplicationIcon.png" />
     <Resource Include="Assets\search.png" />
+    <Resource Include="Assets\default.png" />
     <Content Include="Assets\Tiles\IconTileMediumLarge.png" />
     <Content Include="Assets\Tiles\IconTileSmall.png" />
     <Content Include="SplashScreenImage.screen-720p.jpg" />
