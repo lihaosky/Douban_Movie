@@ -50,7 +50,6 @@ namespace PanoramaApp2
 
         public static string replaceSpecialChar(string text)
         {
-            text = text.Replace("&amp;", "&");
             text = text.Replace("&nbsp;", " ");
             text = text.Replace("&ndash;", "-");
             text = text.Replace("&quot;", "\"");
@@ -60,6 +59,9 @@ namespace PanoramaApp2
             text = text.Replace("&rsquo;", "'");
             text = text.Replace("&laquo;", "<");
             text = text.Replace("&raquo;", ">");
+            text = text.Replace("&lt;", "<");
+            text = text.Replace("&gt;", ">");
+            text = text.Replace("&amp;", "&");
             return text;
         }
     }

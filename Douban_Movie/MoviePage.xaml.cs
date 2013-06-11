@@ -8,6 +8,7 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using System.Windows.Media.Imaging;
+using System.Windows.Controls.Primitives;
 
 namespace PanoramaApp2
 {
@@ -178,7 +179,14 @@ namespace PanoramaApp2
 
         private void imageListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            if (imageListBox != null && imageListBox.SelectedItem != null)
+            {
+                MovieImage image = (MovieImage)imageListBox.SelectedItem;
+                App.imagePassed = image;
+                App.imageCollectionPassed = imageParser.imageCollection;
+                NavigationService.Navigate(new Uri("/ImagePage.xaml", UriKind.Relative));
+                imageListBox.SelectedItem = null;
+            }
         }
 
         private void loadMoreImageButton_Click(object sender, RoutedEventArgs e)

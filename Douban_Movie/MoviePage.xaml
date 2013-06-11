@@ -37,33 +37,33 @@
             <!--Panorama item one-->
             <phone:PivotItem Header="电影信息" Margin="24, 24, 24, 24">
                 <ScrollViewer VerticalScrollBarVisibility="Auto"  HorizontalScrollBarVisibility="Disabled">
-                <Grid Margin="0, 0, 0, 0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                         <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                        <ProgressBar x:Name="MovieProgressBar" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="383"/>
-                        <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 0" HorizontalAlignment="Left" Grid.Row="0">
-                        <Image x:Name="posterUrl" Width="132" Height="200" HorizontalAlignment="Left" Stretch="UniformToFill"/>
-                        <StackPanel Orientation="Vertical" Margin="12, 0, 0, 0">
-                            <TextBlock x:Name="title" FontSize="30" HorizontalAlignment="Left" TextWrapping="Wrap" Width="250" Foreground="White"/>
-                            <StackPanel Orientation="Horizontal" Margin="-6, 0, 0, 0" >
-                                <Image x:Name="ratingUrl" Width="100" Height="65" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                <TextBlock x:Name="rating" Style="{StaticResource PhoneTextSmallStyle}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="-3, 0, 0, 0"/>
-                                <TextBlock x:Name="rateNumber" Style="{StaticResource PhoneTextSmallStyle}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                <TextBlock x:Name="fixedName" Style="{StaticResource PhoneTextSmallStyle}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="-10, 0, 0, 0"/>
-                            </StackPanel>
-                            <TextBlock x:Name="year_duration" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2,-12, 0, 0"  Width="250" TextWrapping="Wrap"/>
-                            <TextBlock x:Name="region" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2, 2, 0, 0"  Width="250" TextWrapping="Wrap"/>
-                            <TextBlock x:Name="genre" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2, 2, 0, 0"  Width="250" TextWrapping="Wrap"/>
-                            <StackPanel Orientation="Horizontal" Margin="-12, 0, 0, 0">
-                                <HyperlinkButton x:Name="trailer" Foreground="White" TargetName="_blank"/>
-                                <HyperlinkButton x:Name="theater" Foreground="White" TargetName="_blank"/>
+                    <Grid Margin="0, 0, 0, 0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                             <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                            <ProgressBar x:Name="MovieProgressBar" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="383" Margin="0, 250, 0, 0"/>
+                            <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 0" HorizontalAlignment="Left" Grid.Row="0">
+                            <Image x:Name="posterUrl" Width="132" Height="200" HorizontalAlignment="Left" Stretch="UniformToFill"/>
+                            <StackPanel Orientation="Vertical" Margin="12, 0, 0, 0">
+                                <TextBlock x:Name="title" FontSize="30" HorizontalAlignment="Left" TextWrapping="Wrap" Width="250" Foreground="White"/>
+                                <StackPanel Orientation="Horizontal" Margin="-6, 0, 0, 0" >
+                                    <Image x:Name="ratingUrl" Width="100" Height="65" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    <TextBlock x:Name="rating" Style="{StaticResource PhoneTextSmallStyle}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="-3, 0, 0, 0"/>
+                                    <TextBlock x:Name="rateNumber" Style="{StaticResource PhoneTextSmallStyle}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    <TextBlock x:Name="fixedName" Style="{StaticResource PhoneTextSmallStyle}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="-10, 0, 0, 0"/>
+                                </StackPanel>
+                                <TextBlock x:Name="year_duration" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2,-12, 0, 0"  Width="250" TextWrapping="Wrap"/>
+                                <TextBlock x:Name="region" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2, 2, 0, 0"  Width="250" TextWrapping="Wrap"/>
+                                <TextBlock x:Name="genre" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2, 2, 0, 0"  Width="250" TextWrapping="Wrap"/>
+                                <StackPanel Orientation="Horizontal" Margin="-12, 0, 0, 0">
+                                    <HyperlinkButton x:Name="trailer" Foreground="White" TargetName="_blank"/>
+                                    <HyperlinkButton x:Name="theater" Foreground="White" TargetName="_blank"/>
+                                </StackPanel>
                             </StackPanel>
                         </StackPanel>
-                    </StackPanel>
                         <TextBlock x:Name="summary" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" Margin="0, 24, 0, 0" Grid.Row="1" Foreground="White"/>
-                </Grid>
+                    </Grid>
                 </ScrollViewer>
             </phone:PivotItem>
 
@@ -148,8 +148,8 @@
             </phone:PivotItem>
 
 
-            <phone:PivotItem Header="图片">
-                <Grid Margin="0, -12, 0, 0">
+            <phone:PivotItem Header="图片" Margin="24, 24, 24, 0">
+                <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="auto"/>
@@ -164,9 +164,9 @@
                         </ListBox.ItemsPanel>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Margin="12">
+                                <StackPanel Margin="2">
                                     <StackPanel Orientation="Vertical">
-                                        <Image Width="120" Height="120" Source="{Binding smallUrl}" Stretch="UniformToFill"/>
+                                        <Image Width="100" Height="100" Source="{Binding smallUrl}" Stretch="UniformToFill"/>
                                     </StackPanel>
                                 </StackPanel>
                             </DataTemplate>

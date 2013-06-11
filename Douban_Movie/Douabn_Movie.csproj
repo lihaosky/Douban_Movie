@@ -95,6 +95,9 @@
     </Compile>
     <Compile Include="HotMovieHtmlParser.cs" />
     <Compile Include="HotReviewHtmlParser.cs" />
+    <Compile Include="ImagePage.xaml.cs">
+      <DependentUpon>ImagePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MovieImage.cs" />
     <Compile Include="ImageHtmlParser.cs" />
     <Compile Include="JsonParser.cs" />
@@ -132,6 +135,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="ImagePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

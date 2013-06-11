@@ -149,4 +149,7 @@
   <data name="LoadingText" xml:space="preserve">
     <value>Loading</value>
   </data>
+  <data name="ConnectionError" xml:space="preserve">
+    <value>Can't connect to DOUBAN, check network connection</value>
+  </data>
 </root>

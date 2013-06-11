@@ -9,7 +9,7 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using PanoramaApp2.Resources;
-
+using System.Collections.ObjectModel;
 
 namespace PanoramaApp2
 {
@@ -17,6 +17,8 @@ namespace PanoramaApp2
     {
         public static string imagePath = "/DoubanMovie;component/Assets/";
         public static Movie moviePassed = null;
+        public static MovieImage imagePassed = null;
+        public static ObservableCollection<MovieImage> imageCollectionPassed = null;
         public static string apikey = "07e978247f7e67ad17bc686d7e7b3707";
 
 

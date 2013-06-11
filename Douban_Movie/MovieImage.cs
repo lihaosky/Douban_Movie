@@ -4,13 +4,24 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 
 namespace PanoramaApp2
 {
-    class MovieImage : INotifyPropertyChanged
+    public class MovieImage : INotifyPropertyChanged
     {
-        public MovieImage prev = null;
-        public MovieImage next = null;
+        private BitmapImage _bitMap = null;
+        public BitmapImage bitMap
+        {
+            get
+            {
+                return _bitMap;
+            }
+            set
+            {
+                _bitMap = value;
+            }
+        }
         private string _id = "";
         public string id
         {
