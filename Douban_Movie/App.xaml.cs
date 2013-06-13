@@ -19,6 +19,7 @@ namespace PanoramaApp2
         public static Movie moviePassed = null;
         public static MovieImage imagePassed = null;
         public static Review reviewPassed = null;
+        public static People peoplePassed = null;
         public static ObservableCollection<MovieImage> imageCollectionPassed = null;
         public static string apikey = "07e978247f7e67ad17bc686d7e7b3707";
 

@@ -221,7 +221,7 @@ namespace PanoramaApp2
                 {
                     review.date = date;
                 }
-                string r = doc.DocumentNode.SelectNodes("//div[@property='v:description']")[0].InnerText;
+                string r = doc.DocumentNode.SelectNodes("//div[@property='v:description']")[0].InnerHtml;
                 review.review = Util.formatReview(r);
                 loadComments(doc);
             }

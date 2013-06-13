@@ -73,13 +73,13 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <phone:LongListSelector x:Name="peopleSelector">
+                    <phone:LongListSelector x:Name="peopleSelector" SelectionChanged="peopleSelector_SelectionChanged">
                         <phone:LongListSelector.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" Margin="0, 12, 0, 0">
-                                    <Image x:Name="peoplePosterUrl" Source="{Binding posterUrl}" Width="100" Height="100" HorizontalAlignment="Left" VerticalAlignment="Center" Stretch="UniformToFill"/>
-                                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding name}" FontSize="30" TextWrapping="Wrap" Width="220" Foreground="White" Margin="12, 0, 0, 0"/>
-                                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding positionName}" Margin="0, 0, 0, 0" TextWrapping="Wrap" Style="{StaticResource PhoneTextSmallStyle}" Width="auto" Foreground="White"/>
+                                    <Image x:Name="peoplePosterUrl" Source="{Binding posterUrl, Mode=OneTime}" Width="100" Height="100" HorizontalAlignment="Left" VerticalAlignment="Center" Stretch="UniformToFill"/>
+                                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding name, Mode=OneTime}" FontSize="30" TextWrapping="Wrap" Width="220" Foreground="White" Margin="12, 0, 0, 0"/>
+                                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding positionName, Mode=OneTime}" Margin="0, 0, 0, 0" TextWrapping="Wrap" Style="{StaticResource PhoneTextSmallStyle}" Width="auto" Foreground="White"/>
                                 </StackPanel>
                             </DataTemplate>
                         </phone:LongListSelector.ItemTemplate>
@@ -99,13 +99,13 @@
                             <DataTemplate>
                                     <StackPanel Orientation="Vertical" Margin="0, 24, 0, 24">
                                     <Border Background="#3063A5">
-                                            <TextBlock Text="{Binding author}" Foreground="White" Width="auto" FontSize="{StaticResource PhoneFontSizeMedium}" TextWrapping="Wrap"/>
+                                            <TextBlock Text="{Binding author, Mode=OneTime}" Foreground="White" Width="auto" FontSize="{StaticResource PhoneFontSizeMedium}" TextWrapping="Wrap"/>
                                         </Border>
                                         <StackPanel Orientation="Horizontal" Margin="-10, 0, 0, 0">
-                                            <Image Source="{Binding star}"  Width="130" Height="auto" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding time}" Margin="0, 0, 0, 0" TextWrapping="Wrap" Style="{StaticResource PhoneTextSmallStyle}" Width="auto" Foreground="White"/>
+                                            <Image Source="{Binding star, Mode=OneTime}"  Width="130" Height="auto" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding time, Mode=OneTime}" Margin="0, 0, 0, 0" TextWrapping="Wrap" Style="{StaticResource PhoneTextSmallStyle}" Width="auto" Foreground="White"/>
                                         </StackPanel>
-                                        <TextBlock Text="{Binding content}" TextWrapping="Wrap" Width="auto" HorizontalAlignment="Left" Foreground="White"/>
+                                        <TextBlock Text="{Binding content, Mode=OneTime}" TextWrapping="Wrap" Width="auto" HorizontalAlignment="Left" Foreground="White"/>
                                     </StackPanel>
                             </DataTemplate>
                         </phone:LongListSelector.ItemTemplate>
@@ -129,14 +129,14 @@
                             <DataTemplate>
                                     <StackPanel Margin="0,24,0,24" Orientation="Vertical" Height="auto" Width="auto">
                                     <Border Background="#3063A5">
-                                            <TextBlock Text="{Binding title}" Margin="0, 0, 0, 0" TextWrapping="Wrap" Foreground="White" FontSize="{StaticResource PhoneFontSizeMedium}" VerticalAlignment="Top" Width="auto" HorizontalAlignment="Left"/>
+                                            <TextBlock Text="{Binding title, Mode=OneTime}" Margin="0, 0, 0, 0" TextWrapping="Wrap" Foreground="White" FontSize="{StaticResource PhoneFontSizeMedium}" VerticalAlignment="Top" Width="auto" HorizontalAlignment="Left"/>
                                         </Border>
                                         <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 0">
-                                            <TextBlock Text="{Binding reviewer}" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" Margin="0, 0, 0, 5" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                            <Image Source="{Binding star}" Width="130" Height="auto" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0, 0, 0, 0"/>
+                                            <TextBlock Text="{Binding reviewer, Mode=OneTime}" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" Margin="0, 0, 0, 5" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                            <Image Source="{Binding star, Mode=OneTime}" Width="130" Height="auto" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0, 0, 0, 0"/>
                                         </StackPanel>
-                                        <TextBlock Text="{Binding date}" Foreground="White" Width="auto" TextWrapping="Wrap" Margin="0, -12, 0, 0"/>
-                                        <TextBlock Text="{Binding reviewShort}" TextWrapping="Wrap" Width="auto" Foreground="White" Margin="0, 12, 0, 0"/>
+                                        <TextBlock Text="{Binding date, Mode=OneTime}" Foreground="White" Width="auto" TextWrapping="Wrap" Margin="0, -12, 0, 0"/>
+                                        <TextBlock Text="{Binding reviewShort, Mode=OneTime}" TextWrapping="Wrap" Width="auto" Foreground="White" Margin="0, 12, 0, 0"/>
                                     </StackPanel>
                             </DataTemplate>
                         </phone:LongListSelector.ItemTemplate>
@@ -166,7 +166,7 @@
                             <DataTemplate>
                                 <StackPanel Margin="2">
                                     <StackPanel Orientation="Vertical">
-                                        <Image Width="100" Height="100" Source="{Binding smallUrl}" Stretch="UniformToFill"/>
+                                        <Image Width="100" Height="100" Source="{Binding smallUrl, Mode=OneTime}" Stretch="UniformToFill"/>
                                     </StackPanel>
                                 </StackPanel>
                             </DataTemplate>

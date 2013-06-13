@@ -44,20 +44,30 @@ namespace PanoramaApp2
 
         public static string formatShortReview(string review)
         {
-            string newReview = review.Trim().Replace(Environment.NewLine, "");
+            string newReview = removeNewLine(review.Trim());
             newReview = replaceSpecialChar(newReview);
             return newReview;
         }
 
         public static string formatReview(string review)
         {
-            string newReview = replaceSpecialChar(review);
+            string newReview = removeNewLine(review);
+            newReview = replaceSpecialChar(newReview);
             return replaceTags(newReview);
         }
 
         public static string replaceTags(string text)
         {
-            return text.Replace("<br/>", Environment.NewLine);
+            text = text.Replace("<br/>", Environment.NewLine);
+            return text.Replace("<br>", Environment.NewLine);
+        }
+
+        public static string removeNewLine(string text)
+        {
+            text = text.Replace("\r\n", string.Empty);
+            text = text.Replace("\r", string.Empty);
+            text = text.Replace("\n", string.Empty);
+            return text;
         }
 
         public static string replaceSpecialChar(string text)

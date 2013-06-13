@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PanoramaApp2
 {
-    class People : INotifyPropertyChanged
+    public class People : INotifyPropertyChanged
     {
         private string _id = "";
         public string id
@@ -74,8 +74,87 @@ namespace PanoramaApp2
                 NotifyPropertyChanged("positionName");
             }
         }
+        private string _gender = "";
+        public string gender
+        {
+            get
+            {
+                return _gender;
+            }
+            set
+            {
+                _gender = value;
+                NotifyPropertyChanged("gender");
+            }
+        }
+        private string _constl = "";
+        public string constl
+        {
+            get
+            {
+                return _constl;
+            }
+            set
+            {
+                _constl = value;
+                NotifyPropertyChanged("constl");
+            }
+        }
+        private string _birthday = "";
+        public string birthday
+        {
+            get
+            {
+                return _birthday;
+            }
+            set
+            {
+                _birthday = value;
+                NotifyPropertyChanged("birthday");
+            }
+        }
+        private string _birthplace = "";
+        public string birthplace
+        {
+            get
+            {
+                return _birthplace;
+            }
+            set
+            {
+                _birthplace = value;
+                NotifyPropertyChanged("birthplace");
+            }
+        }
+        private string _occupation = "";
+        public string occupation
+        {
+            get
+            {
+                return _occupation;
+            }
+            set
+            {
+                _occupation = value;
+                NotifyPropertyChanged("birthplace");
+            }
+        }
+        private string _summary = "";
+        public string summary
+        {
+            get
+            {
+                return _summary;
+            }
+            set
+            {
+                _summary = value;
+                NotifyPropertyChanged("summary");
+            }
+        }
         public static string DIRECTOR = "director";
         public static string ACTOR = "actor";
+        public static string peopleLinkHeader = "http://movie.douban.com/celebrity/";
 
         public event PropertyChangedEventHandler PropertyChanged;
         // NotifyPropertyChanged will raise the PropertyChanged event, 

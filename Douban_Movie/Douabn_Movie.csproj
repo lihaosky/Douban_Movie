@@ -93,18 +93,18 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Comment.cs" />
-    <Compile Include="HotMovieHtmlParser.cs" />
-    <Compile Include="HotReviewHtmlParser.cs" />
+    <Compile Include="DataModel\Comment.cs" />
+    <Compile Include="HtmlParser\HotMovieHtmlParser.cs" />
+    <Compile Include="HtmlParser\HotReviewHtmlParser.cs" />
     <Compile Include="ImagePage.xaml.cs">
       <DependentUpon>ImagePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MovieImage.cs" />
-    <Compile Include="ImageHtmlParser.cs" />
-    <Compile Include="JsonParser.cs" />
-    <Compile Include="LatestHtmlParser.cs" />
-    <Compile Include="MovieJsonParser.cs" />
-    <Compile Include="Movie.cs" />
+    <Compile Include="DataModel\MovieImage.cs" />
+    <Compile Include="HtmlParser\ImageHtmlParser.cs" />
+    <Compile Include="JsonParser\JsonParser.cs" />
+    <Compile Include="HtmlParser\LatestHtmlParser.cs" />
+    <Compile Include="JsonParser\MovieJsonParser.cs" />
+    <Compile Include="DataModel\Movie.cs" />
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -115,24 +115,28 @@
     <Compile Include="MoviePage.xaml.cs">
       <DependentUpon>MoviePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="People.cs" />
-    <Compile Include="PeopleJsonParser.cs" />
+    <Compile Include="DataModel\People.cs" />
+    <Compile Include="HtmlParser\PeopleHtmlParser.cs" />
+    <Compile Include="JsonParser\PeopleJsonParser.cs" />
+    <Compile Include="PeoplePage.xaml.cs">
+      <DependentUpon>PeoplePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\AppResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Review.cs" />
-    <Compile Include="ReviewHtmlParser.cs" />
+    <Compile Include="DataModel\Review.cs" />
+    <Compile Include="HtmlParser\ReviewHtmlParser.cs" />
     <Compile Include="ReviewPage.xaml.cs">
       <DependentUpon>ReviewPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ReviewParser.cs" />
-    <Compile Include="ShortReview.cs" />
-    <Compile Include="ShortReviewHtmlParser.cs" />
-    <Compile Include="Top250HtmlParser.cs" />
-    <Compile Include="USBoxJsonParser.cs" />
+    <Compile Include="HtmlParser\ReviewParser.cs" />
+    <Compile Include="DataModel\ShortReview.cs" />
+    <Compile Include="HtmlParser\ShortReviewHtmlParser.cs" />
+    <Compile Include="HtmlParser\Top250HtmlParser.cs" />
+    <Compile Include="JsonParser\USBoxJsonParser.cs" />
     <Compile Include="Util.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -153,6 +157,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MoviePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PeoplePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

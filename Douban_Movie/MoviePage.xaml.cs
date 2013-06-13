@@ -14,11 +14,11 @@ namespace PanoramaApp2
 {
     public partial class MoviePage : PhoneApplicationPage
     {
-        private MovieJsonParser movieParser;
+        private MovieJsonParser movieParser = null;
         private bool shortReviewLoaded;
         private bool reviewLoaded;
         private bool imageLoaded;
-        private Movie movie;
+        private Movie movie = null;
         private ShortReviewHtmlParser shortReviewParser = null;
         private ReviewParser reviewParser = null;
         private ImageHtmlParser imageParser = null;
@@ -30,21 +30,24 @@ namespace PanoramaApp2
             reviewLoaded = false;
             imageLoaded = false;
             movie = App.moviePassed;
-            movieParser = new MovieJsonParser(movie);
-            movieParser.progressBar = MovieProgressBar;
-            movieParser.title = title;
-            movieParser.posterImage = posterUrl;
-            movieParser.rating = rating;
-            movieParser.rateNumber = rateNumber;
-            movieParser.year_duration = year_duration;
-            movieParser.starImage = ratingUrl;
-            movieParser.name = fixedName;
-            movieParser.region = region;
-            movieParser.genre = genre;
-            movieParser.trailer = trailer;
-            movieParser.theater = theater;
-            movieParser.summary = summary;
-            movieParser.peopleList = peopleSelector;
+            if (movie != null)
+            {
+                movieParser = new MovieJsonParser(movie);
+                movieParser.progressBar = MovieProgressBar;
+                movieParser.title = title;
+                movieParser.posterImage = posterUrl;
+                movieParser.rating = rating;
+                movieParser.rateNumber = rateNumber;
+                movieParser.year_duration = year_duration;
+                movieParser.starImage = ratingUrl;
+                movieParser.name = fixedName;
+                movieParser.region = region;
+                movieParser.genre = genre;
+                movieParser.trailer = trailer;
+                movieParser.theater = theater;
+                movieParser.summary = summary;
+                movieParser.peopleList = peopleSelector;
+            }
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -52,9 +55,12 @@ namespace PanoramaApp2
             base.OnNavigatedTo(e);
             if (e.NavigationMode == NavigationMode.New)
             {
-                MovieProgressBar.IsIndeterminate = true;
-                MovieProgressBar.Visibility = System.Windows.Visibility.Visible;
-                movieParser.getMovieByID();
+                if (movieParser != null)
+                {
+                    MovieProgressBar.IsIndeterminate = true;
+                    MovieProgressBar.Visibility = System.Windows.Visibility.Visible;
+                    movieParser.getMovieByID();
+                }
             }
         }
 
@@ -76,30 +82,36 @@ namespace PanoramaApp2
 
         private void loadShortReview() 
         {
-            loadMoreButton.IsEnabled = false;
-            movie.nextShortReviewLink = Movie.movieLinkHeader + movie.id + "/comments";
-            shortReviewParser = new ShortReviewHtmlParser(movie);
-            shortReviewParser.progressBar = ShortReviewProgressBar;
-            ShortReviewProgressBar.IsIndeterminate = true;
-            ShortReviewProgressBar.Visibility = System.Windows.Visibility.Visible;
-            shortReviewParser.button = loadMoreButton;
-            shortReviewParser.text = loadText;
-            shortReviewSelector.ItemsSource = shortReviewParser.shortReviewCollection;
-            shortReviewParser.parseShortReview();
+            if (movie != null)
+            {
+                loadMoreButton.IsEnabled = false;
+                movie.nextShortReviewLink = Movie.movieLinkHeader + movie.id + "/comments";
+                shortReviewParser = new ShortReviewHtmlParser(movie);
+                shortReviewParser.progressBar = ShortReviewProgressBar;
+                ShortReviewProgressBar.IsIndeterminate = true;
+                ShortReviewProgressBar.Visibility = System.Windows.Visibility.Visible;
+                shortReviewParser.button = loadMoreButton;
+                shortReviewParser.text = loadText;
+                shortReviewSelector.ItemsSource = shortReviewParser.shortReviewCollection;
+                shortReviewParser.parseShortReview();
+            }
         }
 
         private void loadReview()
         {
-            loadMoreReviewButton.IsEnabled = false;
-            movie.nextReviewLink = Movie.movieLinkHeader + movie.id + "/reviews";
-            reviewParser = new ReviewParser(movie);
-            reviewParser.progressBar = ReviewProgressBar;
-            ReviewProgressBar.IsIndeterminate = true;
-            ReviewProgressBar.Visibility = System.Windows.Visibility.Visible;
-            reviewParser.button = loadMoreReviewButton;
-            reviewParser.text = loadReviewText;
-            reviewLongListSelector.ItemsSource = reviewParser.reviewCollection;
-            reviewParser.parseReview();
+            if (movie != null)
+            {
+                loadMoreReviewButton.IsEnabled = false;
+                movie.nextReviewLink = Movie.movieLinkHeader + movie.id + "/reviews";
+                reviewParser = new ReviewParser(movie);
+                reviewParser.progressBar = ReviewProgressBar;
+                ReviewProgressBar.IsIndeterminate = true;
+                ReviewProgressBar.Visibility = System.Windows.Visibility.Visible;
+                reviewParser.button = loadMoreReviewButton;
+                reviewParser.text = loadReviewText;
+                reviewLongListSelector.ItemsSource = reviewParser.reviewCollection;
+                reviewParser.parseReview();
+            }
         }
 
         private void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -133,21 +145,24 @@ namespace PanoramaApp2
 
         private void loadImage()
         {
-            loadMoreImageButton.IsEnabled = false;
-            movie.nextImageLink = Movie.movieLinkHeader + movie.id + "/photos?type=S";
-            imageParser = new ImageHtmlParser(movie);
-            imageParser.progressBar = ImageProgressBar;
-            ImageProgressBar.IsIndeterminate = true;
-            ImageProgressBar.Visibility = System.Windows.Visibility.Visible;
-            imageParser.button = loadMoreImageButton;
-            imageParser.text = loadImageText;
-            imageListBox.ItemsSource = imageParser.imageCollection;
-            imageParser.parseImage();
+            if (movie != null)
+            {
+                loadMoreImageButton.IsEnabled = false;
+                movie.nextImageLink = Movie.movieLinkHeader + movie.id + "/photos?type=S";
+                imageParser = new ImageHtmlParser(movie);
+                imageParser.progressBar = ImageProgressBar;
+                ImageProgressBar.IsIndeterminate = true;
+                ImageProgressBar.Visibility = System.Windows.Visibility.Visible;
+                imageParser.button = loadMoreImageButton;
+                imageParser.text = loadImageText;
+                imageListBox.ItemsSource = imageParser.imageCollection;
+                imageParser.parseImage();
+            }
         }
 
         private void loadMoreButton_Click(object sender, RoutedEventArgs e)
         {
-            if (shortReviewParser != null)
+            if (shortReviewParser != null && movie != null)
             {
                 loadMoreButton.IsEnabled = false;
                 ShortReviewProgressBar.IsIndeterminate = true;
@@ -160,15 +175,18 @@ namespace PanoramaApp2
         {
             if (reviewLongListSelector != null && reviewLongListSelector.SelectedItem != null) {
                 Review review = (Review)reviewLongListSelector.SelectedItem;
-                App.reviewPassed = review;
-                NavigationService.Navigate(new Uri("/ReviewPage.xaml", UriKind.Relative));
+                if (review != null)
+                {
+                    App.reviewPassed = review;
+                    NavigationService.Navigate(new Uri("/ReviewPage.xaml", UriKind.Relative));
+                }
                 reviewLongListSelector.SelectedItem = null;
             }
         }
 
         private void loadMoreReviewButton_Click(object sender, RoutedEventArgs e)
         {
-            if (reviewParser != null)
+            if (reviewParser != null && movie != null)
             {
                 loadMoreReviewButton.IsEnabled = false;
                 ReviewProgressBar.IsIndeterminate = true;
@@ -187,21 +205,38 @@ namespace PanoramaApp2
             if (imageListBox != null && imageListBox.SelectedItem != null)
             {
                 MovieImage image = (MovieImage)imageListBox.SelectedItem;
-                App.imagePassed = image;
-                App.imageCollectionPassed = imageParser.imageCollection;
-                NavigationService.Navigate(new Uri("/ImagePage.xaml", UriKind.Relative));
+                if (image != null)
+                {
+                    App.imagePassed = image;
+                    App.imageCollectionPassed = imageParser.imageCollection;
+                    NavigationService.Navigate(new Uri("/ImagePage.xaml", UriKind.Relative));
+                }
                 imageListBox.SelectedItem = null;
             }
         }
 
         private void loadMoreImageButton_Click(object sender, RoutedEventArgs e)
         {
-            if (imageParser != null)
+            if (imageParser != null && movie != null)
             {
                 loadMoreImageButton.IsEnabled = false;
                 ImageProgressBar.Visibility = System.Windows.Visibility.Visible;
                 ImageProgressBar.IsIndeterminate = true;
                 imageParser.parseImage();
+            }
+        }
+
+        private void peopleSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (peopleSelector != null && peopleSelector.SelectedItem != null)
+            {
+                People people = (People)peopleSelector.SelectedItem;
+                if (people != null && people.id != null && people.id != "")
+                {
+                    App.peoplePassed = people;
+                    NavigationService.Navigate(new Uri("/PeoplePage.xaml", UriKind.Relative));
+                }
+                peopleSelector.SelectedItem = null;
             }
         }
     }

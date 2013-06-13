@@ -1,0 +1,133 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="PanoramaApp2.PeoplePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d">
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="#2B4F81">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--Logo and search button-->
+        <Grid HorizontalAlignment="Center" Height="auto" Margin="0, 0, 0, 0"  VerticalAlignment="Center" Width="440" Grid.Row="0" Background="#2B4F81">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{Binding Path=LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}" Height="auto" Width="auto" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="30" Grid.Column="0" Foreground="White"/>
+            <Image Source="/DoubanMovie;component/Assets/search.png" Height="60" Width="60" Grid.Column="1" Tap="Image_Tap" HorizontalAlignment="Right"/>
+        </Grid>
+
+        <phone:Pivot Margin="0,0,0,0" Grid.RowSpan="1" Background="#2B4F81" Grid.Row="1" HeaderTemplate="{StaticResource MyPivotItemHeaderTemplate}" SelectionChanged="Pivot_SelectionChanged">
+
+            <!--Panorama item one-->
+            <phone:PivotItem Header="影人信息" Margin="24, 24, 24, 24">
+                <ScrollViewer VerticalScrollBarVisibility="Auto"  HorizontalScrollBarVisibility="Disabled">
+                    <Grid x:Name="PeopleGrid" Margin="0, 0, 0, 0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <ProgressBar x:Name="PeopleProgressBar" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="383" Margin="0, 250, 0, 0"/>
+                        <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 0" HorizontalAlignment="Left" Grid.Row="0">
+                            <Image Width="140" Height="240" HorizontalAlignment="Left" Stretch="UniformToFill" Source="{Binding posterUrl}"/>
+                            <StackPanel Orientation="Vertical" Margin="12, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <TextBlock Text="{Binding name, Mode=OneTime}" FontSize="30" HorizontalAlignment="Left" TextWrapping="Wrap" Width="280" Foreground="White"/>
+                                <StackPanel Orientation="Horizontal" Margin="-12, 0, 0, 0" x:Name="genderStackPanel" Visibility="Collapsed">
+                                    <TextBlock Text="性别:" Style="{StaticResource PhoneTextSmallStyle}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                    <TextBlock Text="{Binding gender, Mode=OneTime}" Style="{StaticResource PhoneTextSmallStyle}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" Width="210" TextWrapping="Wrap"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="-12, 0, 0, 0" x:Name="constStackPanel" Visibility="Collapsed">
+                                    <TextBlock Text="星座:" Style="{StaticResource PhoneTextSmallStyle}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" Width="auto"/>
+                                    <TextBlock Text="{Binding constl, Mode=OneTime}" Style="{StaticResource PhoneTextSmallStyle}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" Width="210" TextWrapping="Wrap"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="-12, 0, 0, 0" x:Name="birthdayStackPanel" Visibility="Collapsed">
+                                    <TextBlock Text="出生日期:" Style="{StaticResource PhoneTextSmallStyle}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                    <TextBlock Text="{Binding birthday, Mode=OneTime}" Style="{StaticResource PhoneTextSmallStyle}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" Width="170" TextWrapping="Wrap"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="-12, 0, 0, 0" x:Name="birthplaceStackPanel" Visibility="Collapsed">
+                                    <TextBlock Text="出生地:" Style="{StaticResource PhoneTextSmallStyle}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                    <TextBlock Text="{Binding birthplace, Mode=OneTime}" Style="{StaticResource PhoneTextSmallStyle}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" Width="190" TextWrapping="Wrap"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="-12, 0, 0, 0" x:Name="occupationStackPanel" Visibility="Collapsed">
+                                    <TextBlock Text="职业:" Style="{StaticResource PhoneTextSmallStyle}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                    <TextBlock Text="{Binding occupation, Mode=OneTime}" Style="{StaticResource PhoneTextSmallStyle}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" Width="210" TextWrapping="Wrap"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                        <TextBlock Text="{Binding summary, Mode=OneTime}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" Margin="0, 24, 0, 0" Grid.Row="1" Foreground="White"/>
+                    </Grid>
+                </ScrollViewer>
+            </phone:PivotItem>
+
+            <!--Panorama item two-->
+            <phone:PivotItem Header="作品"  Margin="24,24, 24, 24" toolkit:TiltEffect.IsTiltEnabled="True">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <phone:LongListSelector x:Name="movieSelector">
+                        <phone:LongListSelector.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Margin="0, 12, 0, 0">
+                                    <Image Source="{Binding posterUrl}" Width="100" Height="100" HorizontalAlignment="Left" VerticalAlignment="Center" Stretch="UniformToFill"/>
+                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12, 0, 0, 0">
+                                        <TextBlock Text="{Binding title}" Margin="0, 0, 0, 0" TextWrapping="Wrap" Foreground="White" FontSize="30" VerticalAlignment="Center" Width="300"/>
+                                        <StackPanel Orientation="Horizontal" Margin="0, -12, 0, 0">
+                                            <Image Source="{Binding star}" Width="130" Height="80" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="-6, 0, 0, 0"/>
+                                            <TextBlock Text="{Binding rating}" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" Margin="0, 0, 0, 5" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                        </StackPanel>
+                                        <TextBlock Text="{Binding releaseDate}" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" TextWrapping="Wrap" Width="300" Margin="0, 6, 0, 0" HorizontalAlignment="Left"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </phone:LongListSelector.ItemTemplate>
+                    </phone:LongListSelector>
+                </Grid>
+            </phone:PivotItem>
+
+            <phone:PivotItem Header="图片" Margin="24, 24, 24, 0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <ProgressBar x:Name="ImageProgressBar" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="383"/>
+                    <!--Single line list with text wrapping-->
+                    <ListBox x:Name="imageListBox" SelectionChanged="imageListBox_SelectionChanged" Grid.Row="0">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <toolkit:WrapPanel HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="2">
+                                    <StackPanel Orientation="Vertical">
+                                        <Image Width="100" Height="100" Source="{Binding smallUrl}" Stretch="UniformToFill"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <Button x:Name="loadMoreImageButton" Grid.Row="1" HorizontalAlignment="Center" Click="loadMoreImageButton_Click">
+                        <TextBlock x:Name="loadImageText" Text="加载更多" Style="{StaticResource PhoneTextSmallStyle}" Foreground="White" HorizontalAlignment="Center"/>
+                    </Button>
+                </Grid>
+            </phone:PivotItem>
+        </phone:Pivot>
+    </Grid>
+
+</phone:PhoneApplicationPage>

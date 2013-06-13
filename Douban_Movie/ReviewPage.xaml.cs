@@ -19,15 +19,18 @@ namespace PanoramaApp2
         {
             InitializeComponent();
             review = App.reviewPassed;
-            reviewParser = new ReviewHtmlParser(review);
-            reviewParser.reviewStackPanel = reviewStackPanel;
-            reviewParser.reviewProgressBar = ReviewProgressBar;
-            reviewParser.commentProgressBar = ReviewCommentProgressBar;
-            reviewParser.button = loadMoreCommentButton;
-            reviewParser.text = loadCommentText;
-            reviewParser.border = border;
-            reviewParser.movieText = movieText;
-            commentSelector.ItemsSource = reviewParser.commentCollection;
+            if (review != null)
+            {
+                reviewParser = new ReviewHtmlParser(review);
+                reviewParser.reviewStackPanel = reviewStackPanel;
+                reviewParser.reviewProgressBar = ReviewProgressBar;
+                reviewParser.commentProgressBar = ReviewCommentProgressBar;
+                reviewParser.button = loadMoreCommentButton;
+                reviewParser.text = loadCommentText;
+                reviewParser.border = border;
+                reviewParser.movieText = movieText;
+                commentSelector.ItemsSource = reviewParser.commentCollection;
+            }
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -35,9 +38,12 @@ namespace PanoramaApp2
             base.OnNavigatedTo(e);
             if (e.NavigationMode == NavigationMode.New)
             {
-                ReviewProgressBar.IsIndeterminate = true;
-                ReviewProgressBar.Visibility = System.Windows.Visibility.Visible;
-                reviewParser.parseReview();
+                if (reviewParser != null)
+                {
+                    ReviewProgressBar.IsIndeterminate = true;
+                    ReviewProgressBar.Visibility = System.Windows.Visibility.Visible;
+                    reviewParser.parseReview();
+                }
             }
         }
 
@@ -48,7 +54,7 @@ namespace PanoramaApp2
 
         private void loadMoreCommentButton_Click(object sender, RoutedEventArgs e)
         {
-            if (reviewParser != null)
+            if (reviewParser != null && review != null)
             {
                 ReviewCommentProgressBar.IsIndeterminate = true;
                 ReviewCommentProgressBar.Visibility = System.Windows.Visibility.Visible;

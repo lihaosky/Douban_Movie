@@ -43,18 +43,18 @@
                         <ProgressBar x:Name="ReviewProgressBar" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="383"/>
                         <StackPanel x:Name="reviewStackPanel" Margin="0,0,0,0" Orientation="Vertical" Height="auto" Width="auto">
                             <Border Background="#3063A5" Visibility="Collapsed" x:Name="border">
-                                <TextBlock Text="{Binding title}" Margin="0, 0, 0, 0" TextWrapping="Wrap" Foreground="White" FontSize="{StaticResource PhoneFontSizeMedium}" VerticalAlignment="Top" Width="auto" HorizontalAlignment="Left"/>
+                                <TextBlock Text="{Binding title, Mode=OneTime}" Margin="0, 0, 0, 0" TextWrapping="Wrap" Foreground="White" FontSize="{StaticResource PhoneFontSizeMedium}" VerticalAlignment="Top" Width="auto" HorizontalAlignment="Left"/>
                             </Border>
                             <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 0">
-                                <TextBlock Text="{Binding reviewer}" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" Margin="0, 0, 0, 5" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                <Image Source="{Binding star}" Width="130" Height="auto" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0, 0, 0, 0"/>
+                                <TextBlock Text="{Binding reviewer, Mode=OneTime}" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" Margin="0, 0, 0, 5" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                <Image Source="{Binding star, Mode=OneTime}" Width="130" Height="auto" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0, 0, 0, 0"/>
                             </StackPanel>
-                            <TextBlock Text="{Binding date}" Foreground="White" Width="auto" TextWrapping="Wrap" Margin="0, -12, 0, 0"/>
-                            <StackPanel Orientation="Horizontal" Margin="-12, -6, 0, 12">
+                            <TextBlock Text="{Binding date, Mode=OneTime}" Foreground="White" Width="auto" TextWrapping="Wrap" Margin="0, -12, 0, 0"/>
+                            <StackPanel Orientation="Horizontal" Margin="-12, 0, 0, 12">
                                 <TextBlock Text="电影: " Style="{StaticResource PhoneTextSmallStyle}" Foreground="White" HorizontalAlignment="Left" Visibility="Collapsed" x:Name="movieText"/>
-                                <TextBlock Text="{Binding movieName}" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" TextWrapping="Wrap"  Margin="0, 0, 0, 0" HorizontalAlignment="Left"/>
+                                <TextBlock Text="{Binding movieName, Mode=OneTime}" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" TextWrapping="Wrap"  Margin="0, 0, 0, 0" HorizontalAlignment="Left"/>
                             </StackPanel>
-                            <my:ScrollableTextBlock Width="auto" Height="auto" Text="{Binding review}" Margin="0, 12, 0, 0"/>
+                            <my:ScrollableTextBlock Width="auto" Height="auto" Text="{Binding review, Mode=OneTime}" Margin="0, 12, 0, 0"/>
                             <!--<TextBlock Text="{Binding review}" TextWrapping="Wrap" Width="auto" Height="auto" Foreground="White" Margin="0, 24, 0, 0"/>
                         -->
                         </StackPanel>

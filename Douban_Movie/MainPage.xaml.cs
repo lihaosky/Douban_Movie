@@ -137,7 +137,13 @@ namespace PanoramaApp2
 
         private void hotReviewLongListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            if (hotReviewLongListSelector != null && hotReviewLongListSelector.SelectedItem != null)
+            {
+                Review review = (Review)hotReviewLongListSelector.SelectedItem;
+                App.reviewPassed = review;
+                NavigationService.Navigate(new Uri("/ReviewPage.xaml", UriKind.Relative));
+                hotReviewLongListSelector.SelectedItem = null;
+            }
         }
 
         private void loadLatestPivotItem()
