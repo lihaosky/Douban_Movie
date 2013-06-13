@@ -1,0 +1,235 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using HtmlAgilityPack;
+using System.Net;
+using System.Windows.Controls.Primitives;
+using Microsoft.Phone.Controls;
+using System.Windows.Controls;
+using System.Collections.ObjectModel;
+using Microsoft.Phone.Shell;
+using System.Windows;
+
+namespace PanoramaApp2
+{
+    class ReviewHtmlParser
+    {
+        private Review review;
+        public ProgressBar reviewProgressBar { set; get; }
+        public ProgressBar commentProgressBar { set; get; }
+        public StackPanel reviewStackPanel { get; set; }
+        public Button button { get; set; }
+        public Border border { get; set; }
+        public TextBlock movieText { get; set; }
+        public TextBlock text { get; set; }
+        private WebClient client;
+        public ObservableCollection<Comment> commentCollection = new ObservableCollection<Comment>();
+
+        public ReviewHtmlParser(Review r)
+        {
+            review = r;
+        }
+
+        public void parseReview()
+        {
+            client = new WebClient();
+            client.DownloadStringCompleted += downloadReviewCompleted;
+            client.DownloadStringAsync(new Uri(Review.reviewLinkHeader + review.id));
+        }
+
+        public void parseComment()
+        {
+            client = new WebClient();
+            client.DownloadStringCompleted += downloadCommentCompleted;
+            client.DownloadStringAsync(new Uri(review.nextCommentLink));
+        }
+
+        private void downloadCommentCompleted(object sender, DownloadStringCompletedEventArgs e)
+        {
+            try
+            {
+                if (e.Error == null && !e.Cancelled)
+                {
+                    string page = e.Result;
+                    HtmlDocument doc = new HtmlDocument();
+                    doc.LoadHtml(page);
+                    try
+                    {
+                        loadComments(doc);
+                    }
+                    catch (Exception)
+                    {
+                    }
+                    commentProgressBar.Visibility = Visibility.Collapsed;
+                }
+            }
+            catch (WebException)
+            {
+                if (reviewProgressBar != null)
+                {
+                    reviewProgressBar.Visibility = Visibility.Collapsed;
+                }
+                MessageBoxResult result = MessageBox.Show("无法连接到豆瓣网,请检查网络连接", "", MessageBoxButton.OK);
+            }
+        }
+
+        private void downloadReviewCompleted(object sender, DownloadStringCompletedEventArgs e)
+        {
+            try
+            {
+                if (e.Error == null && !e.Cancelled)
+                {
+                    string page = e.Result;
+                    HtmlDocument doc = new HtmlDocument();
+                    doc.LoadHtml(page);
+                    try
+                    {
+                        getReview(doc);
+                        border.Visibility = Visibility.Visible;
+                        movieText.Visibility = Visibility.Visible;
+                        reviewStackPanel.DataContext = review;
+                    }
+                    catch (Exception)
+                    {
+                    }
+                    if (reviewProgressBar != null)
+                    {
+                        reviewProgressBar.Visibility = Visibility.Collapsed;
+                    }
+                }
+                else
+                {
+                    if (reviewProgressBar != null)
+                    {
+                        reviewProgressBar.Visibility = Visibility.Collapsed;
+                    }
+                }
+            }
+            catch (WebException)
+            {
+                if (reviewProgressBar != null)
+                {
+                    reviewProgressBar.Visibility = Visibility.Collapsed;
+                }
+                MessageBoxResult result = MessageBox.Show("无法连接到豆瓣网,请检查网络连接", "", MessageBoxButton.OK);
+            }
+        }
+
+        private Comment getComment(HtmlNode node)
+        {
+            string author = "";
+            string time = "";
+            string content = "";
+
+            try
+            {
+                HtmlNode commentNode = node.SelectNodes("div[@class='content report-comment']")[0];
+                HtmlNode authorNode = commentNode.SelectNodes("div[@class='author']")[0];
+                HtmlNode aNode = authorNode.SelectNodes("a")[0];
+                author = Util.replaceSpecialChar(aNode.InnerText.Trim());
+                aNode.Remove();
+                time = authorNode.InnerText.Trim().Substring(0, 19);
+                content = Util.formatReview(commentNode.SelectNodes("p")[0].InnerText);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            Comment c = new Comment();
+            c.author = author;
+            c.time = time;
+            c.content = content;
+            return c;
+        }
+
+        private void loadComments(HtmlDocument doc)
+        {
+            try
+            {
+                HtmlNodeCollection collection = doc.DocumentNode.SelectNodes("//div[@class='comment-item']");
+                if (collection == null)
+                {
+                    review.hasMoreComment = false;
+                    button.IsEnabled = false;
+                    text.Text = "完了:-)";
+                }
+                else
+                {
+                    foreach (HtmlNode node in collection)
+                    {
+                        Comment c;
+                        try
+                        {
+                            c = getComment(node);
+                        }
+                        catch (Exception)
+                        {
+                            continue;
+                        }
+                        commentCollection.Add(c);
+                    }
+                    HtmlNodeCollection nodeCollection = doc.DocumentNode.SelectNodes("//div[@class='paginator']");
+                    if (nodeCollection == null)
+                    {
+                        review.hasMoreComment = false;
+                        button.IsEnabled = false;
+                        text.Text = "完了:-)";
+                    }
+                    else
+                    {
+                        HtmlNodeCollection nc = nodeCollection[0].SelectNodes("span[@class='next']");
+                        if (nc == null)
+                        {
+                            review.hasMoreComment = false;
+                            button.IsEnabled = false;
+                            text.Text = "完了:-)";
+                        }
+                        else
+                        {
+                            HtmlNodeCollection aCollection = nc[0].SelectNodes("a");
+                            if (aCollection == null)
+                            {
+                                review.hasMoreComment = false;
+                                button.IsEnabled = false;
+                                text.Text = "完了:-)";
+                            }
+                            else
+                            {
+                                review.hasMoreComment = true;
+                                string link = aCollection[0].Attributes["href"].Value;
+                                review.nextCommentLink = link;
+                                button.IsEnabled = true;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private void getReview(HtmlDocument doc)
+        {
+            try
+            {
+                string date = doc.DocumentNode.SelectNodes("//span[@property='v:dtreviewed']")[0].InnerText.Trim();
+                if (review.date == null || review.date == "")
+                {
+                    review.date = date;
+                }
+                string r = doc.DocumentNode.SelectNodes("//div[@property='v:description']")[0].InnerText;
+                review.review = Util.formatReview(r);
+                loadComments(doc);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+    }
+}

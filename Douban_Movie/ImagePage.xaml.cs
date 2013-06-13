@@ -118,6 +118,10 @@ namespace PanoramaApp2
             {
                 progressbar.Visibility = System.Windows.Visibility.Collapsed;
                 loaded[pivotIndex] = true;
+                if (imageCollection[index].bitMap == null)
+                {
+                    imageCollection[index].bitMap = (BitmapImage)image.Source;
+                }
             };
             image.ImageFailed += delegate(object sender, ExceptionRoutedEventArgs e)
             {
@@ -150,7 +154,14 @@ namespace PanoramaApp2
                 }
             };
             image.Stretch = System.Windows.Media.Stretch.Uniform;
-            image.Source = new BitmapImage(new Uri(imageCollection[index].largeUrl));
+            if (imageCollection[index].bitMap != null)
+            {
+                image.Source = imageCollection[index].bitMap;
+            }
+            else
+            {
+                image.Source = new BitmapImage(new Uri(imageCollection[index].largeUrl));
+            }
 
         }
 

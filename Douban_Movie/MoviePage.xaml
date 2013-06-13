@@ -40,7 +40,7 @@
                     <Grid Margin="0, 0, 0, 0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"/>
-                             <RowDefinition Height="*"/>
+                             <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
                             <ProgressBar x:Name="MovieProgressBar" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="383" Margin="0, 250, 0, 0"/>
                             <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 0" HorizontalAlignment="Left" Grid.Row="0">

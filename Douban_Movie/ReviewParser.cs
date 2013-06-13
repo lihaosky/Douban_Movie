@@ -134,10 +134,14 @@ namespace PanoramaApp2
             string date = "";
             string shortReview = "";
             string title = "";
+            string id = "";
 
             try
             {
-                title = Util.replaceSpecialChar(node.SelectNodes("div[@class='review-hd']")[0].SelectNodes("h3")[0].SelectNodes("a")[1].InnerText.Trim());
+                HtmlNode titleNode = node.SelectNodes("div[@class='review-hd']")[0].SelectNodes("h3")[0].SelectNodes("a")[1];
+                title = Util.replaceSpecialChar(titleNode.InnerText.Trim());
+                string link = titleNode.Attributes["href"].Value;
+                id = link.Substring(Review.reviewLinkHeader.Length, link.Length - 1 - Review.reviewLinkHeader.Length);
                 HtmlNode infoNode = node.SelectNodes("div[@class='review-hd']")[0].SelectNodes("div[@class='review-hd-info']")[0];
                 HtmlNode aNode = infoNode.SelectNodes("a")[0];
                 HtmlNode spanNode = infoNode.SelectNodes("span")[0];
@@ -154,6 +158,7 @@ namespace PanoramaApp2
             }
             Review r = new Review();
             r.date = date;
+            r.id = id;
             r.movieName = movie.title;
             r.movieId = movie.id;
             r.reviewer = author;

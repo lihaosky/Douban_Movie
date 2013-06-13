@@ -158,7 +158,12 @@ namespace PanoramaApp2
 
         private void reviewLongListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            if (reviewLongListSelector != null && reviewLongListSelector.SelectedItem != null) {
+                Review review = (Review)reviewLongListSelector.SelectedItem;
+                App.reviewPassed = review;
+                NavigationService.Navigate(new Uri("/ReviewPage.xaml", UriKind.Relative));
+                reviewLongListSelector.SelectedItem = null;
+            }
         }
 
         private void loadMoreReviewButton_Click(object sender, RoutedEventArgs e)

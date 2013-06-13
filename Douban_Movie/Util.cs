@@ -49,6 +49,17 @@ namespace PanoramaApp2
             return newReview;
         }
 
+        public static string formatReview(string review)
+        {
+            string newReview = replaceSpecialChar(review);
+            return replaceTags(newReview);
+        }
+
+        public static string replaceTags(string text)
+        {
+            return text.Replace("<br/>", Environment.NewLine);
+        }
+
         public static string replaceSpecialChar(string text)
         {
             return HttpUtility.HtmlDecode(text);

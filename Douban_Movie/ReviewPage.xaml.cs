@@ -12,9 +12,33 @@ namespace PanoramaApp2
 {
     public partial class ReviewPage : PhoneApplicationPage
     {
+        private Review review;
+        private ReviewHtmlParser reviewParser;
+
         public ReviewPage()
         {
             InitializeComponent();
+            review = App.reviewPassed;
+            reviewParser = new ReviewHtmlParser(review);
+            reviewParser.reviewStackPanel = reviewStackPanel;
+            reviewParser.reviewProgressBar = ReviewProgressBar;
+            reviewParser.commentProgressBar = ReviewCommentProgressBar;
+            reviewParser.button = loadMoreCommentButton;
+            reviewParser.text = loadCommentText;
+            reviewParser.border = border;
+            reviewParser.movieText = movieText;
+            commentSelector.ItemsSource = reviewParser.commentCollection;
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (e.NavigationMode == NavigationMode.New)
+            {
+                ReviewProgressBar.IsIndeterminate = true;
+                ReviewProgressBar.Visibility = System.Windows.Visibility.Visible;
+                reviewParser.parseReview();
+            }
         }
 
         private void Image_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -22,19 +46,16 @@ namespace PanoramaApp2
 
         }
 
-        private void reviewLongListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void loadMoreCommentButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (reviewParser != null)
+            {
+                ReviewCommentProgressBar.IsIndeterminate = true;
+                ReviewCommentProgressBar.Visibility = System.Windows.Visibility.Visible;
+                reviewParser.parseComment();
+            }
         }
 
-        private void loadMoreReviewButton_Click(object sender, RoutedEventArgs e)
-        {
 
-        }
-
-        private void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
     }
 }

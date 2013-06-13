@@ -7,7 +7,7 @@ using System.ComponentModel;
 
 namespace PanoramaApp2
 {
-    class Review
+    public class Review
     {
         private string _id = "";
         public string id 
@@ -126,6 +126,30 @@ namespace PanoramaApp2
             }
         }
 
+        private bool _hasMoreComment;
+        public bool hasMoreComment
+        {
+            get
+            {
+                return _hasMoreComment;
+            }
+            set
+            {
+                _hasMoreComment = value;
+            }
+        }
+        private string _nextCommentLink = "";
+        public string nextCommentLink
+        {
+            get
+            {
+                return _nextCommentLink;
+            }
+            set
+            {
+                _nextCommentLink = value;
+            }
+        }
         public static string reviewLinkHeader = "http://movie.douban.com/review/";
         public static string hotReviewHeader = "http://movie.douban.com/review/best/";
 

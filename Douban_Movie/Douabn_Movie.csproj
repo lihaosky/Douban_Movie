@@ -93,6 +93,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Comment.cs" />
     <Compile Include="HotMovieHtmlParser.cs" />
     <Compile Include="HotReviewHtmlParser.cs" />
     <Compile Include="ImagePage.xaml.cs">
@@ -123,6 +124,7 @@
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Review.cs" />
+    <Compile Include="ReviewHtmlParser.cs" />
     <Compile Include="ReviewPage.xaml.cs">
       <DependentUpon>ReviewPage.xaml</DependentUpon>
     </Compile>
@@ -233,6 +235,12 @@
     <Reference Include="System.Xml.XPath">
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft SDKs\Silverlight\v4.0\Libraries\Client\System.Xml.XPath.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Phone.Controls\Phone.Controls.csproj">
+      <Project>{5712B0A5-AE6C-4100-9941-8C94C2F7F981}</Project>
+      <Name>Phone.Controls</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />
