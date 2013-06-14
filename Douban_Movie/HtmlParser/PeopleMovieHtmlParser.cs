@@ -149,7 +149,7 @@ namespace PanoramaApp2.HtmlParser
             }
             Movie m = new Movie();
             m.id = id;
-            m.title = name;
+            m.title = Util.replaceSpecialChar(name);
             m.rating = rating;
             m.star = star;
             m.posterUrl = posterUrl;
