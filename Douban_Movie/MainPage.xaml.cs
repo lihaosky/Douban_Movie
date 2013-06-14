@@ -11,6 +11,7 @@ using System.Windows.Controls.Primitives;
 using PanoramaApp2.JsonParser;
 using PanoramaApp2.HtmlParser;
 using PanoramaApp2.Resources;
+using Microsoft.Phone.Tasks;
 
 namespace PanoramaApp2
 {
@@ -71,7 +72,8 @@ namespace PanoramaApp2
 
         void rateMenu_Click(object sender, EventArgs e)
         {
-
+            MarketplaceReviewTask marketplaceReviewTask = new MarketplaceReviewTask();
+            marketplaceReviewTask.Show();
         }
 
         private void settingMenu_Click(object sender, EventArgs e)
