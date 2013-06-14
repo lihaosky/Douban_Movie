@@ -126,72 +126,75 @@
     <comment>Controls the Language and ensures that the font for all elements in the RootFrame aligns with the app's language. Set to the language code of this resource file's language.</comment>
   </data>
   <data name="ApplicationTitle" xml:space="preserve">
-    <value>DOUBAN</value>
+    <value>豆瓣电影</value>
   </data>
   <data name="SampleProperty" xml:space="preserve">
     <value>Sample Runtime Property Value</value>
   </data>
   <data name="ComingPivot" xml:space="preserve">
-    <value>Upcoming</value>
+    <value>即将上映</value>
   </data>
   <data name="HotPivot" xml:space="preserve">
-    <value>Hot</value>
+    <value>正在热播</value>
   </data>
   <data name="HotReviewPivot" xml:space="preserve">
-    <value>Hot Review</value>
+    <value>热门影评</value>
   </data>
   <data name="TopPivot" xml:space="preserve">
-    <value>Movie Top 250</value>
+    <value>电影 Top 250</value>
   </data>
   <data name="USPivot" xml:space="preserve">
-    <value>US Box Office</value>
+    <value>北美票房榜</value>
   </data>
   <data name="LoadingText" xml:space="preserve">
-    <value>Loading</value>
+    <value>加载中</value>
   </data>
   <data name="Movieinfo" xml:space="preserve">
-    <value>Movie Info</value>
+    <value>电影信息</value>
   </data>
   <data name="Cast" xml:space="preserve">
-    <value>Cast</value>
+    <value>演职员表</value>
   </data>
   <data name="Comment" xml:space="preserve">
-    <value>Comment</value>
+    <value>短评</value>
   </data>
   <data name="Image" xml:space="preserve">
-    <value>Image</value>
+    <value>图片</value>
   </data>
   <data name="Review" xml:space="preserve">
-    <value>Review</value>
+    <value>影评</value>
   </data>
   <data name="LoadMore" xml:space="preserve">
-    <value>Load More</value>
+    <value>加载更多</value>
   </data>
   <data name="Bio" xml:space="preserve">
-    <value>Bio</value>
+    <value>影人信息</value>
   </data>
   <data name="Work" xml:space="preserve">
-    <value>Known For</value>
+    <value>作品</value>
   </data>
   <data name="SearchResult" xml:space="preserve">
-    <value>Search Results:</value>
+    <value>搜索结果:</value>
   </data>
   <data name="ConnectionError" xml:space="preserve">
-    <value>Can't connect to DOUBAN, please check network connection</value>
+    <value>无法连接到豆瓣网,请检查网络连接</value>
   </data>
   <data name="Finish" xml:space="preserve">
-    <value>No More :-)</value>
+    <value>完了 :-)</value>
   </data>
   <data name="AboutMenu" xml:space="preserve">
-    <value>About</value>
+    <value>关于</value>
   </data>
   <data name="RateMenu" xml:space="preserve">
-    <value>Rate Me</value>
+    <value>给我评分</value>
   </data>
   <data name="SettingMenu" xml:space="preserve">
-    <value>Settings</value>
+    <value>设置</value>
   </data>
   <data name="Language" xml:space="preserve">
-    <value>Language</value>
+    <value>界面语言</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>评论</value>
   </data>
 </root>

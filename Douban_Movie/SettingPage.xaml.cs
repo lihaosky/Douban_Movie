@@ -64,7 +64,6 @@ namespace PanoramaApp2
                 IsolatedStorageSettings appSettings = IsolatedStorageSettings.ApplicationSettings;
                 appSettings["language"] = "zh-CN";
                 appSettings.Save();
-                System.Diagnostics.Debug.WriteLine(0);
 
             }
             if (index == 1)
@@ -73,7 +72,6 @@ namespace PanoramaApp2
                 IsolatedStorageSettings appSettings = IsolatedStorageSettings.ApplicationSettings;
                 appSettings["language"] = "en-US";
                 appSettings.Save();
-                System.Diagnostics.Debug.WriteLine(1);
             }
             if (index == 2)
             {
@@ -81,7 +79,6 @@ namespace PanoramaApp2
                 IsolatedStorageSettings appSettings = IsolatedStorageSettings.ApplicationSettings;
                 appSettings["language"] = "zh-TW";
                 appSettings.Save();
-                System.Diagnostics.Debug.WriteLine(2);
             }
         }
 

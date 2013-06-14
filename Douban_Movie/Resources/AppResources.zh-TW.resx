@@ -194,4 +194,7 @@
   <data name="Language" xml:space="preserve">
     <value>界面語言</value>
   </data>
+  <data name="Comments" xml:space="preserve">
+    <value>評論</value>
+  </data>
 </root>

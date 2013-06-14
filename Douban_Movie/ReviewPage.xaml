@@ -62,7 +62,7 @@
                 </ScrollViewer>
             </phone:PivotItem>
 
-            <phone:PivotItem Header="{Binding Path=LocalizedResources.Comment, Source={StaticResource LocalizedStrings}}"  Margin="24, 24, 24, 0">
+            <phone:PivotItem Header="{Binding Path=LocalizedResources.Comments, Source={StaticResource LocalizedStrings}}"  Margin="24, 24, 24, 0">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
