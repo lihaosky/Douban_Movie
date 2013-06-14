@@ -12,30 +12,30 @@ using System.Collections.ObjectModel;
 using Microsoft.Phone.Shell;
 using System.Windows;
 
-namespace PanoramaApp2
+namespace PanoramaApp2.HtmlParser
 {
-    class ImageHtmlParser
+    class PeopleMovieHtmlParser
     {
-        private Movie movie;
-        public Button button { get; set; }
-        public TextBlock text { get; set; }
+        private People people;
         public ProgressBar progressBar { get; set; }
-        public ObservableCollection<MovieImage> imageCollection = new ObservableCollection<MovieImage>();
+        public Button button;
+        public TextBlock text;
+        public ObservableCollection<Movie> movieCollection = new ObservableCollection<Movie>();
         private WebClient client;
 
-        public ImageHtmlParser(Movie m)
+        public PeopleMovieHtmlParser(People p)
         {
-            movie = m;
+            people = p;
         }
 
-        public void parseImage()
+        public void parseMovie()
         {
             client = new WebClient();
-            client.DownloadStringCompleted += downloadImageCompleted;
-            client.DownloadStringAsync(new Uri(movie.nextImageLink));
+            client.DownloadStringCompleted += client_DownloadMovieCompleted;
+            client.DownloadStringAsync(new Uri(people.nextMovieLink));
         }
 
-        public void downloadImageCompleted(object sender, DownloadStringCompletedEventArgs e)
+        void client_DownloadMovieCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
             try
             {
@@ -44,40 +44,32 @@ namespace PanoramaApp2
                     string page = e.Result;
                     HtmlDocument doc = new HtmlDocument();
                     doc.LoadHtml(page);
-                    HtmlNodeCollection nodeCollection = doc.DocumentNode.SelectNodes("//div[@class='cover']");
-                    if (nodeCollection == null)
+                    HtmlNodeCollection nameNodes = doc.DocumentNode.SelectNodes("//ul");
+                    if (nameNodes == null || nameNodes.Count < 4)
                     {
-                        if (progressBar != null)
-                        {
-                            progressBar.Visibility = Visibility.Collapsed;
-                        }
-                        movie.hasMoreShortReview = false;
+                        people.hasMoreMovie = false;
                         button.IsEnabled = false;
                         text.Text = "完了:-)";
                     }
-                    else
+                    else 
                     {
-                        foreach (HtmlNode node in nodeCollection)
+                        foreach (HtmlNode node in nameNodes[3].SelectNodes("li"))
                         {
-                            MovieImage image;
+                            Movie m;
                             try
                             {
-                                image = getImage(node);
+                                m = getMovie(node);
                             }
                             catch (Exception)
                             {
                                 continue;
                             }
-                            imageCollection.Add(image);
+                            movieCollection.Add(m);
                         }
-                        if (progressBar != null)
-                        {
-                            progressBar.Visibility = Visibility.Collapsed;
-                        }
-                        nodeCollection = doc.DocumentNode.SelectNodes("//div[@class='paginator']");
+                        HtmlNodeCollection nodeCollection = doc.DocumentNode.SelectNodes("//div[@class='paginator']");
                         if (nodeCollection == null)
                         {
-                            movie.hasMoreImage = false;
+                            people.hasMoreMovie = false;
                             button.IsEnabled = false;
                             text.Text = "完了:-)";
                         }
@@ -86,7 +78,7 @@ namespace PanoramaApp2
                             HtmlNodeCollection nc = nodeCollection[0].SelectNodes("span[@class='next']");
                             if (nc == null)
                             {
-                                movie.hasMoreImage = false;
+                                people.hasMoreMovie = false;
                                 button.IsEnabled = false;
                                 text.Text = "完了:-)";
                             }
@@ -95,62 +87,75 @@ namespace PanoramaApp2
                                 HtmlNodeCollection aCollection = nc[0].SelectNodes("a");
                                 if (aCollection == null)
                                 {
-                                    movie.hasMoreImage = false;
+                                    people.hasMoreMovie = false;
                                     button.IsEnabled = false;
                                     text.Text = "完了:-)";
                                 }
                                 else
                                 {
-                                    movie.hasMoreImage = true;
+                                    people.hasMoreMovie = true;
                                     string link = aCollection[0].Attributes["href"].Value;
                                     link = link.Replace("&amp;", "&");
-                                    movie.nextImageLink = link;
+                                    people.nextMovieLink = People.peopleLinkHeader + people.id + "/movies" + link;
                                     button.IsEnabled = true;
                                 }
                             }
                         }
                     }
                 }
-                else
+                if (progressBar != null)
                 {
-                    if (progressBar != null)
-                    {
-                        progressBar.Visibility = Visibility.Collapsed;
-                    }
+                    progressBar.Visibility = Visibility.Collapsed;
                 }
             }
             catch (WebException)
             {
                 button.IsEnabled = true;
-                if (progressBar != null)
-                {
+                if (progressBar != null) {
                     progressBar.Visibility = Visibility.Collapsed;
                 }
                 MessageBoxResult result = MessageBox.Show("无法连接到豆瓣网,请检查网络连接", "", MessageBoxButton.OK);
             }
         }
 
-        private MovieImage getImage(HtmlNode node)
+        private Movie getMovie(HtmlNode node)
         {
-            string smallUrl = "";
-            string largeUrl = "";
             string id = "";
+            string name = "";
+            string rating = "";
+            string star = "";
+            string posterUrl = "";
+
             try
             {
-                string link = node.SelectNodes("a")[0].Attributes["href"].Value.Trim();
-                id = link.Substring(Movie.homePage.Length + 14, link.Length - 15 - Movie.homePage.Length);
-                smallUrl = "http://img3.douban.com/view/photo/thumb/public/p" + id + ".jpg";
-                largeUrl = "http://img3.douban.com/view/photo/raw/public/p" + id + ".jpg";
+                HtmlNode dlNode = node.SelectNodes("dl")[0];
+                posterUrl = dlNode.SelectNodes("dt")[0].SelectNodes("a")[0].SelectNodes("img")[0].Attributes["src"].Value.Trim();
+                HtmlNode ddNode = dlNode.SelectNodes("dd")[0];
+                HtmlNode aNode = ddNode.SelectNodes("h6")[0].SelectNodes("a")[0];
+                string link = aNode.Attributes["href"].Value;
+                name = aNode.InnerText.Trim();
+                id = link.Substring(Movie.movieLinkHeader.Length, link.Length - 1 - Movie.movieLinkHeader.Length);
+                HtmlNode starNode = ddNode.SelectNodes("div[@class='star clearfix']")[0];
+                rating = starNode.SelectNodes("span")[1].InnerText.Trim();
+                if (rating == string.Empty)
+                {
+                    rating = "0";
+                }
+                star = Util.getStarPath(rating);
             }
             catch (Exception)
             {
                 throw;
             }
-            MovieImage image = new MovieImage();
-            image.id = id;
-            image.smallUrl = smallUrl;
-            image.largeUrl = largeUrl;
-            return image;
+            Movie m = new Movie();
+            m.id = id;
+            m.title = name;
+            m.rating = rating;
+            m.star = star;
+            m.posterUrl = posterUrl;
+            return m;
         }
+
+
     }
 }

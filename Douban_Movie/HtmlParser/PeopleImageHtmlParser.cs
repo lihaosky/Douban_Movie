@@ -12,27 +12,27 @@ using System.Collections.ObjectModel;
 using Microsoft.Phone.Shell;
 using System.Windows;
 
-namespace PanoramaApp2
+namespace PanoramaApp2.HtmlParser
 {
-    class ImageHtmlParser
+    class PeopleImageHtmlParser
     {
-        private Movie movie;
-        public Button button { get; set; }
-        public TextBlock text { get; set; }
+        private People people;
         public ProgressBar progressBar { get; set; }
+        public Button button;
+        public TextBlock text;
         public ObservableCollection<MovieImage> imageCollection = new ObservableCollection<MovieImage>();
         private WebClient client;
 
-        public ImageHtmlParser(Movie m)
+        public PeopleImageHtmlParser(People p)
         {
-            movie = m;
+            people = p;
         }
 
         public void parseImage()
         {
             client = new WebClient();
             client.DownloadStringCompleted += downloadImageCompleted;
-            client.DownloadStringAsync(new Uri(movie.nextImageLink));
+            client.DownloadStringAsync(new Uri(people.nextImageLink));
         }
 
         public void downloadImageCompleted(object sender, DownloadStringCompletedEventArgs e)
@@ -44,84 +44,81 @@ namespace PanoramaApp2
                     string page = e.Result;
                     HtmlDocument doc = new HtmlDocument();
                     doc.LoadHtml(page);
-                    HtmlNodeCollection nodeCollection = doc.DocumentNode.SelectNodes("//div[@class='cover']");
-                    if (nodeCollection == null)
+                    HtmlNodeCollection uCollection = doc.DocumentNode.SelectNodes("//ul[@class='poster-col4 clearfix']");
+                    if (uCollection == null)
                     {
-                        if (progressBar != null)
-                        {
-                            progressBar.Visibility = Visibility.Collapsed;
-                        }
-                        movie.hasMoreShortReview = false;
+                        people.hasNextImage = false;
                         button.IsEnabled = false;
                         text.Text = "完了:-)";
                     }
                     else
                     {
-                        foreach (HtmlNode node in nodeCollection)
+                        HtmlNodeCollection liCollection = uCollection[0].SelectNodes("li");
+                        if (liCollection == null)
                         {
-                            MovieImage image;
-                            try
-                            {
-                                image = getImage(node);
-                            }
-                            catch (Exception)
-                            {
-                                continue;
-                            }
-                            imageCollection.Add(image);
-                        }
-                        if (progressBar != null)
-                        {
-                            progressBar.Visibility = Visibility.Collapsed;
-                        }
-                        nodeCollection = doc.DocumentNode.SelectNodes("//div[@class='paginator']");
-                        if (nodeCollection == null)
-                        {
-                            movie.hasMoreImage = false;
+                            people.hasNextImage = false;
                             button.IsEnabled = false;
                             text.Text = "完了:-)";
                         }
                         else
                         {
-                            HtmlNodeCollection nc = nodeCollection[0].SelectNodes("span[@class='next']");
-                            if (nc == null)
+                            foreach (HtmlNode node in liCollection)
                             {
-                                movie.hasMoreImage = false;
+                                MovieImage image;
+                                try
+                                {
+                                    image = getImage(node);
+                                }
+                                catch (Exception)
+                                {
+                                    continue;
+                                }
+                                imageCollection.Add(image);
+                            }
+                            HtmlNodeCollection nodeCollection = doc.DocumentNode.SelectNodes("//div[@class='paginator']");
+                            if (nodeCollection == null)
+                            {
+                                people.hasNextImage = false;
                                 button.IsEnabled = false;
                                 text.Text = "完了:-)";
                             }
                             else
                             {
-                                HtmlNodeCollection aCollection = nc[0].SelectNodes("a");
-                                if (aCollection == null)
+                                HtmlNodeCollection nc = nodeCollection[0].SelectNodes("span[@class='next']");
+                                if (nc == null)
                                 {
-                                    movie.hasMoreImage = false;
+                                    people.hasNextImage = false;
                                     button.IsEnabled = false;
                                     text.Text = "完了:-)";
                                 }
                                 else
                                 {
-                                    movie.hasMoreImage = true;
-                                    string link = aCollection[0].Attributes["href"].Value;
-                                    link = link.Replace("&amp;", "&");
-                                    movie.nextImageLink = link;
-                                    button.IsEnabled = true;
+                                    HtmlNodeCollection aCollection = nc[0].SelectNodes("a");
+                                    if (aCollection == null)
+                                    {
+                                        people.hasNextImage = false;
+                                        button.IsEnabled = false;
+                                        text.Text = "完了:-)";
+                                    }
+                                    else
+                                    {
+                                        people.hasNextImage = false;
+                                        string link = aCollection[0].Attributes["href"].Value.Trim();
+                                        people.nextImageLink = link;
+                                        button.IsEnabled = true;
+                                    }
                                 }
                             }
                         }
                     }
                 }
-                else
+                if (progressBar != null)
                 {
-                    if (progressBar != null)
-                    {
-                        progressBar.Visibility = Visibility.Collapsed;
-                    }
+                    progressBar.Visibility = Visibility.Collapsed;
                 }
             }
             catch (WebException)
             {
-                button.IsEnabled = true;
                 if (progressBar != null)
                 {
                     progressBar.Visibility = Visibility.Collapsed;
@@ -137,8 +134,9 @@ namespace PanoramaApp2
             string id = "";
             try
             {
-                string link = node.SelectNodes("a")[0].Attributes["href"].Value.Trim();
-                id = link.Substring(Movie.homePage.Length + 14, link.Length - 15 - Movie.homePage.Length);
+                string link = node.SelectNodes("div[@class='cover']")[0].SelectNodes("a")[0].Attributes["href"].Value.Trim();
+                int headerLength = people.id.Length + 7;
+                id = link.Substring(People.peopleLinkHeader.Length + headerLength, link.Length - headerLength - 1 - People.peopleLinkHeader.Length);
                 smallUrl = "http://img3.douban.com/view/photo/thumb/public/p" + id + ".jpg";
                 largeUrl = "http://img3.douban.com/view/photo/raw/public/p" + id + ".jpg";
             }

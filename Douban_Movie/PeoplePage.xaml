@@ -73,28 +73,32 @@
             </phone:PivotItem>
 
             <!--Panorama item two-->
-            <phone:PivotItem Header="作品"  Margin="24,24, 24, 24" toolkit:TiltEffect.IsTiltEnabled="True">
+            <phone:PivotItem Header="作品"  Margin="24,24, 24, 0" toolkit:TiltEffect.IsTiltEnabled="True">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
-                    <phone:LongListSelector x:Name="movieSelector">
+                    <ProgressBar x:Name="movieProgressBar" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="383" Visibility="Collapsed"/>
+                    <phone:LongListSelector x:Name="movieSelector" Grid.Row="0" SelectionChanged="movieSelector_SelectionChanged">
                         <phone:LongListSelector.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Horizontal" Margin="0, 12, 0, 0">
-                                    <Image Source="{Binding posterUrl}" Width="100" Height="100" HorizontalAlignment="Left" VerticalAlignment="Center" Stretch="UniformToFill"/>
+                                <StackPanel Orientation="Horizontal" Margin="0, 24, 0, 23">
+                                    <Image Source="{Binding posterUrl}" Width="120" Height="180" HorizontalAlignment="Left" VerticalAlignment="Center" Stretch="UniformToFill"/>
                                     <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12, 0, 0, 0">
                                         <TextBlock Text="{Binding title}" Margin="0, 0, 0, 0" TextWrapping="Wrap" Foreground="White" FontSize="30" VerticalAlignment="Center" Width="300"/>
                                         <StackPanel Orientation="Horizontal" Margin="0, -12, 0, 0">
                                             <Image Source="{Binding star}" Width="130" Height="80" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="-6, 0, 0, 0"/>
                                             <TextBlock Text="{Binding rating}" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" Margin="0, 0, 0, 5" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                                         </StackPanel>
-                                        <TextBlock Text="{Binding releaseDate}" Foreground="White" Style="{StaticResource PhoneTextSmallStyle}" TextWrapping="Wrap" Width="300" Margin="0, 6, 0, 0" HorizontalAlignment="Left"/>
                                     </StackPanel>
                                 </StackPanel>
                             </DataTemplate>
                         </phone:LongListSelector.ItemTemplate>
                     </phone:LongListSelector>
+                    <Button x:Name="loadMoreMovieButton" Grid.Row="1" HorizontalAlignment="Center" Click="loadMoreMovieButton_Click">
+                        <TextBlock x:Name="loadMovieText" Text="加载更多" Style="{StaticResource PhoneTextSmallStyle}" Foreground="White" HorizontalAlignment="Center"/>
+                    </Button>
                 </Grid>
             </phone:PivotItem>
 
@@ -104,7 +108,7 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
-                    <ProgressBar x:Name="ImageProgressBar" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="383"/>
+                    <ProgressBar x:Name="ImageProgressBar" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="383" Visibility="Collapsed"/>
                     <!--Single line list with text wrapping-->
                     <ListBox x:Name="imageListBox" SelectionChanged="imageListBox_SelectionChanged" Grid.Row="0">
                         <ListBox.ItemsPanel>

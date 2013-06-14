@@ -96,6 +96,8 @@
     <Compile Include="DataModel\Comment.cs" />
     <Compile Include="HtmlParser\HotMovieHtmlParser.cs" />
     <Compile Include="HtmlParser\HotReviewHtmlParser.cs" />
+    <Compile Include="HtmlParser\PeopleImageHtmlParser.cs" />
+    <Compile Include="HtmlParser\PeopleMovieHtmlParser.cs" />
     <Compile Include="ImagePage.xaml.cs">
       <DependentUpon>ImagePage.xaml</DependentUpon>
     </Compile>

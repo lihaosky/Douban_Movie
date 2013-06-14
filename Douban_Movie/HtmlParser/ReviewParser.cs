@@ -111,6 +111,7 @@ namespace PanoramaApp2
             }
             catch (WebException)
             {
+                button.IsEnabled = true;
                 if (progressBar != null)
                 {
                     progressBar.Visibility = Visibility.Collapsed;

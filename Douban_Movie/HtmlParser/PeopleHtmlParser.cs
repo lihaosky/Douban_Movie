@@ -76,17 +76,10 @@ namespace PanoramaApp2
                     catch (Exception)
                     {
                     }
-                    if (peopleProgressBar != null)
-                    {
-                        peopleProgressBar.Visibility = Visibility.Collapsed;
-                    }
                 }
-                else
+                if (peopleProgressBar != null)
                 {
-                    if (peopleProgressBar != null)
-                    {
-                        peopleProgressBar.Visibility = Visibility.Collapsed;
-                    }
+                    peopleProgressBar.Visibility = Visibility.Collapsed;
                 }
             }
             catch (WebException)

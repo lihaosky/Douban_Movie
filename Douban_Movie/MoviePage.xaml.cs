@@ -105,11 +105,11 @@ namespace PanoramaApp2
                 movie.nextReviewLink = Movie.movieLinkHeader + movie.id + "/reviews";
                 reviewParser = new ReviewParser(movie);
                 reviewParser.progressBar = ReviewProgressBar;
-                ReviewProgressBar.IsIndeterminate = true;
-                ReviewProgressBar.Visibility = System.Windows.Visibility.Visible;
                 reviewParser.button = loadMoreReviewButton;
                 reviewParser.text = loadReviewText;
                 reviewLongListSelector.ItemsSource = reviewParser.reviewCollection;
+                ReviewProgressBar.IsIndeterminate = true;
+                ReviewProgressBar.Visibility = System.Windows.Visibility.Visible;
                 reviewParser.parseReview();
             }
         }

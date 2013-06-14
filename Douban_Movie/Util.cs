@@ -18,12 +18,17 @@ namespace PanoramaApp2
         public static string getStarPath(string rate)
         {
             double rating = 0;
+            if (rate == "")
+            {
+                return "00 star.png";
+            }
             try
             {
                 rating = double.Parse(rate);
             }
             catch (System.FormatException)
             {
+                return "00 star.png";
             }
             double stars = rating / 2.0;
             int baseStar = (int)stars;
