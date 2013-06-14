@@ -150,6 +150,48 @@
     <value>Loading</value>
   </data>
   <data name="ConnectionError" xml:space="preserve">
-    <value>Can't connect to DOUBAN, check network connection</value>
+    <value>Can't connect to DOUBAN, please check network connection</value>
+  </data>
+  <data name="MovieInfo" xml:space="preserve">
+    <value>Movie Info</value>
+  </data>
+  <data name="Cast" xml:space="preserve">
+    <value>Cast</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="Review" xml:space="preserve">
+    <value>Review</value>
+  </data>
+  <data name="LoadMore" xml:space="preserve">
+    <value>Load More</value>
+  </data>
+  <data name="Bio" xml:space="preserve">
+    <value>Bio</value>
+  </data>
+  <data name="Work" xml:space="preserve">
+    <value>Known For</value>
+  </data>
+  <data name="SearchResult" xml:space="preserve">
+    <value>Search Results:</value>
+  </data>
+  <data name="Finish" xml:space="preserve">
+    <value>No More :-)</value>
+  </data>
+  <data name="AboutMenu" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="RateMenu" xml:space="preserve">
+    <value>Rate Me</value>
+  </data>
+  <data name="SettingMenu" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
   </data>
 </root>

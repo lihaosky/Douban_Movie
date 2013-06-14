@@ -9,12 +9,14 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using System.Windows.Media.Imaging;
 using System.Windows.Controls.Primitives;
+using PanoramaApp2.HtmlParser;
 
 namespace PanoramaApp2
 {
     public partial class MoviePage : PhoneApplicationPage
     {
         private MovieJsonParser movieParser = null;
+        private Popup searchPopup;
         private bool shortReviewLoaded;
         private bool reviewLoaded;
         private bool imageLoaded;
@@ -26,6 +28,7 @@ namespace PanoramaApp2
         public MoviePage()
         {
             InitializeComponent();
+            searchPopup = new Popup();
             shortReviewLoaded = false;
             reviewLoaded = false;
             imageLoaded = false;
@@ -61,6 +64,19 @@ namespace PanoramaApp2
                     MovieProgressBar.Visibility = System.Windows.Visibility.Visible;
                     movieParser.getMovieByID();
                 }
+            }
+        }
+
+        protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
+        {
+            if (searchPopup.IsOpen)
+            {
+                searchPopup.IsOpen = false;
+                e.Cancel = true;
+            }
+            else
+            {
+                base.OnBackKeyPress(e);
             }
         }
 
@@ -197,7 +213,12 @@ namespace PanoramaApp2
 
         private void Image_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-
+            PopupInput input = new PopupInput();
+            input.Width = Application.Current.Host.Content.ActualWidth;
+            input.Height = Application.Current.Host.Content.ActualHeight;
+            searchPopup.Child = input;
+            searchPopup.IsOpen = true;
+            input.inputBox.Focus();
         }
 
         private void imageListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

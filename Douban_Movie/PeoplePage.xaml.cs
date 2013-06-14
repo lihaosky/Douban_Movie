@@ -8,6 +8,7 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using PanoramaApp2.HtmlParser;
+using System.Windows.Controls.Primitives;
 
 namespace PanoramaApp2
 {
@@ -16,6 +17,7 @@ namespace PanoramaApp2
         private People people = null;
         private bool movieLoaded = false;
         private bool imageLoaded = false;
+        private Popup searchPopup;
         private PeopleHtmlParser peopleParser = null;
         private PeopleMovieHtmlParser peopleMovieParser = null;
         private PeopleImageHtmlParser peopleImageParser = null;
@@ -23,6 +25,7 @@ namespace PanoramaApp2
         public PeoplePage()
         {
             InitializeComponent();
+            searchPopup = new Popup();
             people = App.peoplePassed;
             if (people != null)
             {
@@ -48,6 +51,19 @@ namespace PanoramaApp2
                     PeopleProgressBar.Visibility = System.Windows.Visibility.Visible;
                     peopleParser.parsePeople();
                 }
+            }
+        }
+
+        protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
+        {
+            if (searchPopup.IsOpen)
+            {
+                searchPopup.IsOpen = false;
+                e.Cancel = true;
+            }
+            else
+            {
+                base.OnBackKeyPress(e);
             }
         }
 
@@ -108,7 +124,12 @@ namespace PanoramaApp2
 
         private void Image_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-
+            PopupInput input = new PopupInput();
+            input.Width = Application.Current.Host.Content.ActualWidth;
+            input.Height = Application.Current.Host.Content.ActualHeight;
+            searchPopup.Child = input;
+            searchPopup.IsOpen = true;
+            input.inputBox.Focus();
         }
 
         private void loadMoreImageButton_Click(object sender, RoutedEventArgs e)

@@ -18,19 +18,19 @@ using PanoramaApp2.Resources;
 
 namespace PanoramaApp2.JsonParser
 {
-    class USBoxJsonParser
+    class SearchJsonParser
     {
-        public static LongListSelector usboxLongListSelector;
-        public static ProgressBar progressBar;
+        public LongListSelector selector { get; set; }
+        public ProgressBar progressBar { get; set; }
 
-        public static void parseUSBox()
+        public void search(string text)
         {
             WebClient client = new WebClient();
-            client.DownloadStringCompleted += downloadUSBoxCompleted;
-            client.DownloadStringAsync(new Uri(Movie.apiUSBoxHeader + "?apikey=" + App.apikey));
+            client.DownloadStringCompleted += downloadSearchCompleted;
+            client.DownloadStringAsync(new Uri(Movie.apiSearchHeader + "?apikey=" + App.apikey + "&q=" + text));
         }
 
-        public static void downloadUSBoxCompleted(object sender, DownloadStringCompletedEventArgs e)
+        public void downloadSearchCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
             try
             {
@@ -43,15 +43,14 @@ namespace PanoramaApp2.JsonParser
                     for (int i = 0; i < array.Count; i++)
                     {
                         Movie movie = new Movie();
-                        movie.id = JsonParsers.getDouble(array[i], "subject", "id");
-                        movie.posterUrl = JsonParsers.getTriple(array[i], "subject", "images", "small");
-                        movie.money = JsonParsers.getValue(array[i], "box");
-                        movie.rating = JsonParsers.getTriple(array[i], "subject", "rating", "average");
-                        movie.title = JsonParsers.getDouble(array[i], "subject", "title");
+                        movie.id = JsonParsers.getValue(array[i], "id");
+                        movie.posterUrl = JsonParsers.getDouble(array[i], "images", "small");
+                        movie.rating = JsonParsers.getDouble(array[i], "rating", "average");
+                        movie.title = JsonParsers.getValue(array[i], "title");
                         movie.star = Util.getStarPath(movie.rating);
                         movieList.Add(movie);
                     }
-                    usboxLongListSelector.ItemsSource = movieList;
+                    selector.ItemsSource = movieList;
                     if (progressBar != null)
                     {
                         progressBar.Visibility = Visibility.Collapsed;
@@ -59,7 +58,6 @@ namespace PanoramaApp2.JsonParser
                 }
                 else
                 {
-                    MessageBoxResult result = MessageBox.Show(AppResources.ConnectionError, "", MessageBoxButton.OK);
                     if (progressBar != null)
                     {
                         progressBar.Visibility = Visibility.Collapsed;
@@ -76,4 +74,5 @@ namespace PanoramaApp2.JsonParser
             }
         }
     }
+
 }

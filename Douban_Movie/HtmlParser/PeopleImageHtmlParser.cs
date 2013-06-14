@@ -11,6 +11,7 @@ using System.Windows.Controls;
 using System.Collections.ObjectModel;
 using Microsoft.Phone.Shell;
 using System.Windows;
+using PanoramaApp2.Resources;
 
 namespace PanoramaApp2.HtmlParser
 {
@@ -49,7 +50,7 @@ namespace PanoramaApp2.HtmlParser
                     {
                         people.hasNextImage = false;
                         button.IsEnabled = false;
-                        text.Text = "完了:-)";
+                        text.Text = AppResources.Finish;
                     }
                     else
                     {
@@ -58,7 +59,7 @@ namespace PanoramaApp2.HtmlParser
                         {
                             people.hasNextImage = false;
                             button.IsEnabled = false;
-                            text.Text = "完了:-)";
+                            text.Text = AppResources.Finish;
                         }
                         else
                         {
@@ -80,7 +81,7 @@ namespace PanoramaApp2.HtmlParser
                             {
                                 people.hasNextImage = false;
                                 button.IsEnabled = false;
-                                text.Text = "完了:-)";
+                                text.Text = AppResources.Finish;
                             }
                             else
                             {
@@ -89,7 +90,7 @@ namespace PanoramaApp2.HtmlParser
                                 {
                                     people.hasNextImage = false;
                                     button.IsEnabled = false;
-                                    text.Text = "完了:-)";
+                                    text.Text = AppResources.Finish;
                                 }
                                 else
                                 {
@@ -98,7 +99,7 @@ namespace PanoramaApp2.HtmlParser
                                     {
                                         people.hasNextImage = false;
                                         button.IsEnabled = false;
-                                        text.Text = "完了:-)";
+                                        text.Text = AppResources.Finish;
                                     }
                                     else
                                     {
@@ -123,7 +124,7 @@ namespace PanoramaApp2.HtmlParser
                 {
                     progressBar.Visibility = Visibility.Collapsed;
                 }
-                MessageBoxResult result = MessageBox.Show("无法连接到豆瓣网,请检查网络连接", "", MessageBoxButton.OK);
+                MessageBoxResult result = MessageBox.Show(AppResources.ConnectionError, "", MessageBoxButton.OK);
             }
         }
 

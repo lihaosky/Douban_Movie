@@ -11,8 +11,9 @@ using System.Windows.Controls;
 using System.Collections.ObjectModel;
 using Microsoft.Phone.Shell;
 using System.Windows;
+using PanoramaApp2.Resources;
 
-namespace PanoramaApp2
+namespace PanoramaApp2.HtmlParser
 {
     class Top250HtmlParser
     {
@@ -64,7 +65,7 @@ namespace PanoramaApp2
                     if (currentIndex > maxIndex)
                     {
                         loadMoreButton.IsEnabled = false;
-                        loadText.Text = "完了:-)";
+                        loadText.Text = AppResources.Finish;
                     }
                     else
                     {
@@ -73,7 +74,7 @@ namespace PanoramaApp2
                 }
                 else
                 {
-                    MessageBoxResult result = MessageBox.Show("无法连接到豆瓣网,请检查网络连接", "", MessageBoxButton.OK);
+                    MessageBoxResult result = MessageBox.Show(AppResources.ConnectionError, "", MessageBoxButton.OK);
                     if (progressBar != null)
                     {
                         progressBar.Visibility = Visibility.Collapsed;
@@ -86,7 +87,7 @@ namespace PanoramaApp2
                 {
                     progressBar.Visibility = Visibility.Collapsed;
                 }
-                MessageBoxResult result = MessageBox.Show("无法连接到豆瓣网,请检查网络连接", "", MessageBoxButton.OK);
+                MessageBoxResult result = MessageBox.Show(AppResources.ConnectionError, "", MessageBoxButton.OK);
             }
         }
 

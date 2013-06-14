@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
-namespace PanoramaApp2
+namespace PanoramaApp2.JsonParser
 {
-    class JsonParser
+    class JsonParsers
     {
         public static string getValue(JObject obj, string attr)
         {

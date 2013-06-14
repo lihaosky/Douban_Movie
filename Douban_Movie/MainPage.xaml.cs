@@ -8,12 +8,19 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using System.Windows.Controls.Primitives;
+using PanoramaApp2.JsonParser;
+using PanoramaApp2.HtmlParser;
+using PanoramaApp2.Resources;
 
 namespace PanoramaApp2
 {
     public partial class MainPage : PhoneApplicationPage
     {
         private Popup popup;
+        private Popup searchPopup;
+        public ApplicationBarMenuItem settingMenu;
+        public ApplicationBarMenuItem rateMenu;
+        public ApplicationBarMenuItem aboutMenu;
         private bool latestLoaded;
         private bool top250Loaded;
         private bool usboxLoaded;
@@ -23,6 +30,7 @@ namespace PanoramaApp2
         public MainPage()
         {
             InitializeComponent();
+            App.mainPage = this;
 
             latestLoaded = false;
             top250Loaded = false;
@@ -32,6 +40,7 @@ namespace PanoramaApp2
             // Get hot movie
             HotMovieHtmlParser.selector = hotLongListSelector;
             popup = new Popup();
+            searchPopup = new Popup();
             HotMovieHtmlParser.popup = popup;
             
             // Create an application bar
@@ -42,15 +51,32 @@ namespace PanoramaApp2
             ApplicationBar.IsVisible = true;
             ApplicationBar.IsMenuEnabled = true;
 
-            ApplicationBarMenuItem menuItem1 = new ApplicationBarMenuItem();
-            menuItem1.Text = "给我评分";
-            ApplicationBar.MenuItems.Add(menuItem1);
-            ApplicationBarMenuItem menuItem2 = new ApplicationBarMenuItem();
-            menuItem2.Text = "意见反馈";
-            ApplicationBar.MenuItems.Add(menuItem2);
-            ApplicationBarMenuItem menuItem3 = new ApplicationBarMenuItem();
-            menuItem3.Text = "关于";
-            ApplicationBar.MenuItems.Add(menuItem3);
+            settingMenu = new ApplicationBarMenuItem(AppResources.SettingMenu);
+            settingMenu.Click += settingMenu_Click;
+            ApplicationBar.MenuItems.Add(settingMenu);
+            
+            rateMenu = new ApplicationBarMenuItem(AppResources.RateMenu);
+            rateMenu.Click += rateMenu_Click;
+            ApplicationBar.MenuItems.Add(rateMenu);
+
+            aboutMenu = new ApplicationBarMenuItem(AppResources.AboutMenu);
+            aboutMenu.Click += aboutMenu_Click;
+            ApplicationBar.MenuItems.Add(aboutMenu);
+        }
+
+        void aboutMenu_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        void rateMenu_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void settingMenu_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/SettingPage.xaml", UriKind.Relative));
         }
 
         private void showPopup()
@@ -71,6 +97,19 @@ namespace PanoramaApp2
             {
                 showPopup();
                 HotMovieHtmlParser.parseHottMovie();
+            }
+        }
+
+        protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
+        {
+            if (searchPopup.IsOpen)
+            {
+                searchPopup.IsOpen = false;
+                e.Cancel = true;
+            }
+            else
+            {
+                base.OnBackKeyPress(e);
             }
         }
 
@@ -232,7 +271,12 @@ namespace PanoramaApp2
 
         private void Image_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("tapped");
+            PopupInput input = new PopupInput();
+            input.Width = Application.Current.Host.Content.ActualWidth;
+            input.Height = Application.Current.Host.Content.ActualHeight;
+            searchPopup.Child = input;
+            searchPopup.IsOpen = true;
+            input.inputBox.Focus();
         }
     }
 }

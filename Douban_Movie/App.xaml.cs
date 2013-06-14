@@ -10,6 +10,9 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using PanoramaApp2.Resources;
 using System.Collections.ObjectModel;
+using System.IO.IsolatedStorage;
+using System.Globalization;
+using System.Threading;
 
 namespace PanoramaApp2
 {
@@ -22,6 +25,7 @@ namespace PanoramaApp2
         public static People peoplePassed = null;
         public static ObservableCollection<MovieImage> imageCollectionPassed = null;
         public static string apikey = "07e978247f7e67ad17bc686d7e7b3707";
+        public static MainPage mainPage;
 
 
         /// <summary>
@@ -198,6 +202,23 @@ namespace PanoramaApp2
         {
             try
             {
+                IsolatedStorageSettings appSettings = IsolatedStorageSettings.ApplicationSettings;
+                try
+                {
+                    string languageSetting = (string)appSettings["language"];
+                    // Set this thread's current culture to the culture associated with the selected locale.
+                    CultureInfo newCulture = new CultureInfo(languageSetting);
+                    Thread.CurrentThread.CurrentCulture = newCulture;
+                    Thread.CurrentThread.CurrentUICulture = newCulture;
+                }
+                catch (KeyNotFoundException)
+                {
+                    CultureInfo currentCulture = CultureInfo.CurrentCulture;
+                    string cultureName = currentCulture.Name;
+                    appSettings.Add("language", cultureName);
+                    appSettings.Save();
+                }
+              
                 // Set the font to match the display language defined by the
                 // ResourceLanguage resource string for each supported language.
                 //

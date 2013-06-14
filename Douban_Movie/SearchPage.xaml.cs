@@ -7,34 +7,23 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using PanoramaApp2.HtmlParser;
+using PanoramaApp2.JsonParser;
 using System.Windows.Controls.Primitives;
 
 namespace PanoramaApp2
 {
-    public partial class ReviewPage : PhoneApplicationPage
+    public partial class SearchPage : PhoneApplicationPage
     {
-        private Review review;
-        private ReviewHtmlParser reviewParser;
+        private SearchJsonParser parser = null;
         private Popup searchPopup;
 
-        public ReviewPage()
+        public SearchPage()
         {
             InitializeComponent();
             searchPopup = new Popup();
-            review = App.reviewPassed;
-            if (review != null)
-            {
-                reviewParser = new ReviewHtmlParser(review);
-                reviewParser.reviewStackPanel = reviewStackPanel;
-                reviewParser.reviewProgressBar = ReviewProgressBar;
-                reviewParser.commentProgressBar = ReviewCommentProgressBar;
-                reviewParser.button = loadMoreCommentButton;
-                reviewParser.text = loadCommentText;
-                reviewParser.border = border;
-                reviewParser.movieText = movieText;
-                commentSelector.ItemsSource = reviewParser.commentCollection;
-            }
+            parser = new SearchJsonParser();
+            parser.selector = hotLongListSelector;
+            parser.progressBar = progressBar;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -42,11 +31,13 @@ namespace PanoramaApp2
             base.OnNavigatedTo(e);
             if (e.NavigationMode == NavigationMode.New)
             {
-                if (reviewParser != null)
+                string msg = "";
+                if (NavigationContext.QueryString.TryGetValue("msg", out msg))
                 {
-                    ReviewProgressBar.IsIndeterminate = true;
-                    ReviewProgressBar.Visibility = System.Windows.Visibility.Visible;
-                    reviewParser.parseReview();
+                    searchText.Text = msg;
+                    progressBar.IsIndeterminate = true;
+                    progressBar.Visibility = System.Windows.Visibility.Visible;
+                    parser.search(msg);
                 }
             }
         }
@@ -74,16 +65,18 @@ namespace PanoramaApp2
             input.inputBox.Focus();
         }
 
-        private void loadMoreCommentButton_Click(object sender, RoutedEventArgs e)
+        private void hotLongListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (reviewParser != null && review != null)
+            if (hotLongListSelector != null && hotLongListSelector.SelectedItem != null)
             {
-                ReviewCommentProgressBar.IsIndeterminate = true;
-                ReviewCommentProgressBar.Visibility = System.Windows.Visibility.Visible;
-                reviewParser.parseComment();
+                Movie m = (Movie)hotLongListSelector.SelectedItem;
+                if (m != null && m.id != string.Empty)
+                {
+                    App.moviePassed = m;
+                    NavigationService.Navigate(new Uri("/MoviePage.xaml", UriKind.Relative));
+                }
+                hotLongListSelector.SelectedItem = null;
             }
         }
-
-
     }
 }

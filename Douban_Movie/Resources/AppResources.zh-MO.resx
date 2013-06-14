@@ -149,4 +149,49 @@
   <data name="LoadingText" xml:space="preserve">
     <value>加載中</value>
   </data>
+  <data name="MovieInfo" xml:space="preserve">
+    <value>電影信息</value>
+  </data>
+  <data name="Cast" xml:space="preserve">
+    <value>演職員表</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>短評</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>圖片</value>
+  </data>
+  <data name="Review" xml:space="preserve">
+    <value>影評</value>
+  </data>
+  <data name="LoadMore" xml:space="preserve">
+    <value>加載更多</value>
+  </data>
+  <data name="Bio" xml:space="preserve">
+    <value>影人信息</value>
+  </data>
+  <data name="Work" xml:space="preserve">
+    <value>作品</value>
+  </data>
+  <data name="SearchResult" xml:space="preserve">
+    <value>搜索結果:</value>
+  </data>
+  <data name="ConnectionError" xml:space="preserve">
+    <value>無法連接到豆瓣網, 請檢查網絡連接</value>
+  </data>
+  <data name="Finish" xml:space="preserve">
+    <value>完了 :-)</value>
+  </data>
+  <data name="AboutMenu" xml:space="preserve">
+    <value>關於</value>
+  </data>
+  <data name="RateMenu" xml:space="preserve">
+    <value>給我評分</value>
+  </data>
+  <data name="SettingMenu" xml:space="preserve">
+    <value>設置</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>界面語言</value>
+  </data>
 </root>

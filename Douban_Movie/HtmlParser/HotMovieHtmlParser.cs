@@ -8,8 +8,9 @@ using Microsoft.Phone.Controls;
 using HtmlAgilityPack;
 using System.Windows.Controls.Primitives;
 using System.Windows;
+using PanoramaApp2.Resources;
 
-namespace PanoramaApp2
+namespace PanoramaApp2.HtmlParser
 {
     /// <summary>
     /// This class parses html file and returns corresponding results
@@ -88,13 +89,14 @@ namespace PanoramaApp2
                 }
                 else
                 {
-                    MessageBoxResult result = MessageBox.Show("无法连接到豆瓣网,请检查网络连接", "", MessageBoxButton.OK);
                     popup.IsOpen = false;
+                    MessageBoxResult result = MessageBox.Show(AppResources.ConnectionError, "", MessageBoxButton.OK);
                 }
             }
             catch (WebException)
             {
-                MessageBoxResult result = MessageBox.Show("无法连接到豆瓣网,请检查网络连接", "", MessageBoxButton.OK);
+                popup.IsOpen = false;
+                MessageBoxResult result = MessageBox.Show(AppResources.ConnectionError, "", MessageBoxButton.OK);
             }
         }
 

@@ -11,6 +11,8 @@ using System.Windows.Media.Imaging;
 using Microsoft.Phone.Shell;
 using Microsoft.Phone.Controls;
 using System.Windows;
+using PanoramaApp2.JsonParser;
+using PanoramaApp2.Resources;
 
 namespace PanoramaApp2
 {
@@ -53,36 +55,36 @@ namespace PanoramaApp2
                 {
                     string data = e.Result;
                     JObject obj = JObject.Parse(data);
-                    movie.summary = JsonParser.getValue(obj, "summary");
+                    movie.summary = JsonParsers.getValue(obj, "summary");
                     if (movie.genre == "" || movie.genre == null)
                     {
-                        movie.genre = JsonParser.getArray(obj, "genres");
+                        movie.genre = JsonParsers.getArray(obj, "genres");
                     }
                     if (movie.title == "" || movie.title == null)
                     {
-                        movie.title = JsonParser.getValue(obj, "title");
+                        movie.title = JsonParsers.getValue(obj, "title");
                     }
                     if (movie.year == "" || movie.year == null)
                     {
-                        movie.year = JsonParser.getValue(obj, "year");
+                        movie.year = JsonParsers.getValue(obj, "year");
                     }
                     if (movie.rating == "" || movie.rating == null)
                     {
-                        movie.rating = JsonParser.getDouble(obj, "rating", "average");
+                        movie.rating = JsonParsers.getDouble(obj, "rating", "average");
                     }
                     movie.star = Util.getStarPath(movie.rating);
                     if (movie.rateNumber == "" || movie.rateNumber == null)
                     {
-                        movie.rateNumber = JsonParser.getValue(obj, "ratings_count");
+                        movie.rateNumber = JsonParsers.getValue(obj, "ratings_count");
                     }
                     if (movie.posterUrl == "" || movie.posterUrl == null)
                     {
-                        movie.posterUrl = JsonParser.getDouble(obj, "images", "small");
+                        movie.posterUrl = JsonParsers.getDouble(obj, "images", "small");
                     }
                     object[] countries = obj["countries"].ToArray();
                     if (movie.region == "" || movie.region == null)
                     {
-                        movie.region = JsonParser.getArray(obj, "countries");
+                        movie.region = JsonParsers.getArray(obj, "countries");
                     }
                     title.Text = movie.title;
                     if (movie.posterUrl == "")
@@ -108,13 +110,13 @@ namespace PanoramaApp2
                     for (int i = 0; i < array.Count; i++)
                     {
                         People people = new People();
-                        people.posterUrl = JsonParser.getDouble(array[i], "avatars", "small");
+                        people.posterUrl = JsonParsers.getDouble(array[i], "avatars", "small");
                         if (people.posterUrl == "")
                         {
                             people.posterUrl = App.imagePath + "default.png";
                         }
-                        people.id = JsonParser.getValue(array[i], "id");
-                        people.name = JsonParser.getValue(array[i], "name");
+                        people.id = JsonParsers.getValue(array[i], "id");
+                        people.name = JsonParsers.getValue(array[i], "name");
                         people.positionName = "导演";
                         people.position = People.DIRECTOR;
                         peoples.Add(people);
@@ -123,13 +125,13 @@ namespace PanoramaApp2
                     for (int i = 0; i < array.Count; i++)
                     {
                         People people = new People();
-                        people.posterUrl = JsonParser.getDouble(array[i], "avatars", "small");
+                        people.posterUrl = JsonParsers.getDouble(array[i], "avatars", "small");
                         if (people.posterUrl == "")
                         {
                             people.posterUrl = App.imagePath + "default.png";
                         }
-                        people.id = JsonParser.getValue(array[i], "id");
-                        people.name = JsonParser.getValue(array[i], "name");
+                        people.id = JsonParsers.getValue(array[i], "id");
+                        people.name = JsonParsers.getValue(array[i], "name");
                         people.positionName = "";
                         people.position = People.ACTOR;
                         peoples.Add(people);
@@ -155,7 +157,7 @@ namespace PanoramaApp2
                 {
                     progressBar.Visibility = Visibility.Collapsed;
                 }
-                MessageBoxResult result = MessageBox.Show("无法连接到豆瓣网,请检查网络连接", "", MessageBoxButton.OK);
+                MessageBoxResult result = MessageBox.Show(AppResources.ConnectionError, "", MessageBoxButton.OK);
             }
         }
 

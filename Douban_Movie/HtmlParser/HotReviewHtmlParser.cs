@@ -11,8 +11,9 @@ using System.Windows.Controls;
 using System.Collections.ObjectModel;
 using Microsoft.Phone.Shell;
 using System.Windows;
+using PanoramaApp2.Resources;
 
-namespace PanoramaApp2
+namespace PanoramaApp2.HtmlParser
 {
     class HotReviewHtmlParser
     {
@@ -64,7 +65,7 @@ namespace PanoramaApp2
                         if (nextLinkNode == null)
                         {
                             loadmoreButton.IsEnabled = false;
-                            buttonText.Text = "完了:-)";
+                            buttonText.Text = AppResources.Finish;
                         }
                         else
                         {
@@ -79,12 +80,12 @@ namespace PanoramaApp2
                             progressBar.Visibility = Visibility.Collapsed;
                         }
                         loadmoreButton.IsEnabled = false;
-                        buttonText.Text = "完了:-)";
+                        buttonText.Text = AppResources.Finish;
                     }
                 }
                 else
                 {
-                    MessageBoxResult result = MessageBox.Show("无法连接到豆瓣网,请检查网络连接", "", MessageBoxButton.OK);
+                    MessageBoxResult result = MessageBox.Show(AppResources.ConnectionError, "", MessageBoxButton.OK);
                     if (progressBar != null)
                     {
                         progressBar.Visibility = Visibility.Collapsed;
@@ -93,7 +94,7 @@ namespace PanoramaApp2
             }
             catch (WebException)
             {
-                MessageBoxResult result = MessageBox.Show("无法连接到豆瓣网,请检查网络连接", "", MessageBoxButton.OK);
+                MessageBoxResult result = MessageBox.Show(AppResources.ConnectionError, "", MessageBoxButton.OK);
                 if (progressBar != null)
                 {
                     progressBar.Visibility = Visibility.Collapsed;

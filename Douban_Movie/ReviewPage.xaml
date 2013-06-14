@@ -32,8 +32,8 @@
         </Grid>
      
         <phone:Pivot Margin="0,0,0,0" Grid.RowSpan="1" Background="#2B4F81" Grid.Row="1" HeaderTemplate="{StaticResource MyPivotItemHeaderTemplate}">
-            
-            <phone:PivotItem Header="影评"  Margin="24, 24, 24, 24" toolkit:TiltEffect.IsTiltEnabled="True">
+
+            <phone:PivotItem Header="{Binding Path=LocalizedResources.Review, Source={StaticResource LocalizedStrings}}"  Margin="24, 24, 24, 24" toolkit:TiltEffect.IsTiltEnabled="True">
                 <ScrollViewer>
                     <Grid>
                         <Grid.RowDefinitions>
@@ -61,14 +61,14 @@
                     </Grid>
                 </ScrollViewer>
             </phone:PivotItem>
-            
-            <phone:PivotItem Header="评论"  Margin="24, 24, 24, 0">
+
+            <phone:PivotItem Header="{Binding Path=LocalizedResources.Comment, Source={StaticResource LocalizedStrings}}"  Margin="24, 24, 24, 0">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
-                    <ProgressBar x:Name="ReviewCommentProgressBar" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="383" Visibility="Collapsed"/>
+                    <ProgressBar x:Name="ReviewCommentProgressBar" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="383" Visibility="Collapsed" Grid.Row="0"/>
                     <phone:LongListSelector x:Name="commentSelector" Margin="0, 0, 0, 0">
                         <phone:LongListSelector.ItemTemplate>
                             <DataTemplate>
@@ -83,7 +83,7 @@
                         </phone:LongListSelector.ItemTemplate>
                     </phone:LongListSelector>
                     <Button x:Name="loadMoreCommentButton" Grid.Row="1" HorizontalAlignment="Center" Click="loadMoreCommentButton_Click">
-                        <TextBlock x:Name="loadCommentText" Text="加载更多" Style="{StaticResource PhoneTextSmallStyle}" Foreground="White" HorizontalAlignment="Center"/>
+                        <TextBlock x:Name="loadCommentText" Text="{Binding Path=LocalizedResources.LoadMore, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextSmallStyle}" Foreground="White" HorizontalAlignment="Center"/>
                     </Button>
                 </Grid>
             </phone:PivotItem>
