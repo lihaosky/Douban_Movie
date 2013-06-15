@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
-  <DefaultLanguage xmlns="" code="en-US" />
+  <DefaultLanguage xmlns="" code="zh-CN" />
   <Languages xmlns="">
     <Language code="zh-Hans" />
     <Language code="zh-CN" />
@@ -33,13 +33,19 @@
           <Count>0</Count>
           <IconImageURI IsRelative="true" IsResource="false">Assets\Tiles\IconTileMediumLarge.png</IconImageURI>
           <Title>豆瓣电影</Title>
-          <Message></Message>
-          <BackgroundColor></BackgroundColor>
+          <Message>
+          </Message>
+          <BackgroundColor>
+          </BackgroundColor>
           <HasLarge>True</HasLarge>
-          <LargeContent1></LargeContent1>
-          <LargeContent2></LargeContent2>
-          <LargeContent3></LargeContent3>
-          <DeviceLockImageURI IsRelative="true" IsResource="false"></DeviceLockImageURI>
+          <LargeContent1>
+          </LargeContent1>
+          <LargeContent2>
+          </LargeContent2>
+          <LargeContent3>
+          </LargeContent3>
+          <DeviceLockImageURI IsRelative="true" IsResource="false">
+          </DeviceLockImageURI>
         </TemplateIconic>
       </PrimaryToken>
     </Tokens>
