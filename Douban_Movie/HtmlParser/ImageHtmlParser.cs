@@ -140,8 +140,8 @@ namespace PanoramaApp2.HtmlParser
             {
                 string link = node.SelectNodes("a")[0].Attributes["href"].Value.Trim();
                 id = link.Substring(Movie.homePage.Length + 14, link.Length - 15 - Movie.homePage.Length);
-                smallUrl = "http://img3.douban.com/view/photo/thumb/public/p" + id + ".jpg";
-                largeUrl = "http://img3.douban.com/view/photo/raw/public/p" + id + ".jpg";
+                smallUrl = MovieImage.smallUrlHeader + id + ".jpg";
+                largeUrl = MovieImage.largeUrlHeader + id + ".jpg";
             }
             catch (Exception)
             {

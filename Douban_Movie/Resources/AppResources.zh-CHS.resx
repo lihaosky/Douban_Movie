@@ -197,4 +197,13 @@
   <data name="Comments" xml:space="preserve">
     <value>评论</value>
   </data>
+  <data name="SaveFail" xml:space="preserve">
+    <value>保存失败!</value>
+  </data>
+  <data name="SaveMessage" xml:space="preserve">
+    <value>保存到相册?</value>
+  </data>
+  <data name="SaveSuccess" xml:space="preserve">
+    <value>保存成功!</value>
+  </data>
 </root>

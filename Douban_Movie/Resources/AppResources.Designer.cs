@@ -250,6 +250,33 @@ namespace PanoramaApp2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fail!.
+        /// </summary>
+        public static string SaveFail {
+            get {
+                return ResourceManager.GetString("SaveFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save to Photo Gallery?.
+        /// </summary>
+        public static string SaveMessage {
+            get {
+                return ResourceManager.GetString("SaveMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success!.
+        /// </summary>
+        public static string SaveSuccess {
+            get {
+                return ResourceManager.GetString("SaveSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search Results:.
         /// </summary>
         public static string SearchResult {

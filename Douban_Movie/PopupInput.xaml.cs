@@ -8,6 +8,7 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using System.Windows.Controls.Primitives;
+using System.Windows.Media.Imaging;
 
 namespace PanoramaApp2
 {

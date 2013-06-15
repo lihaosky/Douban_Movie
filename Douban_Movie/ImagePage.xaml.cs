@@ -12,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using Microsoft.Xna.Framework.Media;
 using System.Windows.Media;
+using PanoramaApp2.Resources;
 
 namespace PanoramaApp2
 {
@@ -130,12 +131,12 @@ namespace PanoramaApp2
             image.Hold += delegate(object sender, System.Windows.Input.GestureEventArgs e)
             {
                 BitmapImage bitmap = (BitmapImage)image.Source;
-                MessageBoxResult value = MessageBox.Show("保存到相册?", "", MessageBoxButton.OKCancel);
+                MessageBoxResult value = MessageBox.Show(AppResources.SaveMessage, "", MessageBoxButton.OKCancel);
                 if (value == MessageBoxResult.OK)
                 {
                     if (bitmap == null)
                     {
-                        MessageBox.Show("保存失败...");
+                        MessageBox.Show(AppResources.SaveFail);
                     }
                     else
                     {
@@ -148,7 +149,7 @@ namespace PanoramaApp2
                             // This is important!!!
                             ms.Seek(0, SeekOrigin.Begin);
                             lib.SavePictureToCameraRoll(dt.Year + "-" + dt.Month + "-" + dt.Day + "-" + dt.Hour + "-" + dt.Minute + "-" + dt.Second, ms);
-                            MessageBox.Show("保存成功!");
+                            MessageBox.Show(AppResources.SaveSuccess);
                         }
                     }
                 }

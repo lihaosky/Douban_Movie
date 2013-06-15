@@ -10,6 +10,7 @@
     d:DesignHeight="480" d:DesignWidth="480">
     
     <Grid x:Name="LayoutRoot" Background="Black">
-        <TextBox x:Name="inputBox" Width="440" HorizontalAlignment="Center" VerticalAlignment="Top" KeyDown="inputBox_KeyDown"/>
+        <TextBox x:Name="inputBox" Width="440" HorizontalAlignment="Center" VerticalAlignment="Top" KeyDown="inputBox_KeyDown" Opacity="1">
+        </TextBox>
     </Grid>
 </UserControl>

@@ -63,6 +63,8 @@ namespace PanoramaApp2
                 NotifyPropertyChanged("largeUrl");
             }
         }
+        public static string smallUrlHeader = "http://img3.douban.com/view/photo/thumb/public/p";
+        public static string largeUrlHeader = "http://img3.douban.com/view/photo/photo/public/p";
         public event PropertyChangedEventHandler PropertyChanged;
         // NotifyPropertyChanged will raise the PropertyChanged event, 
         // passing the source property that is being updated.
