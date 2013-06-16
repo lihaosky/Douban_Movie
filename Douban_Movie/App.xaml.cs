@@ -13,6 +13,7 @@ using System.Collections.ObjectModel;
 using System.IO.IsolatedStorage;
 using System.Globalization;
 using System.Threading;
+using System.Windows.Controls;
 
 namespace PanoramaApp2
 {
