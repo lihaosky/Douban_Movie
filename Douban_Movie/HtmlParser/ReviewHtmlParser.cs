@@ -35,9 +35,28 @@ namespace PanoramaApp2.HtmlParser
 
         public void parseReview()
         {
-            client = new WebClient();
-            client.DownloadStringCompleted += downloadReviewCompleted;
-            client.DownloadStringAsync(new Uri(Review.reviewLinkHeader + review.id));
+            Review r = Cache.getReview(review.id);
+            if (r == null)
+            {
+                client = new WebClient();
+                client.DownloadStringCompleted += downloadReviewCompleted;
+                client.DownloadStringAsync(new Uri(Review.reviewLinkHeader + review.id));
+            }
+            else
+            {
+                border.Visibility = Visibility.Visible;
+                movieText.Visibility = Visibility.Visible;
+                reviewStackPanel.DataContext = r;
+                foreach (Comment c in review.commentList)
+                {
+                    commentCollection.Add(c);
+                }
+                if (reviewProgressBar != null)
+                {
+                    reviewProgressBar.Visibility = Visibility.Collapsed;
+                }
+                System.Diagnostics.Debug.WriteLine("Review found in cache!");
+            }
         }
 
         public void parseComment()
@@ -92,6 +111,7 @@ namespace PanoramaApp2.HtmlParser
                         border.Visibility = Visibility.Visible;
                         movieText.Visibility = Visibility.Visible;
                         reviewStackPanel.DataContext = review;
+                        Cache.insertReview(review);
                     }
                     catch (Exception)
                     {
@@ -171,6 +191,7 @@ namespace PanoramaApp2.HtmlParser
                             continue;
                         }
                         commentCollection.Add(c);
+                        review.commentList.Add(c);
                     }
                     HtmlNodeCollection nodeCollection = doc.DocumentNode.SelectNodes("//div[@class='paginator']");
                     if (nodeCollection == null)
@@ -207,6 +228,7 @@ namespace PanoramaApp2.HtmlParser
                         }
                     }
                 }
+                review.commentLoaded = true;
             }
             catch (Exception)
             {

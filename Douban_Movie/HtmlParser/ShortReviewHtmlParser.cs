@@ -31,6 +31,40 @@ namespace PanoramaApp2.HtmlParser
 
         public void parseShortReview()
         {
+            // Movie not in cache or no short review previously loaded
+            if (movie.shortReviewLoaded == false)
+            {
+                movie.nextShortReviewLink = Movie.movieLinkHeader + movie.id + "/comments";
+                client = new WebClient();
+                client.DownloadStringCompleted += downloadShortReviewCompleted;
+                client.DownloadStringAsync(new Uri(movie.nextShortReviewLink));
+            }
+            else
+            {
+                foreach (ShortReview sr in movie.shortReviewList)
+                {
+                    shortReviewCollection.Add(sr);
+                }
+                if (progressBar != null)
+                {
+                    progressBar.Visibility = Visibility.Collapsed;
+                }
+                if (movie.hasMoreShortReview == false)
+                {
+                    button.IsEnabled = false;
+                    text.Text = AppResources.Finish;
+                }
+                else
+                {
+                    button.IsEnabled = true;
+                }
+                System.Diagnostics.Debug.WriteLine("short review from cache");
+            }
+
+        }
+
+        public void loadMore()
+        {
             client = new WebClient();
             client.DownloadStringCompleted += downloadShortReviewCompleted;
             client.DownloadStringAsync(new Uri(movie.nextShortReviewLink));
@@ -70,6 +104,7 @@ namespace PanoramaApp2.HtmlParser
                                 continue;
                             }
                             shortReviewCollection.Add(sr);
+                            movie.shortReviewList.Add(sr);
                         }
                         if (progressBar != null)
                         {
@@ -101,6 +136,7 @@ namespace PanoramaApp2.HtmlParser
                             }
                         }
                     }
+                    movie.shortReviewLoaded = true;
                 }
                 else
                 {
@@ -117,6 +153,13 @@ namespace PanoramaApp2.HtmlParser
                     progressBar.Visibility = Visibility.Collapsed;
                 }
                 MessageBoxResult result = MessageBox.Show(AppResources.ConnectionError, "", MessageBoxButton.OK);
+            }
+            catch (Exception)
+            {
+                if (progressBar != null)
+                {
+                    progressBar.Visibility = Visibility.Collapsed;
+                }
             }
         }
 

@@ -42,9 +42,24 @@ namespace PanoramaApp2
 
         public void getMovieByID()
         {
-            client = new WebClient();
-            client.DownloadStringCompleted += downloadJsonCompleted;
-            client.DownloadStringAsync(new Uri(Movie.apiMovieHeader + movie.id + "?apikey=" + App.apikey));
+            Movie result = Cache.getMovie(movie.id);
+            if (result != null)
+            {
+                movie = result;
+                setUI();
+                peopleList.ItemsSource = movie.peopleList;
+                if (progressBar != null)
+                {
+                    progressBar.Visibility = Visibility.Collapsed;
+                }
+                System.Diagnostics.Debug.WriteLine("Movie from cache");
+            }
+            else
+            {
+                client = new WebClient();
+                client.DownloadStringCompleted += downloadJsonCompleted;
+                client.DownloadStringAsync(new Uri(Movie.apiMovieHeader + movie.id + "?apikey=" + App.apikey));
+            }
         }
 
         private void downloadJsonCompleted(object sender, DownloadStringCompletedEventArgs e)
@@ -86,24 +101,12 @@ namespace PanoramaApp2
                     {
                         movie.region = JsonParsers.getArray(obj, "countries");
                     }
-                    title.Text = movie.title;
+
                     if (movie.posterUrl == "")
                     {
                         movie.posterUrl = App.imagePath + "default.png";
                     }
-                    posterImage.Source = new BitmapImage(new Uri(movie.posterUrl));
-                    starImage.Source = new BitmapImage(new Uri(movie.star, UriKind.Relative));
-                    rating.Text = movie.rating;
-                    rateNumber.Text = movie.rateNumber;
-                    year_duration.Text = movie.year + " / " + movie.length;
-                    name.Text = "人评分";
-                    region.Text = movie.region;
-                    genre.Text = movie.genre;
-                    summary.Text = movie.summary;
-                    trailer.Content = "预告片";
-                    trailer.NavigateUri = new Uri(Movie.movieLinkHeader + movie.id + "/trailer", UriKind.Absolute);
-                    theater.Content = "选座购票";
-                    theater.NavigateUri = new Uri(Movie.movieLinkHeader + movie.id + "/cinema", UriKind.Absolute);
+                    setUI();
 
                     List<People> peoples = new List<People>();
                     JArray array = (JArray)obj["directors"];
@@ -136,8 +139,10 @@ namespace PanoramaApp2
                         people.position = People.ACTOR;
                         peoples.Add(people);
                     }
+                    movie.peopleList = peoples;
                     peopleList.ItemsSource = peoples;
-
+                    // Insert movie into cache
+                    Cache.insertMovie(movie);
                     if (progressBar != null)
                     {
                         progressBar.Visibility = Visibility.Collapsed;
@@ -159,6 +164,31 @@ namespace PanoramaApp2
                 }
                 MessageBoxResult result = MessageBox.Show(AppResources.ConnectionError, "", MessageBoxButton.OK);
             }
+            catch (Exception)
+            {
+                if (progressBar != null)
+                {
+                    progressBar.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
+
+        private void setUI()
+        {
+            title.Text = movie.title;
+            posterImage.Source = new BitmapImage(new Uri(movie.posterUrl));
+            starImage.Source = new BitmapImage(new Uri(movie.star, UriKind.Relative));
+            rating.Text = movie.rating;
+            rateNumber.Text = movie.rateNumber;
+            year_duration.Text = movie.year + " / " + movie.length;
+            name.Text = "人评分";
+            region.Text = movie.region;
+            genre.Text = movie.genre;
+            summary.Text = movie.summary;
+            trailer.Content = "预告片";
+            trailer.NavigateUri = new Uri(Movie.movieLinkHeader + movie.id + "/trailer", UriKind.Absolute);
+            theater.Content = "选座购票";
+            theater.NavigateUri = new Uri(Movie.movieLinkHeader + movie.id + "/cinema", UriKind.Absolute);
         }
 
         public void cancelDownload()

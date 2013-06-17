@@ -270,6 +270,91 @@ namespace PanoramaApp2
                 _hasMoreImage = value;
             }
         }
+        private List<People> _peopleList = null;
+        public List<People> peopleList
+        {
+            get
+            {
+                return _peopleList;
+            }
+            set
+            {
+                _peopleList = value;
+            }
+        }
+        private List<ShortReview> _shortReviewList = new List<ShortReview>();
+        public List<ShortReview> shortReviewList
+        {
+            get
+            {
+                return _shortReviewList;
+            }
+            set
+            {
+                _shortReviewList = value;
+            }
+        }
+        private bool _shortReviewLoaded = false;
+        public bool shortReviewLoaded
+        {
+            get
+            {
+                return _shortReviewLoaded;
+            }
+            set
+            {
+                _shortReviewLoaded = value;
+            }
+        }
+        private List<Review> _reviewList = new List<Review>();
+        public List<Review> reviewList
+        {
+            get
+            {
+                return _reviewList;
+            }
+            set
+            {
+                _reviewList = value;
+            }
+        }
+        private bool _reviewLoaded = false;
+        public bool reviewLoaded
+        {
+            get
+            {
+                return _reviewLoaded;
+            }
+            set
+            {
+                _reviewLoaded = value;
+            }
+        }
+        private List<MovieImage> _imageList = new List<MovieImage>();
+        public List<MovieImage> imageList
+        {
+            get
+            {
+                return _imageList;
+            }
+            set
+            {
+                _imageList = value;
+            }
+        }
+        private bool _imageLoaded = false;
+        public bool imageLoaded
+        {
+            get
+            {
+                return _imageLoaded;
+            }
+            set
+            {
+                _imageLoaded = value;
+            }
+        }
+
         public static string movieLinkHeader = "http://movie.douban.com/subject/";
         public static string apiMovieHeader = "http://api.douban.com/v2/movie/subject/";
         public static string apiUSBoxHeader = "http://api.douban.com/v2/movie/us_box";

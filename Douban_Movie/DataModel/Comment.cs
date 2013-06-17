@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PanoramaApp2
 {
-    class Comment : INotifyPropertyChanged
+    public class Comment : INotifyPropertyChanged
     {
         private string _author = "";
         public string author

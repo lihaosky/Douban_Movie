@@ -150,6 +150,31 @@ namespace PanoramaApp2
                 _nextCommentLink = value;
             }
         }
+        private List<Comment> _commentList = new List<Comment>();
+        public List<Comment> commentList
+        {
+            get
+            {
+                return _commentList;
+            }
+            set
+            {
+                _commentList = value;
+            }
+        }
+        private bool _commentLoaded = false;
+        public bool commentLoaded
+        {
+            get
+            {
+                return _commentLoaded;
+            }
+            set
+            {
+                _commentLoaded = value;
+            }
+        }
+
         public static string reviewLinkHeader = "http://movie.douban.com/review/";
         public static string hotReviewHeader = "http://movie.douban.com/review/best/";
 

@@ -93,6 +93,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Cache.cs" />
     <Compile Include="DataModel\Comment.cs" />
     <Compile Include="HtmlParser\HotMovieHtmlParser.cs" />
     <Compile Include="HtmlParser\HotReviewHtmlParser.cs" />

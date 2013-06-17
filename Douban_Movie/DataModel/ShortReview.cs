@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PanoramaApp2
 {
-    class ShortReview : INotifyPropertyChanged
+    public class ShortReview : INotifyPropertyChanged
     {
         private string _author = "";
         public string author

@@ -31,12 +31,43 @@ namespace PanoramaApp2.HtmlParser
 
         public void parseMovie()
         {
+            if (people.movieLoaded == false)
+            {
+                people.nextMovieLink = People.peopleLinkHeader + people.id + "/movies";
+                client = new WebClient();
+                client.DownloadStringCompleted += client_DownloadMovieCompleted;
+                client.DownloadStringAsync(new Uri(people.nextMovieLink));
+            }
+            else
+            {
+                foreach (Movie m in people.movieList)
+                {
+                    movieCollection.Add(m);
+                }
+                if (progressBar != null)
+                {
+                    progressBar.Visibility = Visibility.Collapsed;
+                }
+                if (people.hasMoreMovie)
+                {
+                    button.IsEnabled = true;
+                }
+                else
+                {
+                    button.IsEnabled = false;
+                    text.Text = AppResources.Finish;
+                }
+            }
+        }
+
+        public void loadMore()
+        {
             client = new WebClient();
             client.DownloadStringCompleted += client_DownloadMovieCompleted;
             client.DownloadStringAsync(new Uri(people.nextMovieLink));
         }
 
-        void client_DownloadMovieCompleted(object sender, DownloadStringCompletedEventArgs e)
+        private void client_DownloadMovieCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
             try
             {
@@ -50,9 +81,9 @@ namespace PanoramaApp2.HtmlParser
                     {
                         people.hasMoreMovie = false;
                         button.IsEnabled = false;
-                        text.Text = "完了:-)";
+                        text.Text = AppResources.Finish;
                     }
-                    else 
+                    else
                     {
                         foreach (HtmlNode node in nameNodes[3].SelectNodes("li"))
                         {
@@ -66,6 +97,7 @@ namespace PanoramaApp2.HtmlParser
                                 continue;
                             }
                             movieCollection.Add(m);
+                            people.movieList.Add(m);
                         }
                         HtmlNodeCollection nodeCollection = doc.DocumentNode.SelectNodes("//div[@class='paginator']");
                         if (nodeCollection == null)
@@ -103,6 +135,7 @@ namespace PanoramaApp2.HtmlParser
                             }
                         }
                     }
+                    people.movieLoaded = true;
                 }
                 if (progressBar != null)
                 {
@@ -112,10 +145,19 @@ namespace PanoramaApp2.HtmlParser
             catch (WebException)
             {
                 button.IsEnabled = true;
-                if (progressBar != null) {
+                if (progressBar != null)
+                {
                     progressBar.Visibility = Visibility.Collapsed;
                 }
                 MessageBoxResult result = MessageBox.Show(AppResources.ConnectionError, "", MessageBoxButton.OK);
+            }
+            catch (Exception)
+            {
+                button.IsEnabled = true;
+                if (progressBar != null)
+                {
+                    progressBar.Visibility = Visibility.Collapsed;
+                }
             }
         }
 

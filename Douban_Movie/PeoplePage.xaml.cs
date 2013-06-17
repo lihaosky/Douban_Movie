@@ -29,6 +29,11 @@ namespace PanoramaApp2
             people = App.peoplePassed;
             if (people != null)
             {
+                People p = Cache.getPeople(people.id);
+                if (p != null)
+                {
+                    people = p;
+                }
                 peopleParser = new PeopleHtmlParser(people);
                 peopleParser.peopleGrid = PeopleGrid;
                 peopleParser.peopleProgressBar = PeopleProgressBar;
@@ -92,7 +97,6 @@ namespace PanoramaApp2
         {
             if (people != null)
             {
-                people.nextMovieLink = People.peopleLinkHeader + people.id + "/movies";
                 peopleMovieParser = new PeopleMovieHtmlParser(people);
                 peopleMovieParser.progressBar = movieProgressBar;
                 movieSelector.ItemsSource = peopleMovieParser.movieCollection;
@@ -110,7 +114,6 @@ namespace PanoramaApp2
             if (people != null)
             {
                 loadMoreImageButton.IsEnabled = false;
-                people.nextImageLink = People.peopleLinkHeader + people.id + "/photos";
                 peopleImageParser = new PeopleImageHtmlParser(people);
                 peopleImageParser.progressBar = ImageProgressBar;
                 ImageProgressBar.IsIndeterminate = true;
@@ -139,7 +142,7 @@ namespace PanoramaApp2
                 loadMoreImageButton.IsEnabled = false;
                 ImageProgressBar.Visibility = System.Windows.Visibility.Visible;
                 ImageProgressBar.IsIndeterminate = true;
-                peopleImageParser.parseImage();
+                peopleImageParser.loadMore();
             }
         }
 
@@ -165,7 +168,7 @@ namespace PanoramaApp2
                 loadMoreMovieButton.IsEnabled = false;
                 movieProgressBar.IsIndeterminate = true;
                 movieProgressBar.Visibility = System.Windows.Visibility.Visible;
-                peopleMovieParser.parseMovie();
+                peopleMovieParser.loadMore();
             }
         }
 

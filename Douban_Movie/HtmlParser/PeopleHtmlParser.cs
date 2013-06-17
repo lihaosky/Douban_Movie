@@ -34,9 +34,41 @@ namespace PanoramaApp2.HtmlParser
 
         public void parsePeople()
         {
-            client = new WebClient();
-            client.DownloadStringCompleted += downloadPeopleCompleted;
-            client.DownloadStringAsync(new Uri(People.peopleLinkHeader + people.id));
+            People p = Cache.getPeople(people.id);
+            if (p == null)
+            {
+                client = new WebClient();
+                client.DownloadStringCompleted += downloadPeopleCompleted;
+                client.DownloadStringAsync(new Uri(People.peopleLinkHeader + people.id));
+            }
+            else
+            {
+                peopleGrid.DataContext = people;
+                if (people.gender != "")
+                {
+                    genderPanel.Visibility = Visibility.Visible;
+                }
+                if (people.birthday != "")
+                {
+                    birthPanel.Visibility = Visibility.Visible;
+                }
+                if (people.birthplace != "")
+                {
+                    birthplacePanel.Visibility = Visibility.Visible;
+                }
+                if (people.constl != "")
+                {
+                    constPanel.Visibility = Visibility.Visible;
+                }
+                if (people.occupation != "")
+                {
+                    occupationPanel.Visibility = Visibility.Visible;
+                }
+                if (peopleProgressBar != null)
+                {
+                    peopleProgressBar.Visibility = Visibility.Collapsed;
+                }
+            }
         }
 
         private void downloadPeopleCompleted(object sender, DownloadStringCompletedEventArgs e)
@@ -72,7 +104,7 @@ namespace PanoramaApp2.HtmlParser
                         {
                             occupationPanel.Visibility = Visibility.Visible;
                         }
-
+                        Cache.insertPeople(people);
                     }
                     catch (Exception)
                     {

@@ -25,6 +25,11 @@ namespace PanoramaApp2
             review = App.reviewPassed;
             if (review != null)
             {
+                Review r = Cache.getReview(review.id);
+                if (r != null)
+                {
+                    review = r;
+                }
                 reviewParser = new ReviewHtmlParser(review);
                 reviewParser.reviewStackPanel = reviewStackPanel;
                 reviewParser.reviewProgressBar = ReviewProgressBar;

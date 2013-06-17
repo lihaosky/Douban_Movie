@@ -31,6 +31,37 @@ namespace PanoramaApp2.HtmlParser
 
         public void parseImage()
         {
+            if (people.imageLoaded == false)
+            {
+                people.nextImageLink = People.peopleLinkHeader + people.id + "/photos";
+                client = new WebClient();
+                client.DownloadStringCompleted += downloadImageCompleted;
+                client.DownloadStringAsync(new Uri(people.nextImageLink));
+            }
+            else
+            {
+                foreach (MovieImage m in people.imageList)
+                {
+                    imageCollection.Add(m);
+                }
+                if (progressBar != null)
+                {
+                    progressBar.Visibility = Visibility.Collapsed;
+                }
+                if (people.hasNextImage)
+                {
+                    button.IsEnabled = true;
+                }
+                else
+                {
+                    button.IsEnabled = false;
+                    text.Text = AppResources.Finish;
+                }
+            }
+        }
+
+        public void loadMore()
+        {
             client = new WebClient();
             client.DownloadStringCompleted += downloadImageCompleted;
             client.DownloadStringAsync(new Uri(people.nextImageLink));
@@ -75,6 +106,7 @@ namespace PanoramaApp2.HtmlParser
                                     continue;
                                 }
                                 imageCollection.Add(image);
+                                people.imageList.Add(image);
                             }
                             HtmlNodeCollection nodeCollection = doc.DocumentNode.SelectNodes("//div[@class='paginator']");
                             if (nodeCollection == null)
@@ -103,7 +135,7 @@ namespace PanoramaApp2.HtmlParser
                                     }
                                     else
                                     {
-                                        people.hasNextImage = false;
+                                        people.hasNextImage = true;
                                         string link = aCollection[0].Attributes["href"].Value.Trim();
                                         people.nextImageLink = link;
                                         button.IsEnabled = true;
@@ -112,6 +144,7 @@ namespace PanoramaApp2.HtmlParser
                             }
                         }
                     }
+                    people.imageLoaded = true;
                 }
                 if (progressBar != null)
                 {
@@ -125,6 +158,13 @@ namespace PanoramaApp2.HtmlParser
                     progressBar.Visibility = Visibility.Collapsed;
                 }
                 MessageBoxResult result = MessageBox.Show(AppResources.ConnectionError, "", MessageBoxButton.OK);
+            }
+            catch (Exception)
+            {
+                if (progressBar != null)
+                {
+                    progressBar.Visibility = Visibility.Collapsed;
+                }
             }
         }
 

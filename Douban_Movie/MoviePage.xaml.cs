@@ -35,6 +35,11 @@ namespace PanoramaApp2
             movie = App.moviePassed;
             if (movie != null)
             {
+                Movie result = Cache.getMovie(movie.id);
+                if (result != null)
+                {
+                    movie = result;
+                }
                 movieParser = new MovieJsonParser(movie);
                 movieParser.progressBar = MovieProgressBar;
                 movieParser.title = title;
@@ -101,7 +106,6 @@ namespace PanoramaApp2
             if (movie != null)
             {
                 loadMoreButton.IsEnabled = false;
-                movie.nextShortReviewLink = Movie.movieLinkHeader + movie.id + "/comments";
                 shortReviewParser = new ShortReviewHtmlParser(movie);
                 shortReviewParser.progressBar = ShortReviewProgressBar;
                 ShortReviewProgressBar.IsIndeterminate = true;
@@ -118,7 +122,6 @@ namespace PanoramaApp2
             if (movie != null)
             {
                 loadMoreReviewButton.IsEnabled = false;
-                movie.nextReviewLink = Movie.movieLinkHeader + movie.id + "/reviews";
                 reviewParser = new ReviewParser(movie);
                 reviewParser.progressBar = ReviewProgressBar;
                 reviewParser.button = loadMoreReviewButton;
@@ -164,7 +167,6 @@ namespace PanoramaApp2
             if (movie != null)
             {
                 loadMoreImageButton.IsEnabled = false;
-                movie.nextImageLink = Movie.movieLinkHeader + movie.id + "/photos?type=S";
                 imageParser = new ImageHtmlParser(movie);
                 imageParser.progressBar = ImageProgressBar;
                 ImageProgressBar.IsIndeterminate = true;
@@ -183,7 +185,7 @@ namespace PanoramaApp2
                 loadMoreButton.IsEnabled = false;
                 ShortReviewProgressBar.IsIndeterminate = true;
                 ShortReviewProgressBar.Visibility = System.Windows.Visibility.Visible;
-                shortReviewParser.parseShortReview();
+                shortReviewParser.loadMore();
             }
         }
 
@@ -207,7 +209,7 @@ namespace PanoramaApp2
                 loadMoreReviewButton.IsEnabled = false;
                 ReviewProgressBar.IsIndeterminate = true;
                 ReviewProgressBar.Visibility = System.Windows.Visibility.Visible;
-                reviewParser.parseReview();
+                reviewParser.loadMore();
             }
         }
 
@@ -243,7 +245,7 @@ namespace PanoramaApp2
                 loadMoreImageButton.IsEnabled = false;
                 ImageProgressBar.Visibility = System.Windows.Visibility.Visible;
                 ImageProgressBar.IsIndeterminate = true;
-                imageParser.parseImage();
+                imageParser.loadMore();
             }
         }
 

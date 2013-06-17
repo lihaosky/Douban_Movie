@@ -31,6 +31,38 @@ namespace PanoramaApp2.HtmlParser
 
         public void parseReview()
         {
+            if (movie.reviewLoaded)
+            {
+                foreach (Review r in movie.reviewList)
+                {
+                    reviewCollection.Add(r);
+                }
+                if (progressBar != null)
+                {
+                    progressBar.Visibility = Visibility.Collapsed;
+                }
+                if (movie.hasMoreReview == false)
+                {
+                    button.IsEnabled = false;
+                    text.Text = AppResources.Finish;
+                }
+                else
+                {
+                    button.IsEnabled = true;
+                }
+                System.Diagnostics.Debug.WriteLine("review from cache");
+            }
+            else
+            {
+                movie.nextReviewLink = Movie.movieLinkHeader + movie.id + "/reviews";
+                client = new WebClient();
+                client.DownloadStringCompleted += downloadReviewCompleted;
+                client.DownloadStringAsync(new Uri(movie.nextReviewLink));
+            }
+        }
+
+        public void loadMore()
+        {
             client = new WebClient();
             client.DownloadStringCompleted += downloadReviewCompleted;
             client.DownloadStringAsync(new Uri(movie.nextReviewLink));
@@ -70,6 +102,7 @@ namespace PanoramaApp2.HtmlParser
                                 continue;
                             }
                             reviewCollection.Add(r);
+                            movie.reviewList.Add(r);
                         }
                         if (progressBar != null)
                         {
@@ -101,6 +134,7 @@ namespace PanoramaApp2.HtmlParser
                             }
                         }
                     }
+                    movie.reviewLoaded = true;
                 }
                 else
                 {
@@ -118,6 +152,14 @@ namespace PanoramaApp2.HtmlParser
                     progressBar.Visibility = Visibility.Collapsed;
                 }
                 MessageBoxResult result = MessageBox.Show(AppResources.ConnectionError, "", MessageBoxButton.OK);
+            }
+            catch (Exception)
+            {
+                button.IsEnabled = true;
+                if (progressBar != null)
+                {
+                    progressBar.Visibility = Visibility.Collapsed;
+                }
             }
         }
 

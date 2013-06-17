@@ -200,6 +200,55 @@ namespace PanoramaApp2
                 _nextImageLink = value;
             }
         }
+        private List<Movie> _movieList = new List<Movie>();
+        public List<Movie> movieList
+        {
+            get
+            {
+                return _movieList;
+            }
+            set
+            {
+                _movieList = value;
+            }
+        }
+        private bool _movieLoaded = false;
+        public bool movieLoaded
+        {
+            get
+            {
+                return _movieLoaded;
+            }
+            set
+            {
+                _movieLoaded = value;
+            }
+        }
+        private List<MovieImage> _imageList = new List<MovieImage>();
+        public List<MovieImage> imageList
+        {
+            get
+            {
+                return _imageList;
+            }
+            set
+            {
+                _imageList = value;
+            }
+        }
+        private bool _imageLoaded = false;
+        public bool imageLoaded
+        {
+            get
+            {
+                return _imageLoaded;
+            }
+            set
+            {
+                _imageLoaded = value;
+            }
+        }
+
         public static string DIRECTOR = "director";
         public static string ACTOR = "actor";
         public static string peopleLinkHeader = "http://movie.douban.com/celebrity/";
