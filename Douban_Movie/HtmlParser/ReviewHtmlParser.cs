@@ -51,6 +51,15 @@ namespace PanoramaApp2.HtmlParser
                 {
                     commentCollection.Add(c);
                 }
+                if (r.hasMoreComment == false)
+                {
+                    button.IsEnabled = false;
+                    text.Text = AppResources.Finish;
+                }
+                else
+                {
+                    button.IsEnabled = true;
+                }
                 if (reviewProgressBar != null)
                 {
                     reviewProgressBar.Visibility = Visibility.Collapsed;
@@ -200,7 +209,7 @@ namespace PanoramaApp2.HtmlParser
                 {
                     review.hasMoreComment = false;
                     button.IsEnabled = false;
-                    text.Text = "完了:-)";
+                    text.Text = AppResources.Finish;
                 }
                 else
                 {

@@ -64,7 +64,9 @@ namespace PanoramaApp2
         public static string replaceTags(string text)
         {
             text = text.Replace("<br/>", Environment.NewLine);
-            return text.Replace("<br>", Environment.NewLine);
+            text = text.Replace("<wbr/>", string.Empty);
+            text = text.Replace("<br>", Environment.NewLine);
+            return text.Replace("<wbr>", string.Empty);
         }
 
         public static string removeNewLine(string text)

@@ -51,6 +51,7 @@ namespace PanoramaApp2
                 {
                     ReviewProgressBar.IsIndeterminate = true;
                     ReviewProgressBar.Visibility = System.Windows.Visibility.Visible;
+                    loadMoreCommentButton.IsEnabled = false;
                     reviewParser.parseReview();
                 }
             }
@@ -85,6 +86,7 @@ namespace PanoramaApp2
             {
                 ReviewCommentProgressBar.IsIndeterminate = true;
                 ReviewCommentProgressBar.Visibility = System.Windows.Visibility.Visible;
+                loadMoreCommentButton.IsEnabled = false;
                 reviewParser.parseComment();
             }
         }
