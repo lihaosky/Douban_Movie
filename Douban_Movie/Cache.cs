@@ -9,11 +9,11 @@ namespace PanoramaApp2
     class Cache
     {
         private static LinkedList<Movie> movieList = new LinkedList<Movie>();
-        private static int MOVIE_MAX_SIZE = 50;
+        private static int MOVIE_MAX_SIZE = 10;
         private static readonly object movieSyncLock = new object();
 
         private static LinkedList<Review> reviewList = new LinkedList<Review>();
-        private static int REVIEW_MAX_SIZE = 50;
+        private static int REVIEW_MAX_SIZE = 10;
         private static readonly object reviewSyncLock = new object();
 
         private static LinkedList<MovieImage> imageList = new LinkedList<MovieImage>();
@@ -21,7 +21,7 @@ namespace PanoramaApp2
         private static readonly object imageSyncLock = new object();
 
         private static LinkedList<People> peopleList = new LinkedList<People>();
-        private static int PEOPLE_MAX_SIZE = 50;
+        private static int PEOPLE_MAX_SIZE = 10;
         private static readonly object peopleSyncLock = new object();
 
         public static void insertReview(Review r) {
