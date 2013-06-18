@@ -206,4 +206,7 @@
   <data name="SaveSuccess" xml:space="preserve">
     <value>保存成功!</value>
   </data>
+  <data name="Result" xml:space="preserve">
+    <value>結果</value>
+  </data>
 </root>

@@ -34,14 +34,19 @@
         <Grid Background="#2B4F81" Margin="24,24,24,24" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Left">
                 <TextBlock Text="{Binding Path=LocalizedResources.SearchResult, Source={StaticResource LocalizedStrings}}" Foreground="White" FontSize="{StaticResource PhoneFontSizeMedium}" HorizontalAlignment="Left" Margin="0, 0, 0, 0"/>
-                <TextBlock x:Name="searchText" Foreground="White" FontSize="{StaticResource PhoneFontSizeMedium}"/>
+                <TextBlock x:Name="searchText" Foreground="White" FontSize="{StaticResource PhoneFontSizeMedium}" TextWrapping="Wrap" Width="280"/>
             </StackPanel>
-            <ProgressBar x:Name="progressBar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="383" Grid.Row="1" Foreground="White"/>
-            <phone:LongListSelector Margin="0,12,0,0" Name="hotLongListSelector" SelectionChanged="hotLongListSelector_SelectionChanged" Grid.Row="1" toolkit:TiltEffect.IsTiltEnabled="True">
+            <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Left">
+                <TextBlock Foreground="White" FontSize="{StaticResource PhoneFontSizeMedium}" HorizontalAlignment="Left" Margin="0, 0, 0, 0" x:Name="resultNumber"/>
+                <TextBlock Text="{Binding Path=LocalizedResources.Result, Source={StaticResource LocalizedStrings}}" Foreground="White" FontSize="{StaticResource PhoneFontSizeMedium}"/>
+            </StackPanel>
+            <ProgressBar x:Name="progressBar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="383" Grid.Row="2" Foreground="White"/>
+            <phone:LongListSelector Margin="0,12,0,0" Name="hotLongListSelector" SelectionChanged="hotLongListSelector_SelectionChanged" Grid.Row="2" toolkit:TiltEffect.IsTiltEnabled="True">
                 <phone:LongListSelector.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="0,10,0,10" Orientation="Horizontal" Height="auto" Width="auto">

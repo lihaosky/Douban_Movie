@@ -209,4 +209,7 @@
   <data name="ImageSourceName" xml:space="preserve">
     <value>search.png</value>
   </data>
+  <data name="Result" xml:space="preserve">
+    <value>结果</value>
+  </data>
 </root>

@@ -22,6 +22,7 @@ namespace PanoramaApp2
             InitializeComponent();
             searchPopup = new Popup();
             parser = new SearchJsonParser();
+            parser.resultNumber = resultNumber;
             parser.selector = hotLongListSelector;
             parser.progressBar = progressBar;
         }

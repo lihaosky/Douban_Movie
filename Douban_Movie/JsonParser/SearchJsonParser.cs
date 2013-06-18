@@ -22,6 +22,7 @@ namespace PanoramaApp2.JsonParser
     {
         public LongListSelector selector { get; set; }
         public ProgressBar progressBar { get; set; }
+        public TextBlock resultNumber { get; set; }
         private string searchText;
 
         public void search(string text)
@@ -52,6 +53,7 @@ namespace PanoramaApp2.JsonParser
                         movie.star = Util.getStarPath(movie.rating);
                         movieList.Add(movie);
                     }
+                    resultNumber.Text = array.Count + "";
                     selector.ItemsSource = movieList;
                     if (progressBar != null)
                     {
