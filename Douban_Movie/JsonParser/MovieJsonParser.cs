@@ -150,6 +150,15 @@ namespace PanoramaApp2
                 }
                 else
                 {
+                    var wEx = e.Error as WebException;
+                    if (wEx.Status == WebExceptionStatus.RequestCanceled)
+                    {
+                        if (App.isFromDormant)
+                        {
+                            App.isFromDormant = false;
+                            getMovieByID();
+                        }
+                    }
                     if (progressBar != null)
                     {
                         progressBar.Visibility = Visibility.Collapsed;

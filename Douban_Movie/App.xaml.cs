@@ -25,6 +25,7 @@ namespace PanoramaApp2
         public static Review reviewPassed = null;
         public static People peoplePassed = null;
         public static ObservableCollection<MovieImage> imageCollectionPassed = null;
+        public static bool isFromDormant = false;
         public static string apikey = "07e978247f7e67ad17bc686d7e7b3707";
         public static MainPage mainPage;
 
@@ -84,6 +85,13 @@ namespace PanoramaApp2
         // This code will not execute when the application is first launched
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
+            if (e.IsApplicationInstancePreserved)
+            {
+                isFromDormant = true;
+            }
+            else
+            {
+            }
         }
 
         // Code to execute when the application is deactivated (sent to background)

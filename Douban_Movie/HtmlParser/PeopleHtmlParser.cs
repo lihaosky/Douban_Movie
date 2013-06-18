@@ -109,10 +109,29 @@ namespace PanoramaApp2.HtmlParser
                     catch (Exception)
                     {
                     }
+                    if (peopleProgressBar != null)
+                    {
+                        peopleProgressBar.Visibility = Visibility.Collapsed;
+                    }
                 }
-                if (peopleProgressBar != null)
+                else
                 {
-                    peopleProgressBar.Visibility = Visibility.Collapsed;
+                    var wEx = e.Error as WebException;
+                    if (wEx.Status == WebExceptionStatus.RequestCanceled)
+                    {
+                        if (App.isFromDormant)
+                        {
+                            App.isFromDormant = false;
+                            parsePeople();
+                        }
+                    }
+                    else
+                    {
+                        if (peopleProgressBar != null)
+                        {
+                            peopleProgressBar.Visibility = Visibility.Collapsed;
+                        }
+                    }
                 }
             }
             catch (WebException)

@@ -80,12 +80,23 @@ namespace PanoramaApp2.HtmlParser
                         progressbar.Visibility = Visibility.Collapsed;
                     }
                 }
-                else
+                else 
                 {
-                    MessageBoxResult result = MessageBox.Show(AppResources.ConnectionError, "", MessageBoxButton.OK);
-                    if (progressbar != null)
+                    var wEx = e.Error as WebException;
+                    if (wEx.Status == WebExceptionStatus.RequestCanceled)
                     {
-                        progressbar.Visibility = Visibility.Collapsed;
+                        if (App.isFromDormant)
+                        {
+                            App.isFromDormant = false;
+                            parseLatestMovie();
+                        }
+                    }
+                    else
+                    {
+                        if (progressbar != null)
+                        {
+                            progressbar.Visibility = Visibility.Collapsed;
+                        }
                     }
                 }
             }

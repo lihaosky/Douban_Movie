@@ -22,9 +22,11 @@ namespace PanoramaApp2.JsonParser
     {
         public LongListSelector selector { get; set; }
         public ProgressBar progressBar { get; set; }
+        private string searchText;
 
         public void search(string text)
         {
+            searchText = text;
             WebClient client = new WebClient();
             client.DownloadStringCompleted += downloadSearchCompleted;
             client.DownloadStringAsync(new Uri(Movie.apiSearchHeader + "?apikey=" + App.apikey + "&q=" + text));
@@ -58,6 +60,15 @@ namespace PanoramaApp2.JsonParser
                 }
                 else
                 {
+                    var wEx = e.Error as WebException;
+                    if (wEx.Status == WebExceptionStatus.RequestCanceled)
+                    {
+                        if (App.isFromDormant)
+                        {
+                            App.isFromDormant = false;
+                            search(searchText);
+                        }
+                    }
                     if (progressBar != null)
                     {
                         progressBar.Visibility = Visibility.Collapsed;

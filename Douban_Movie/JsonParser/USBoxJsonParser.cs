@@ -59,10 +59,21 @@ namespace PanoramaApp2.JsonParser
                 }
                 else
                 {
-                    MessageBoxResult result = MessageBox.Show(AppResources.ConnectionError, "", MessageBoxButton.OK);
-                    if (progressBar != null)
+                    var wEx = e.Error as WebException;
+                    if (wEx.Status == WebExceptionStatus.RequestCanceled)
                     {
-                        progressBar.Visibility = Visibility.Collapsed;
+                        if (App.isFromDormant)
+                        {
+                            App.isFromDormant = false;
+                            parseUSBox();
+                        }
+                    }
+                    else
+                    {
+                        if (progressBar != null)
+                        {
+                            progressBar.Visibility = Visibility.Collapsed;
+                        }
                     }
                 }
             }

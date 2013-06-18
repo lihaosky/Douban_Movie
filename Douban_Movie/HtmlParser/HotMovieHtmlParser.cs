@@ -89,13 +89,25 @@ namespace PanoramaApp2.HtmlParser
                 }
                 else
                 {
-                    popup.IsOpen = false;
-                    MessageBoxResult result = MessageBox.Show(AppResources.ConnectionError, "", MessageBoxButton.OK);
+                    var wEx = e.Error as WebException;
+                    if (wEx.Status == WebExceptionStatus.RequestCanceled)
+                    {
+                        if (App.isFromDormant)
+                        {
+                            App.isFromDormant = false;
+                            parseHottMovie();
+                        }
+                    }
+                    else
+                    {
+                        popup.IsOpen = false;
+                    }
                 }
             }
             catch (WebException)
             {
                 popup.IsOpen = false;
+                System.Diagnostics.Debug.WriteLine("exception " + e.Error.Message);
                 MessageBoxResult result = MessageBox.Show(AppResources.ConnectionError, "", MessageBoxButton.OK);
             }
         }

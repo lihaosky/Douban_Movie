@@ -84,6 +84,22 @@ namespace PanoramaApp2.HtmlParser
                     }
                     commentProgressBar.Visibility = Visibility.Collapsed;
                 }
+                else
+                {
+                    var wEx = e.Error as WebException;
+                    if (wEx.Status == WebExceptionStatus.RequestCanceled)
+                    {
+                        if (App.isFromDormant)
+                        {
+                            App.isFromDormant = false;
+                            parseComment();
+                        }
+                    }
+                    else
+                    {
+                        commentProgressBar.Visibility = Visibility.Collapsed;
+                    }
+                }
             }
             catch (WebException)
             {
@@ -123,6 +139,15 @@ namespace PanoramaApp2.HtmlParser
                 }
                 else
                 {
+                    var wEx = e.Error as WebException;
+                    if (wEx.Status == WebExceptionStatus.RequestCanceled)
+                    {
+                        if (App.isFromDormant)
+                        {
+                            App.isFromDormant = false;
+                            parseReview();
+                        }
+                    }
                     if (reviewProgressBar != null)
                     {
                         reviewProgressBar.Visibility = Visibility.Collapsed;

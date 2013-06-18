@@ -23,6 +23,7 @@ namespace PanoramaApp2.HtmlParser
         public TextBlock text;
         public ObservableCollection<Movie> movieCollection = new ObservableCollection<Movie>();
         private WebClient client;
+        private bool isFromLoadMore = false;
 
         public PeopleMovieHtmlParser(People p)
         {
@@ -62,6 +63,7 @@ namespace PanoramaApp2.HtmlParser
 
         public void loadMore()
         {
+            isFromLoadMore = true;
             client = new WebClient();
             client.DownloadStringCompleted += client_DownloadMovieCompleted;
             client.DownloadStringAsync(new Uri(people.nextMovieLink));
@@ -136,11 +138,39 @@ namespace PanoramaApp2.HtmlParser
                         }
                     }
                     people.movieLoaded = true;
+                    if (progressBar != null)
+                    {
+                        progressBar.Visibility = Visibility.Collapsed;
+                    }
                 }
-                if (progressBar != null)
+                else
                 {
-                    progressBar.Visibility = Visibility.Collapsed;
+                    var wEx = e.Error as WebException;
+                    if (wEx.Status == WebExceptionStatus.RequestCanceled)
+                    {
+                        if (App.isFromDormant)
+                        {
+                            App.isFromDormant = false;
+                            if (isFromLoadMore)
+                            {
+                                isFromLoadMore = false;
+                                loadMore();
+                            }
+                            else
+                            {
+                                parseMovie();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (progressBar != null)
+                        {
+                            progressBar.Visibility = Visibility.Collapsed;
+                        }
+                    }
                 }
+
             }
             catch (WebException)
             {

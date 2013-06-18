@@ -23,6 +23,7 @@ namespace PanoramaApp2.HtmlParser
         public ProgressBar progressBar { get; set; }
         private Movie movie { get; set; }
         private WebClient client;
+        private bool isFromLoadMore = false;
 
         public ShortReviewHtmlParser(Movie m)
         {
@@ -65,10 +66,12 @@ namespace PanoramaApp2.HtmlParser
 
         public void loadMore()
         {
+            isFromLoadMore = true;
             client = new WebClient();
             client.DownloadStringCompleted += downloadShortReviewCompleted;
             client.DownloadStringAsync(new Uri(movie.nextShortReviewLink));
         }
+
 
         public void downloadShortReviewCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
@@ -140,9 +143,29 @@ namespace PanoramaApp2.HtmlParser
                 }
                 else
                 {
-                    if (progressBar != null)
+                    var wEx = e.Error as WebException;
+                    if (wEx.Status == WebExceptionStatus.RequestCanceled)
                     {
-                        progressBar.Visibility = Visibility.Collapsed;
+                        if (App.isFromDormant)
+                        {
+                            App.isFromDormant = false;
+                            if (isFromLoadMore)
+                            {
+                                isFromLoadMore = false;
+                                loadMore();
+                            }
+                            else
+                            {
+                                parseShortReview();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (progressBar != null)
+                        {
+                            progressBar.Visibility = Visibility.Collapsed;
+                        }
                     }
                 }
             }
