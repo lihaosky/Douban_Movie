@@ -209,4 +209,16 @@
   <data name="Result" xml:space="preserve">
     <value>結果</value>
   </data>
+  <data name="DisclaimerTitle" xml:space="preserve">
+    <value>申明</value>
+  </data>
+  <data name="Disclaimer" xml:space="preserve">
+    <value>本軟件是個人開發的第三方豆瓣電影客戶端。不是豆瓣的官方產品。軟件中的資源全部來自豆瓣網(douban.com)。感謝豆瓣網!</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>如果您使用軟件過程中發現了什麽問題或者有什麽建議, 請聯繫group.dtp@gmail.com</value>
+  </data>
+  <data name="ContactTitle" xml:space="preserve">
+    <value>聯繫方式</value>
+  </data>
 </root>

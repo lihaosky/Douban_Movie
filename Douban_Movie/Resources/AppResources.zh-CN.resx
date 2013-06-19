@@ -212,4 +212,16 @@
   <data name="Result" xml:space="preserve">
     <value>结果</value>
   </data>
+  <data name="DisclaimerTitle" xml:space="preserve">
+    <value>申明</value>
+  </data>
+  <data name="Disclaimer" xml:space="preserve">
+    <value>本软件是个人开发的第三方豆瓣电影客户端。不是豆瓣的官方产品。软件中的资源全部来自豆瓣网(douban.com)。感谢豆瓣网!</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>如果您使用软件过程中发现了什么问题或者有什么建议, 请联系group.dtp@gmail.com</value>
+  </data>
+  <data name="ContactTitle" xml:space="preserve">
+    <value>联系方式</value>
+  </data>
 </root>

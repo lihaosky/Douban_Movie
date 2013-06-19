@@ -209,4 +209,16 @@
   <data name="Result" xml:space="preserve">
     <value>Results</value>
   </data>
+  <data name="DisclaimerTitle" xml:space="preserve">
+    <value>Disclaimer</value>
+  </data>
+  <data name="Disclaimer" xml:space="preserve">
+    <value>This software is developed by individual as a third-party client. It is not an officail product of douban.com. All the resources are from douban.com. Thank douban.com!</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>If you find any problems with this software or have any advices, please feel free to send an email to group.dtp@gmail.com.</value>
+  </data>
+  <data name="ContactTitle" xml:space="preserve">
+    <value>Contact</value>
+  </data>
 </root>

@@ -67,7 +67,7 @@ namespace PanoramaApp2
 
         void aboutMenu_Click(object sender, EventArgs e)
         {
-
+            NavigationService.Navigate(new Uri("/AboutPage.xaml", UriKind.Relative));
         }
 
         void rateMenu_Click(object sender, EventArgs e)

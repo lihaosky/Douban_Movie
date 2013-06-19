@@ -279,7 +279,18 @@ namespace PanoramaApp2.HtmlParser
                 {
                     review.date = date;
                 }
-                string r = doc.DocumentNode.SelectNodes("//div[@property='v:description']")[0].InnerHtml;
+
+                HtmlNode reviewNode = doc.DocumentNode.SelectNodes("//div[@property='v:description']")[0];
+                HtmlNodeCollection aNodeCollection = reviewNode.SelectNodes("a");
+                if (aNodeCollection != null)
+                {
+                    foreach (HtmlNode node in aNodeCollection)
+                    {
+                        HtmlNode newNode = HtmlNode.CreateNode(node.InnerText);
+                        reviewNode.ReplaceChild(newNode, node);
+                    }
+                }
+                string r = reviewNode.InnerHtml;
                 review.review = Util.formatReview(r);
                 loadComments(doc);
             }

@@ -133,6 +133,42 @@ namespace PanoramaApp2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to If you find any problems with this software or have any advices, please feel free to send an email to group.dtp@gmail.com..
+        /// </summary>
+        public static string Contact {
+            get {
+                return ResourceManager.GetString("Contact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contact.
+        /// </summary>
+        public static string ContactTitle {
+            get {
+                return ResourceManager.GetString("ContactTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This software is developed by individual as a third-party client. It is not an officail product of douban.com. All the resources are from douban.com. Thank douban.com!.
+        /// </summary>
+        public static string Disclaimer {
+            get {
+                return ResourceManager.GetString("Disclaimer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disclaimer.
+        /// </summary>
+        public static string DisclaimerTitle {
+            get {
+                return ResourceManager.GetString("DisclaimerTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No More :-).
         /// </summary>
         public static string Finish {
