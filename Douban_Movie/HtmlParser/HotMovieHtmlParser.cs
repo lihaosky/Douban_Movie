@@ -19,6 +19,7 @@ namespace PanoramaApp2.HtmlParser
     {
         public static LongListSelector selector { get; set; }
         public static Popup popup { get; set; }
+        public static BoolObject loaded { get; set; }
 
         /// <summary>
         /// Return a list of latest movies 
@@ -84,6 +85,7 @@ namespace PanoramaApp2.HtmlParser
                             movieList.Add(movie);
                         }
                     }
+                    loaded.isLoaded = true;
                     selector.ItemsSource = movieList;
                     popup.IsOpen = false;
                 }
@@ -110,6 +112,7 @@ namespace PanoramaApp2.HtmlParser
                 System.Diagnostics.Debug.WriteLine("exception " + e.Error.Message);
                 MessageBoxResult result = MessageBox.Show(AppResources.ConnectionError, "", MessageBoxButton.OK);
             }
+            loaded.isLoading = false;
         }
 
         /// <summary>

@@ -22,6 +22,7 @@ namespace PanoramaApp2.JsonParser
     {
         public static LongListSelector usboxLongListSelector;
         public static ProgressBar progressBar;
+        public static BoolObject loaded { get; set; }
 
         public static void parseUSBox()
         {
@@ -56,6 +57,7 @@ namespace PanoramaApp2.JsonParser
                     {
                         progressBar.Visibility = Visibility.Collapsed;
                     }
+                    loaded.isLoaded = true;
                 }
                 else
                 {
@@ -85,6 +87,7 @@ namespace PanoramaApp2.JsonParser
                 }
                 MessageBoxResult result = MessageBox.Show(AppResources.ConnectionError, "", MessageBoxButton.OK);
             }
+            loaded.isLoading = false;
         }
     }
 }

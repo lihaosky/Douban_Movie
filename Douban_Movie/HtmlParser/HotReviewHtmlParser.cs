@@ -21,6 +21,7 @@ namespace PanoramaApp2.HtmlParser
         public static TextBlock buttonText;
         public static string nextLink = Review.hotReviewHeader;
         public static ProgressBar progressBar;
+        public static BoolObject loaded { get; set; }
         public static ObservableCollection<Review> reviewCollection = new ObservableCollection<Review>();
 
         public static void parseHotReview()
@@ -82,6 +83,7 @@ namespace PanoramaApp2.HtmlParser
                         loadmoreButton.IsEnabled = false;
                         buttonText.Text = AppResources.Finish;
                     }
+                    loaded.isLoaded = true;
                 }
                 else
                 {
@@ -111,6 +113,7 @@ namespace PanoramaApp2.HtmlParser
                     progressBar.Visibility = Visibility.Collapsed;
                 }
             }
+            loaded.isLoading = false;
         }
 
         public static Review getReview(HtmlNode node)

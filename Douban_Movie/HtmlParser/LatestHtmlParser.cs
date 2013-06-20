@@ -19,6 +19,7 @@ namespace PanoramaApp2.HtmlParser
     {
         public static LongListSelector selector;
         public static ProgressBar progressbar;
+        public static BoolObject loaded { get; set; }
 
         public static void parseLatestMovie() {
             WebClient client = new WebClient();
@@ -75,6 +76,7 @@ namespace PanoramaApp2.HtmlParser
                         }
                     }
                     selector.ItemsSource = movieList;
+                    loaded.isLoaded = true;
                     if (progressbar != null)
                     {
                         progressbar.Visibility = Visibility.Collapsed;
@@ -104,6 +106,7 @@ namespace PanoramaApp2.HtmlParser
             {
                 MessageBoxResult result = MessageBox.Show(AppResources.ConnectionError, "", MessageBoxButton.OK);
             }
+            loaded.isLoading = false;
         }
 
         public static Movie getLatestMovie(HtmlNode node)

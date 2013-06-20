@@ -96,6 +96,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BoolObject.cs" />
     <Compile Include="Cache.cs" />
     <Compile Include="DataModel\Comment.cs" />
     <Compile Include="HtmlParser\HotMovieHtmlParser.cs" />

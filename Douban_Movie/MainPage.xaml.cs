@@ -22,10 +22,11 @@ namespace PanoramaApp2
         public ApplicationBarMenuItem settingMenu;
         public ApplicationBarMenuItem rateMenu;
         public ApplicationBarMenuItem aboutMenu;
-        private bool latestLoaded;
-        private bool top250Loaded;
-        private bool usboxLoaded;
-        private bool commentLoaded;
+        private BoolObject hotLoaded;
+        private BoolObject latestLoaded;
+        private BoolObject top250Loaded;
+        private BoolObject usboxLoaded;
+        private BoolObject commentLoaded;
 
         // Constructor
         public MainPage()
@@ -33,16 +34,18 @@ namespace PanoramaApp2
             InitializeComponent();
             App.mainPage = this;
 
-            latestLoaded = false;
-            top250Loaded = false;
-            usboxLoaded = false;
-            commentLoaded = false;
+            hotLoaded = new BoolObject(false, false);
+            latestLoaded = new BoolObject(false, false);
+            top250Loaded = new BoolObject(false, false);
+            usboxLoaded = new BoolObject(false, false);
+            commentLoaded = new BoolObject(false, false);
 
             // Get hot movie
             HotMovieHtmlParser.selector = hotLongListSelector;
             popup = new Popup();
             searchPopup = new Popup();
             HotMovieHtmlParser.popup = popup;
+            HotMovieHtmlParser.loaded = hotLoaded;
             
             // Create an application bar
             ApplicationBar = new ApplicationBar();
@@ -103,14 +106,13 @@ namespace PanoramaApp2
                     NavigationService.RemoveBackEntry();
                 }
                 showPopup();
-                HotMovieHtmlParser.parseHottMovie();
             }
             else
             {
                 if (e.NavigationMode == NavigationMode.New)
                 {
                     showPopup();
-                    HotMovieHtmlParser.parseHottMovie();
+                    //HotMovieHtmlParser.parseHottMovie();
                 }
             }
         }
@@ -207,6 +209,7 @@ namespace PanoramaApp2
             UpcomingProgressBar.Visibility = System.Windows.Visibility.Visible;
             LatestHtmlParser.selector = latestListSelector;
             LatestHtmlParser.progressbar = UpcomingProgressBar;
+            LatestHtmlParser.loaded = latestLoaded;
             LatestHtmlParser.parseLatestMovie();
         }
 
@@ -220,6 +223,7 @@ namespace PanoramaApp2
             Top250HtmlParser.progressBar = TopProgressBar;
             Top250HtmlParser.loadText = loadText;
             Top250HtmlParser.loadMoreButton = loadMoreButton;
+            Top250HtmlParser.loaded = top250Loaded;
             Top250HtmlParser.parseTop250();
 
         }
@@ -231,6 +235,7 @@ namespace PanoramaApp2
             USBoxProgressBar.Visibility = System.Windows.Visibility.Visible;
             USBoxJsonParser.usboxLongListSelector = usboxLongListSelector;
             USBoxJsonParser.progressBar = USBoxProgressBar;
+            USBoxJsonParser.loaded = usboxLoaded;
             USBoxJsonParser.parseUSBox();
         }
 
@@ -244,41 +249,51 @@ namespace PanoramaApp2
             HotReviewHtmlParser.progressBar = HotReviewProgressBar;
             HotReviewHtmlParser.buttonText = loadReviewText;
             HotReviewHtmlParser.loadmoreButton = loadMoreReviewButton;
+            HotReviewHtmlParser.loaded = commentLoaded;
             HotReviewHtmlParser.parseHotReview();
         }
 
         private void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int index = ((Pivot)sender).SelectedIndex;
-            if (index == 1)
+            if (index == 0)
             {
-                if (latestLoaded == false)
+                if (hotLoaded.isLoaded == false && hotLoaded.isLoading == false)
                 {
-                    latestLoaded = true;
+                    hotLoaded.isLoading = true;
+                    HotMovieHtmlParser.parseHottMovie();
+                }
+            }
+
+            else if (index == 1)
+            {
+                if (latestLoaded.isLoaded == false && latestLoaded.isLoading == false)
+                {
+                    latestLoaded.isLoading = true;
                     loadLatestPivotItem();
                 }
             }
             else if (index == 2)
             {
-                if (top250Loaded == false)
+                if (top250Loaded.isLoaded == false && top250Loaded.isLoading == false)
                 {
-                    top250Loaded = true;
+                    top250Loaded.isLoading = true;
                     loadTopPivotItem();
                 }
             }
             else if (index == 3)
             {
-                if (usboxLoaded == false)
+                if (usboxLoaded.isLoaded == false && usboxLoaded.isLoading == false)
                 {
-                    usboxLoaded = true;
+                    usboxLoaded.isLoading = true;
                     loadUSBoxPivotItem();
                 }
             }
             else if (index == 4)
             {
-                if (commentLoaded == false)
+                if (commentLoaded.isLoaded == false && commentLoaded.isLoading == false)
                 {
-                    commentLoaded = true;
+                    commentLoaded.isLoading = true;
                     loadReviewPivotItem();
                 }
             }

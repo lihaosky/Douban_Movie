@@ -22,6 +22,7 @@ namespace PanoramaApp2.HtmlParser
         public static int currentIndex = 0;
         public static int maxIndex = 9;
         public static ProgressBar progressBar;
+        public static BoolObject loaded { get; set; }
         public static ObservableCollection<Movie> observableMovieList = new ObservableCollection<Movie>();
 
         public static void parseTop250()
@@ -57,6 +58,7 @@ namespace PanoramaApp2.HtmlParser
                             observableMovieList.Add(movie);
                         }
                     }
+                    loaded.isLoaded = true;
                     if (progressBar != null)
                     {
                         progressBar.Visibility = Visibility.Collapsed;
@@ -100,6 +102,7 @@ namespace PanoramaApp2.HtmlParser
                 }
                 MessageBoxResult result = MessageBox.Show(AppResources.ConnectionError, "", MessageBoxButton.OK);
             }
+            loaded.isLoading = false;
         }
 
         private static Movie getTopMovie(HtmlNode node)
