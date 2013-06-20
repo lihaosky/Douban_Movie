@@ -16,5 +16,14 @@ namespace PanoramaApp2
         {
             InitializeComponent();
         }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (App.fromTombStone)
+            {
+                NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+            }
+        }
     }
 }

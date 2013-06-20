@@ -33,9 +33,16 @@ namespace PanoramaApp2
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if (e.NavigationMode == NavigationMode.New)
+            if (App.fromTombStone)
             {
-                loadImage();
+                NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+            }
+            else
+            {
+                if (e.NavigationMode == NavigationMode.New)
+                {
+                    loadImage();
+                }
             }
         }
 

@@ -95,10 +95,23 @@ namespace PanoramaApp2
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if (e.NavigationMode == NavigationMode.New)
+            if (App.fromTombStone)
             {
+                App.fromTombStone = false;
+                while (NavigationService.CanGoBack)
+                {
+                    NavigationService.RemoveBackEntry();
+                }
                 showPopup();
                 HotMovieHtmlParser.parseHottMovie();
+            }
+            else
+            {
+                if (e.NavigationMode == NavigationMode.New)
+                {
+                    showPopup();
+                    HotMovieHtmlParser.parseHottMovie();
+                }
             }
         }
 

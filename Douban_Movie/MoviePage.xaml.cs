@@ -62,19 +62,21 @@ namespace PanoramaApp2
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if (e.NavigationMode == NavigationMode.New)
-            {
-                if (movieParser != null)
-                {
-                    MovieProgressBar.IsIndeterminate = true;
-                    MovieProgressBar.Visibility = System.Windows.Visibility.Visible;
-                    movieParser.getMovieByID();
-                }
-            }
             if (App.fromTombStone)
             {
-                NavigationService.RemoveBackEntry();
                 NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+            }
+            else
+            {
+                if (e.NavigationMode == NavigationMode.New)
+                {
+                    if (movieParser != null)
+                    {
+                        MovieProgressBar.IsIndeterminate = true;
+                        MovieProgressBar.Visibility = System.Windows.Visibility.Visible;
+                        movieParser.getMovieByID();
+                    }
+                }
             }
         }
 

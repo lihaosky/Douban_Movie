@@ -23,31 +23,47 @@ namespace PanoramaApp2
         {
             currentIndex = -1;
             InitializeComponent();
-            String[] languages = { "简体中文", "English", "繁體中文" };
-            languagePicker.ItemsSource = languages;
-            currentIndex = 0;
-            IsolatedStorageSettings appSettings = IsolatedStorageSettings.ApplicationSettings;
-            try
+        }
+
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (App.fromTombStone)
             {
-                string languageSetting = (string)appSettings["language"];
-                if (languageSetting == "zh-CN")
+                NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+            }
+            else
+            {
+                if (e.NavigationMode == NavigationMode.New)
                 {
+                    String[] languages = { "简体中文", "English", "繁體中文" };
+                    languagePicker.ItemsSource = languages;
                     currentIndex = 0;
+                    IsolatedStorageSettings appSettings = IsolatedStorageSettings.ApplicationSettings;
+                    try
+                    {
+                        string languageSetting = (string)appSettings["language"];
+                        if (languageSetting == "zh-CN")
+                        {
+                            currentIndex = 0;
+                        }
+                        if (languageSetting == "en-US")
+                        {
+                            currentIndex = 1;
+                        }
+                        if (languageSetting == "zh-TW")
+                        {
+                            currentIndex = 2;
+                        }
+                        languagePicker.SelectedIndex = currentIndex;
+                    }
+                    catch (KeyNotFoundException)
+                    {
+                    }
+                    languagePicker.SelectedIndex = currentIndex;
                 }
-                if (languageSetting == "en-US")
-                {
-                    currentIndex = 1;
-                }
-                if (languageSetting == "zh-TW")
-                {
-                    currentIndex = 2;
-                }
-                languagePicker.SelectedIndex = currentIndex;
             }
-            catch (KeyNotFoundException)
-            {
-            }
-            languagePicker.SelectedIndex = currentIndex;
         }
 
         private void languagePicker_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -48,13 +48,20 @@ namespace PanoramaApp2
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if (e.NavigationMode == NavigationMode.New)
+            if (App.fromTombStone)
             {
-                if (peopleParser != null)
+                NavigationService.Navigate(new Uri("/MainPage.xmal", UriKind.Relative));
+            }
+            else
+            {
+                if (e.NavigationMode == NavigationMode.New)
                 {
-                    PeopleProgressBar.IsIndeterminate = true;
-                    PeopleProgressBar.Visibility = System.Windows.Visibility.Visible;
-                    peopleParser.parsePeople();
+                    if (peopleParser != null)
+                    {
+                        PeopleProgressBar.IsIndeterminate = true;
+                        PeopleProgressBar.Visibility = System.Windows.Visibility.Visible;
+                        peopleParser.parsePeople();
+                    }
                 }
             }
         }

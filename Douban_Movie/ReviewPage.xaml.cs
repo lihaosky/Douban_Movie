@@ -45,14 +45,21 @@ namespace PanoramaApp2
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if (e.NavigationMode == NavigationMode.New)
+            if (App.fromTombStone)
             {
-                if (reviewParser != null)
+                NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+            }
+            else
+            {
+                if (e.NavigationMode == NavigationMode.New)
                 {
-                    ReviewProgressBar.IsIndeterminate = true;
-                    ReviewProgressBar.Visibility = System.Windows.Visibility.Visible;
-                    loadMoreCommentButton.IsEnabled = false;
-                    reviewParser.parseReview();
+                    if (reviewParser != null)
+                    {
+                        ReviewProgressBar.IsIndeterminate = true;
+                        ReviewProgressBar.Visibility = System.Windows.Visibility.Visible;
+                        loadMoreCommentButton.IsEnabled = false;
+                        reviewParser.parseReview();
+                    }
                 }
             }
         }
