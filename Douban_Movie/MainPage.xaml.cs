@@ -46,7 +46,7 @@ namespace PanoramaApp2
             
             // Create an application bar
             ApplicationBar = new ApplicationBar();
-
+            
             ApplicationBar.Mode = ApplicationBarMode.Minimized;
             ApplicationBar.Opacity = 1;
             ApplicationBar.IsVisible = true;

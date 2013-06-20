@@ -56,6 +56,7 @@ namespace PanoramaApp2
                 movieParser.summary = summary;
                 movieParser.peopleList = peopleSelector;
             }
+            System.Diagnostics.Debug.WriteLine("this is called");
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -69,6 +70,11 @@ namespace PanoramaApp2
                     MovieProgressBar.Visibility = System.Windows.Visibility.Visible;
                     movieParser.getMovieByID();
                 }
+            }
+            if (App.fromTombStone)
+            {
+                NavigationService.RemoveBackEntry();
+                NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
             }
         }
 

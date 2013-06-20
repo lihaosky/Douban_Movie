@@ -28,7 +28,9 @@ namespace PanoramaApp2
         public static bool isFromDormant = false;
         public static string apikey = "07e978247f7e67ad17bc686d7e7b3707";
         public static MainPage mainPage;
+        public static bool fromTombStone = false;
 
+        private bool reset; 
 
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.
@@ -91,6 +93,8 @@ namespace PanoramaApp2
             }
             else
             {
+                //RootFrame.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+                fromTombStone = true;
             }
         }
 
@@ -149,8 +153,30 @@ namespace PanoramaApp2
             // Handle reset requests for clearing the backstack
             RootFrame.Navigated += CheckForResetNavigation;
 
+            // Monitor deep link launching 
+            RootFrame.Navigating += RootFrame_Navigating;
+
             // Ensure we don't initialize again
             phoneApplicationInitialized = true;
+        }
+
+        // Event handler for the Navigating event of the root frame. Use this handler to modify
+        // the default navigation behavior.
+        void RootFrame_Navigating(object sender, NavigatingCancelEventArgs e)
+        {
+            if (e.NavigationMode == NavigationMode.Reset)
+            {
+                reset = true;
+            }
+            else if (e.NavigationMode == NavigationMode.New && reset)
+            {
+                reset = false;
+                if (e.Uri.ToString().Contains("MainPage.xaml"))
+                {
+                    e.Cancel = true;
+                    RootFrame.Navigated -= ClearBackStackAfterReset;
+                }
+            }
         }
 
         // Do not add any additional code to this method
