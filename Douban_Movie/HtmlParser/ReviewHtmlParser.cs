@@ -64,7 +64,6 @@ namespace PanoramaApp2.HtmlParser
                 {
                     reviewProgressBar.Visibility = Visibility.Collapsed;
                 }
-                System.Diagnostics.Debug.WriteLine("Review found in cache!");
             }
         }
 
@@ -118,6 +117,14 @@ namespace PanoramaApp2.HtmlParser
                     reviewProgressBar.Visibility = Visibility.Collapsed;
                 }
                 MessageBoxResult result = MessageBox.Show(AppResources.ConnectionError, "", MessageBoxButton.OK);
+            }
+        }
+
+        public void cancelDownload()
+        {
+            if (client != null)
+            {
+                client.CancelAsync();
             }
         }
 

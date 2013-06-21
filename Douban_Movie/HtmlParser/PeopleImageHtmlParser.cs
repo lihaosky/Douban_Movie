@@ -157,6 +157,7 @@ namespace PanoramaApp2.HtmlParser
                     var wEx = e.Error as WebException;
                     if (wEx.Status == WebExceptionStatus.RequestCanceled)
                     {
+                        System.Diagnostics.Debug.WriteLine("canceled");
                         if (App.isFromDormant)
                         {
                             App.isFromDormant = false;
@@ -194,6 +195,14 @@ namespace PanoramaApp2.HtmlParser
                 {
                     progressBar.Visibility = Visibility.Collapsed;
                 }
+            }
+        }
+
+        public void cancelDownload()
+        {
+            if (client != null)
+            {
+                client.CancelAsync();
             }
         }
 

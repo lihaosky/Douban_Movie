@@ -51,7 +51,6 @@ namespace PanoramaApp2.HtmlParser
                 {
                     button.IsEnabled = true;
                 }
-                System.Diagnostics.Debug.WriteLine("review from cache");
             }
             else
             {

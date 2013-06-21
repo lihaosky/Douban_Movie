@@ -55,11 +55,7 @@ namespace PanoramaApp2.HtmlParser
                         }
                     }
                     nodeCollection = doc.DocumentNode.SelectNodes("//div[@class='item mod ']");
-                    if (nodeCollection == null)
-                    {
-                        System.Diagnostics.Debug.WriteLine("null collection");
-                    }
-                    else
+                    if (nodeCollection != null) 
                     {
                         foreach (HtmlNode node in nodeCollection)
                         {

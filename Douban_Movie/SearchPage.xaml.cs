@@ -27,6 +27,18 @@ namespace PanoramaApp2
             parser.progressBar = progressBar;
         }
 
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+            if (e.NavigationMode == NavigationMode.Back)
+            {
+                if (parser != null)
+                {
+                    parser.cancelDownload();
+                }
+            }
+        }
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);

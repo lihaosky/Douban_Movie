@@ -212,5 +212,13 @@ namespace PanoramaApp2.HtmlParser
             people.constl = constl;
             people.summary = summary;
         }
+
+        public void cancelDownload()
+        {
+            if (client != null)
+            {
+                client.CancelAsync();
+            }
+        }
     }
 }

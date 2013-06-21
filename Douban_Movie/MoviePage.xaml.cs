@@ -56,7 +56,6 @@ namespace PanoramaApp2
                 movieParser.summary = summary;
                 movieParser.peopleList = peopleSelector;
             }
-            System.Diagnostics.Debug.WriteLine("this is called");
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -95,18 +94,26 @@ namespace PanoramaApp2
 
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
         {
-            if (movieParser != null)
+            if (e.NavigationMode == NavigationMode.Back)
             {
-                movieParser.cancelDownload();
+                if (movieParser != null)
+                {
+                    movieParser.cancelDownload();
+                }
+                if (shortReviewParser != null)
+                {
+                    shortReviewParser.cancelDownload();
+                }
+                if (reviewParser != null)
+                {
+                    reviewParser.cancelDownload();
+                }
+                if (imageParser != null)
+                {
+                    imageParser.cancelDownload();
+                }
             }
-            if (shortReviewParser != null)
-            {
-                shortReviewParser.cancelDownload();
-            }
-            if (reviewParser != null)
-            {
-                reviewParser.cancelDownload();
-            }
+            base.OnNavigatedFrom(e);
         }
 
         private void loadShortReview() 

@@ -66,6 +66,22 @@ namespace PanoramaApp2
             }
         }
 
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+            if (e.NavigationMode == NavigationMode.Back)
+            {
+                if (peopleMovieParser != null)
+                {
+                    peopleMovieParser.cancelDownload();
+                }
+                if (peopleImageParser != null)
+                {
+                    peopleImageParser.cancelDownload();
+                }
+            }
+        }
+
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
         {
             if (searchPopup.IsOpen)

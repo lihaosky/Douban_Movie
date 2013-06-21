@@ -109,7 +109,6 @@ namespace PanoramaApp2.HtmlParser
             catch (WebException)
             {
                 popup.IsOpen = false;
-                System.Diagnostics.Debug.WriteLine("exception " + e.Error.Message);
                 MessageBoxResult result = MessageBox.Show(AppResources.ConnectionError, "", MessageBoxButton.OK);
             }
             loaded.isLoading = false;

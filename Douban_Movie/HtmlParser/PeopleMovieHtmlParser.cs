@@ -191,6 +191,14 @@ namespace PanoramaApp2.HtmlParser
             }
         }
 
+        public void cancelDownload()
+        {
+            if (client != null)
+            {
+                client.CancelAsync();
+            }
+        }
+
         private Movie getMovie(HtmlNode node)
         {
             string id = "";

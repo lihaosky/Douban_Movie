@@ -57,7 +57,6 @@ namespace PanoramaApp2.HtmlParser
                 {
                     button.IsEnabled = true;
                 }
-                System.Diagnostics.Debug.WriteLine("image from cache");
             }
         }
 
@@ -214,6 +213,14 @@ namespace PanoramaApp2.HtmlParser
             image.smallUrl = smallUrl;
             image.largeUrl = largeUrl;
             return image;
+        }
+
+        public void cancelDownload()
+        {
+            if (client != null)
+            {
+                client.CancelAsync();
+            }
         }
     }
 }

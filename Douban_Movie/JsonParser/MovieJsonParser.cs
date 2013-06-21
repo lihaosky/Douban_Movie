@@ -52,7 +52,6 @@ namespace PanoramaApp2
                 {
                     progressBar.Visibility = Visibility.Collapsed;
                 }
-                System.Diagnostics.Debug.WriteLine("Movie from cache");
             }
             else
             {

@@ -24,11 +24,12 @@ namespace PanoramaApp2.JsonParser
         public ProgressBar progressBar { get; set; }
         public TextBlock resultNumber { get; set; }
         private string searchText;
+        private WebClient client;
 
         public void search(string text)
         {
             searchText = text;
-            WebClient client = new WebClient();
+            client = new WebClient();
             client.DownloadStringCompleted += downloadSearchCompleted;
             client.DownloadStringAsync(new Uri(Movie.apiSearchHeader + "?apikey=" + App.apikey + "&q=" + text));
         }
@@ -83,7 +84,14 @@ namespace PanoramaApp2.JsonParser
                 {
                     progressBar.Visibility = Visibility.Collapsed;
                 }
-                MessageBoxResult result = MessageBox.Show(AppResources.ConnectionError, "", MessageBoxButton.OK);
+            }
+        }
+
+        public void cancelDownload()
+        {
+            if (client != null)
+            {
+                client.CancelAsync();
             }
         }
     }
