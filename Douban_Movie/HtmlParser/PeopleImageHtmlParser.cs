@@ -41,7 +41,7 @@ namespace PanoramaApp2.HtmlParser
             }
             else
             {
-                foreach (MovieImage m in people.imageList)
+                foreach (MovieImage m in people.imageSet)
                 {
                     imageCollection.Add(m);
                 }
@@ -108,7 +108,7 @@ namespace PanoramaApp2.HtmlParser
                                     continue;
                                 }
                                 imageCollection.Add(image);
-                                people.imageList.Add(image);
+                                people.imageSet.Add(image);
                             }
                             HtmlNodeCollection nodeCollection = doc.DocumentNode.SelectNodes("//div[@class='paginator']");
                             if (nodeCollection == null)

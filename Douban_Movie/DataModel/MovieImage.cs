@@ -75,5 +75,24 @@ namespace PanoramaApp2
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            if (obj is MovieImage)
+            {
+                MovieImage tmp = obj as MovieImage;
+                return tmp.id == this.id;
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return id.GetHashCode();
+        }
     }
 }

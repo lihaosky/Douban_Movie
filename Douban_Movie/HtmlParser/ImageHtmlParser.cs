@@ -41,7 +41,7 @@ namespace PanoramaApp2.HtmlParser
             }
             else
             {
-                foreach (MovieImage i in movie.imageList) {
+                foreach (MovieImage i in movie.imageSet) {
                     imageCollection.Add(i);
                 }
                 if (progressBar != null)
@@ -103,7 +103,7 @@ namespace PanoramaApp2.HtmlParser
                                 continue;
                             }
                             imageCollection.Add(image);
-                            movie.imageList.Add(image);
+                            movie.imageSet.Add(image);
                         }
                         if (progressBar != null)
                         {

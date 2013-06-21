@@ -47,7 +47,7 @@ namespace PanoramaApp2.HtmlParser
                 border.Visibility = Visibility.Visible;
                 movieText.Visibility = Visibility.Visible;
                 reviewStackPanel.DataContext = r;
-                foreach (Comment c in review.commentList)
+                foreach (Comment c in review.commentSet)
                 {
                     commentCollection.Add(c);
                 }
@@ -225,7 +225,7 @@ namespace PanoramaApp2.HtmlParser
                             continue;
                         }
                         commentCollection.Add(c);
-                        review.commentList.Add(c);
+                        review.commentSet.Add(c);
                     }
                     HtmlNodeCollection nodeCollection = doc.DocumentNode.SelectNodes("//div[@class='paginator']");
                     if (nodeCollection == null)

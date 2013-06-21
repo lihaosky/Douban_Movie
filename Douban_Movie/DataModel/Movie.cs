@@ -282,16 +282,16 @@ namespace PanoramaApp2
                 _peopleList = value;
             }
         }
-        private List<ShortReview> _shortReviewList = new List<ShortReview>();
-        public List<ShortReview> shortReviewList
+        private HashSet<ShortReview> _shortReviewSet = new HashSet<ShortReview>();
+        public HashSet<ShortReview> shortReviewSet
         {
             get
             {
-                return _shortReviewList;
+                return _shortReviewSet;
             }
             set
             {
-                _shortReviewList = value;
+                _shortReviewSet = value;
             }
         }
         private bool _shortReviewLoaded = false;
@@ -306,16 +306,16 @@ namespace PanoramaApp2
                 _shortReviewLoaded = value;
             }
         }
-        private List<Review> _reviewList = new List<Review>();
-        public List<Review> reviewList
+        private HashSet<Review> _reviewSet = new HashSet<Review>();
+        public HashSet<Review> reviewSet
         {
             get
             {
-                return _reviewList;
+                return _reviewSet;
             }
             set
             {
-                _reviewList = value;
+                _reviewSet = value;
             }
         }
         private bool _reviewLoaded = false;
@@ -330,16 +330,16 @@ namespace PanoramaApp2
                 _reviewLoaded = value;
             }
         }
-        private List<MovieImage> _imageList = new List<MovieImage>();
-        public List<MovieImage> imageList
+        private HashSet<MovieImage> _imageSet = new HashSet<MovieImage>();
+        public HashSet<MovieImage> imageSet
         {
             get
             {
-                return _imageList;
+                return _imageSet;
             }
             set
             {
-                _imageList = value;
+                _imageSet = value;
             }
         }
         private bool _imageLoaded = false;
@@ -372,6 +372,25 @@ namespace PanoramaApp2
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            if (obj is Movie)
+            {
+                Movie tmp = obj as Movie;
+                return tmp.id == this.id;
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return id.GetHashCode();
         }
     }
 }

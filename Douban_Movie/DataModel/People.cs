@@ -200,16 +200,16 @@ namespace PanoramaApp2
                 _nextImageLink = value;
             }
         }
-        private List<Movie> _movieList = new List<Movie>();
-        public List<Movie> movieList
+        private HashSet<Movie> _movieSet = new HashSet<Movie>();
+        public HashSet<Movie> movieSet
         {
             get
             {
-                return _movieList;
+                return _movieSet;
             }
             set
             {
-                _movieList = value;
+                _movieSet = value;
             }
         }
         private bool _movieLoaded = false;
@@ -224,16 +224,16 @@ namespace PanoramaApp2
                 _movieLoaded = value;
             }
         }
-        private List<MovieImage> _imageList = new List<MovieImage>();
-        public List<MovieImage> imageList
+        private HashSet<MovieImage> _imageSet = new HashSet<MovieImage>();
+        public HashSet<MovieImage> imageSet
         {
             get
             {
-                return _imageList;
+                return _imageSet;
             }
             set
             {
-                _imageList = value;
+                _imageSet = value;
             }
         }
         private bool _imageLoaded = false;
@@ -262,6 +262,25 @@ namespace PanoramaApp2
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            if (obj is People)
+            {
+                People tmp = obj as People;
+                return tmp.id == this.id;
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return id.GetHashCode();
         }
     }
 }

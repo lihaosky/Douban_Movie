@@ -42,7 +42,7 @@ namespace PanoramaApp2.HtmlParser
             }
             else
             {
-                foreach (ShortReview sr in movie.shortReviewList)
+                foreach (ShortReview sr in movie.shortReviewSet)
                 {
                     shortReviewCollection.Add(sr);
                 }
@@ -107,7 +107,7 @@ namespace PanoramaApp2.HtmlParser
                                 continue;
                             }
                             shortReviewCollection.Add(sr);
-                            movie.shortReviewList.Add(sr);
+                            movie.shortReviewSet.Add(sr);
                         }
                         if (progressBar != null)
                         {

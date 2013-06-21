@@ -150,16 +150,16 @@ namespace PanoramaApp2
                 _nextCommentLink = value;
             }
         }
-        private List<Comment> _commentList = new List<Comment>();
-        public List<Comment> commentList
+        private HashSet<Comment> _commentSet = new HashSet<Comment>();
+        public HashSet<Comment> commentSet
         {
             get
             {
-                return _commentList;
+                return _commentSet;
             }
             set
             {
-                _commentList = value;
+                _commentSet = value;
             }
         }
         private bool _commentLoaded = false;
@@ -187,6 +187,25 @@ namespace PanoramaApp2
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            if (obj is Review)
+            {
+                Review tmp = obj as Review;
+                return tmp.id == this.id;
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return id.GetHashCode();
         }
     }
 }

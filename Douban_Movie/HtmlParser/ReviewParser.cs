@@ -34,7 +34,7 @@ namespace PanoramaApp2.HtmlParser
         {
             if (movie.reviewLoaded)
             {
-                foreach (Review r in movie.reviewList)
+                foreach (Review r in movie.reviewSet)
                 {
                     reviewCollection.Add(r);
                 }
@@ -104,7 +104,7 @@ namespace PanoramaApp2.HtmlParser
                                 continue;
                             }
                             reviewCollection.Add(r);
-                            movie.reviewList.Add(r);
+                            movie.reviewSet.Add(r);
                         }
                         if (progressBar != null)
                         {
