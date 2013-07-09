@@ -13,6 +13,7 @@ using Microsoft.Phone.Controls;
 using System.Windows;
 using PanoramaApp2.JsonParser;
 using PanoramaApp2.Resources;
+using Phone.Controls;
 
 namespace PanoramaApp2
 {
@@ -30,7 +31,7 @@ namespace PanoramaApp2
         public TextBlock genre { get; set; }
         public HyperlinkButton trailer { get; set; }
         public HyperlinkButton theater { get; set; }
-        public TextBlock summary { get; set; }
+        public ScrollableTextBlock summary { get; set; }
         public LongListSelector peopleList { get; set; }
         public ProgressBar progressBar { get; set; }
         public WebClient client;

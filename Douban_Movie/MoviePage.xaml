@@ -12,6 +12,7 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
+    xmlns:my="clr-namespace:Phone.Controls;assembly=Phone.Controls"
     shell:SystemTray.IsVisible="False"
     >
 
@@ -62,7 +63,7 @@
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>
-                        <TextBlock x:Name="summary" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" Margin="0, 24, 0, 0" Grid.Row="1" Foreground="White"/>
+                        <my:ScrollableTextBlock x:Name="summary" Margin="0, 24, 0, 0" Grid.Row="1" Foreground="White" Width="auto" Height="auto"/>
                     </Grid>
                 </ScrollViewer>
             </phone:PivotItem>
