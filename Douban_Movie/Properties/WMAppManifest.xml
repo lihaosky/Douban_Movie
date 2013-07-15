@@ -14,7 +14,7 @@
     <Language code="zh-TW" />
     <Language code="en-US" />
   </Languages>
-  <App xmlns="" ProductID="{b679641e-e530-42e8-92e5-eb249306e8b1}" Title="豆瓣电影" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="DTP Group" Description="Douban Movie is a third-party client for movie.douban.com. It provides movie searching, information, review and images browsing. You can also browse directors and movie stars information, their movies and their images." Publisher="DTP Group" PublisherID="{074c54bc-8cc2-4c17-b28d-0aa89f960aa7}">
+  <App xmlns="" ProductID="{b679641e-e530-42e8-92e5-eb249306e8b1}" Title="豆瓣电影" RuntimeType="Silverlight" Version="1.1.0.0" Genre="apps.normal" Author="DTP Group" Description="Douban Movie is a third-party client for movie.douban.com. It provides movie searching, information, review and images browsing. You can also browse directors and movie stars information, their movies and their images." Publisher="DTP Group" PublisherID="{074c54bc-8cc2-4c17-b28d-0aa89f960aa7}">
     <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
